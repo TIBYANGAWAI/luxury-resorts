@@ -1,0 +1,65 @@
+﻿
+> luxury-resorts-frontend@0.1.0 build
+> next build
+
+Ôû▓ Next.js 16.2.1 (Turbopack)
+
+  Creating an optimized production build ...
+Ô£ô Compiled successfully in 4.2s
+  Running TypeScript ...
+node.exe : Failed to type 
+check.
+At C:\Program 
+Files\nodejs\npm.ps1:29 
+char:3
++   & $NODE_EXE 
+$NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (F  
+  ailed to type check.:   
+ String) [], RemoteExc    
+eption
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+
+./src/app/page.tsx:55:11
+Type error: Cannot find 
+name 'Sparkles'.
+
+  [90m53 |[0m   { icon: 
+[33mHeart[0m, title: 
+[32m"Yoga Retreat"[0m, 
+desc: [32m"Practice 
+tranquility with guided 
+sunrise an...[0m
+  [90m54 |[0m   { icon: 
+[33mGlassWater[0m, 
+title: [32m"Floating 
+Breakfast"[0m, desc: 
+[32m"Start your day 
+indulging in a fl...[0m
+[31m[1m>[0m [90m55 
+|[0m   { icon: 
+[33mSparkles[0m, title: 
+[32m"Candlelight 
+Dinner"[0m, desc: 
+[32m"Intimate and 
+bespoke dining 
+setups...[0m
+  [90m   |[0m           
+[31m[1m^[0m
+  [90m56 |[0m   { icon: 
+[33mBird[0m, title: 
+[32m"Bird Watching"[0m, 
+desc: [32m"Explore local 
+ecology with our expert 
+natur...[0m
+  [90m57 |[0m ];
+  [90m58 |[0m
+Next.js build worker 
+exited with code: 1 and 
+signal: null
