@@ -33,5 +33,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./out/
-          server-dir: ./ # Point this to your public_html or target root
-          # dry-run: true # Set to true to test without actually uploading
+          server-dir: /public_html/
+          # If using SFTP (Port 22) and hitting host-key errors, use an action like 'ssh-deploy' 
+          # but for samkirkland/ftp-deploy, you usually ensure Port 21 is used for plain FTP.
+
