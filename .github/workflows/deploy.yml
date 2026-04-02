@@ -27,13 +27,13 @@ jobs:
         run: npm run build
 
       - name: 📂 Sync files (FTP)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          server: 45.130.228.221
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./out/
-          server-dir: /public_html/
-          # If using SFTP (Port 22) and hitting host-key errors, use an action like 'ssh-deploy' 
-          # but for samkirkland/ftp-deploy, you usually ensure Port 21 is used for plain FTP.
-
+          server-dir: /
+          state-name: .ftp-deploy-sync-state.json
+          protocol: ftp
+          port: 21
