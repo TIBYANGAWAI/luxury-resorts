@@ -294,6 +294,86 @@ export default function ServicesPage() {
           </button>
         </div>
       </div>
+      {/* Expanded Footer matching Fern Hotels */}
+      <footer className="bg-zinc-950 text-white pt-24 pb-10">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 border-b border-white/10 pb-16">
+            <div className="col-span-1 pr-0 lg:pr-8">
+               <div className="relative h-12 w-28 mb-6">
+                 <Image src="/images/logo.png" alt="Logo" fill className="object-contain object-left invert brightness-0" />
+               </div>
+               <p className="text-white/60 font-light leading-relaxed text-[11px] mb-6">
+                 Leading Environmentally Sensitive Hotels. Prioritizing eco-friendly practices like energy and water conservation.
+               </p>
+               <div className="flex gap-4">
+                 <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-colors cursor-pointer text-white/80 hover:text-white">
+                   <span className="text-[10px] font-serif italic font-bold">in</span>
+                 </div>
+                 <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-colors cursor-pointer text-white/80 hover:text-white">
+                   <span className="text-[10px] font-serif italic font-bold">fb</span>
+                 </div>
+                  <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-colors cursor-pointer text-white/80 hover:text-white">
+                    <span className="text-[10px] font-serif italic font-bold">ig</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-span-1 border-white/10 lg:border-l lg:pl-10">
+                 <h4 className="font-sans font-bold uppercase tracking-widest text-[11px] mb-8 text-[#D4AF37]">Join the Inner Circle</h4>
+                 <p className="text-white/40 text-[12px] leading-relaxed mb-6">Receive exclusive access to member rates and special curated offers.</p>
+                 <div className="flex flex-col gap-3">
+                   <input type="email" placeholder="Your Email Address" className="bg-white/5 border border-white/10 px-4 py-3 text-xs focus:border-[#D4AF37] outline-none transition-colors rounded" />
+                   <button className="bg-[#D4AF37] hover:bg-[#b09028] text-white px-6 py-3 font-bold text-[10px] rounded transition-colors uppercase tracking-[0.2em]">Subscribe Now</button>
+                 </div>
+              </div>
+            
+            <div>
+              <h4 className="font-sans font-bold uppercase tracking-widest text-[11px] mb-8 text-[#D4AF37]">Explore</h4>
+              <ul className="space-y-4 text-white/60 font-light text-[13px] tracking-wide">
+                <li><a href="#" className="hover:text-white transition-colors">Find Hotels</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Crown Collection</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Best Rate Guarantee</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Offers & Packages</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Plan an Event</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Vivaah by The Fern</a></li>
+                <li><a href="/services/" className="hover:text-white transition-colors">Our Services</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-sans font-bold uppercase tracking-widest text-[11px] mb-8 text-[#D4AF37]">Company</h4>
+              <ul className="space-y-4 text-white/60 font-light text-[13px] tracking-wide">
+                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Partner with Us</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Company Corporate Profile</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Pressroom / Media</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Opening Soon</a></li>
+                <li><a href="/services/" className="hover:text-white transition-colors">Our Services</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-sans font-bold uppercase tracking-widest text-[11px] mb-8 text-[#D4AF37]">Policies & Contact</h4>
+              <ul className="space-y-4 text-white/60 font-light text-[13px] tracking-wide">
+                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Terms & Conditions</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Child Policy</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">GDS Codes</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Pet Friendly Hotels</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
+              </ul>
+            </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 pt-10 flex flex-col md:flex-row items-center justify-between text-white/30 text-[11px] font-light tracking-wider">
+          <p>Copyright &copy; 2026, The Luxury Resorts & Hotels Portfolio. All rights reserved.</p>
+          <div className="flex gap-6 mt-4 md:mt-0 font-medium text-white/40">
+            <span>Our Brands</span>
+            <span>|</span>
+            <span>Sitemap</span>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }

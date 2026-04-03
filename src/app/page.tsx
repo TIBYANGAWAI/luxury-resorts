@@ -509,27 +509,27 @@ export default function LandingPage() {
       {/* Expanded Footer matching Fern Hotels */}
       <footer className="bg-zinc-950 text-white pt-24 pb-10">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 border-b border-white/10 pb-16">
-            <div className="col-span-1 md:col-span-2 lg:col-span-2 pr-0 lg:pr-12">
-               <div className="relative h-16 w-32 mb-8">
+            <div className="col-span-1 pr-0 lg:pr-8">
+               <div className="relative h-12 w-28 mb-6">
                  <Image src="/images/logo.png" alt="Logo" fill className="object-contain object-left invert brightness-0" />
                </div>
-               <p className="text-white/60 font-light leading-relaxed text-sm max-w-lg mb-8">
-                 Leading Environmentally Sensitive Hotels. Prioritizing eco-friendly practices like energy and water conservation, waste reduction, and local community support.
+               <p className="text-white/60 font-light leading-relaxed text-[11px] mb-6">
+                 Leading Environmentally Sensitive Hotels. Prioritizing eco-friendly practices like energy and water conservation.
                </p>
                <div className="flex gap-4">
-                 <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-colors cursor-pointer text-white/80 hover:text-white">
-                   <span className="font-serif italic font-bold">in</span>
+                 <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-colors cursor-pointer text-white/80 hover:text-white">
+                   <span className="text-[10px] font-serif italic font-bold">in</span>
                  </div>
-                 <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-colors cursor-pointer text-white/80 hover:text-white">
-                   <span className="font-serif italic font-bold">fb</span>
+                 <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-colors cursor-pointer text-white/80 hover:text-white">
+                   <span className="text-[10px] font-serif italic font-bold">fb</span>
                  </div>
-                  <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-colors cursor-pointer text-white/80 hover:text-white">
-                    <span className="font-serif italic font-bold">ig</span>
+                  <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-colors cursor-pointer text-white/80 hover:text-white">
+                    <span className="text-[10px] font-serif italic font-bold">ig</span>
                   </div>
                 </div>
               </div>
 
-              <div className="col-span-1 md:col-span-1 lg:col-span-1 border-white/10 lg:border-l lg:pl-12">
+              <div className="col-span-1 border-white/10 lg:border-l lg:pl-10">
                  <h4 className="font-sans font-bold uppercase tracking-widest text-[11px] mb-8 text-[#D4AF37]">Join the Inner Circle</h4>
                  <p className="text-white/40 text-[12px] leading-relaxed mb-6">Receive exclusive access to member rates and special curated offers.</p>
                  <div className="flex flex-col gap-3">
