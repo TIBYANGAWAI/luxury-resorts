@@ -157,48 +157,6 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Desktop Booking Bar (Glass Pill Style -> Flat Bar Style on Scroll) */}
-      <div className={`hidden md:block fixed left-0 right-0 w-full z-40 transition-all duration-500 ease-in-out ${scrolled ? 'top-0' : 'top-[170px]'}`}>
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className={`mx-auto transition-all duration-500 overflow-hidden backdrop-blur-xl ${scrolled ? 'max-w-full bg-white/60 border-b border-white/50 rounded-none shadow-md' : 'max-w-[55rem] bg-white/40 border border-white/40 shadow-[0_15px_50px_-10px_rgba(0,0,0,0.4)] rounded-full'}`}
-        >
-           <div className={`flex items-center justify-between transition-all duration-500 p-2 ${scrolled ? 'max-w-[80rem] mx-auto' : ''}`}>
-               {/* Destination Input */}
-               <div className={`flex-[1.2] py-3.5 px-6 hover:bg-white/30 border-r border-black/10 transition-all duration-300 cursor-text flex flex-col justify-center group relative ${scrolled ? 'rounded-l-lg' : 'rounded-l-full'}`}>
-                 <div className="flex items-center gap-2 text-[#0B422B] font-[family-name:var(--font-playfair)] text-[16px] tracking-wide">
-                   <MapPin className="w-3.5 h-3.5 text-[#0B422B]" strokeWidth={2} /> <span className="pt-0.5 font-bold">Book Your Destination</span>
-                 </div>
-                 <div className="overflow-hidden max-h-0 opacity-0 group-hover:max-h-[30px] group-hover:opacity-100 group-hover:mt-1 transition-all duration-300">
-                   <input type="text" placeholder="Type city or hotel" className="w-full bg-transparent outline-none text-zinc-900 placeholder:text-zinc-700 font-sans pl-[22px] text-xs font-semibold group-hover:text-[#0B422B]" />
-                 </div>
-               </div>
-               
-               {/* Dates Input */}
-               <div className={`flex-[1.2] py-3.5 px-6 hover:bg-white/30 transition-all duration-300 cursor-pointer flex flex-col justify-center group relative ${scrolled ? '' : ''}`}>
-                 <div className="flex items-center gap-2 text-[#0B422B] font-[family-name:var(--font-playfair)] text-[16px] tracking-wide">
-                   <Calendar className="w-3.5 h-3.5 text-[#0B422B]" strokeWidth={2} /> <span className="pt-0.5 font-bold">Select Dates</span>
-                 </div>
-                 <div className="overflow-hidden max-h-0 opacity-0 group-hover:max-h-[30px] group-hover:opacity-100 group-hover:mt-1 transition-all duration-300">
-                   <input type="text" readOnly placeholder="Select check-in & check-out" className="w-full bg-transparent outline-none text-zinc-900 placeholder:text-zinc-700 font-sans cursor-pointer pl-[22px] text-xs font-semibold group-hover:text-[#0B422B]" />
-                 </div>
-               </div>
-
-               {/* Action Button */}
-               <div className="flex-[0.8] flex items-center justify-end px-1 group">
-                  <button className="w-full h-[52px] bg-[#1a4a35] hover:bg-[#123827] text-white rounded-full uppercase tracking-[0.1em] text-[11px] font-semibold shadow-md transition-all duration-300 flex flex-col items-center justify-center overflow-hidden relative">
-                     <span className="block group-hover:-translate-y-[8px] transition-transform duration-300 font-bold z-10">BOOK NOW</span>
-                     <span className="flex items-center gap-1 text-[#e0ddc6] text-[7px] font-bold tracking-[0.2em] uppercase z-10 absolute bottom-[9px] opacity-0 translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                        <Crown className="w-[10px] h-[10px] text-[#e0ddc6]" /> Best Rate Guarantee
-                     </span>
-                  </button>
-               </div>
-           </div>
-        </motion.div>
-      </div>
-
       {/* Hero Section */}
       <section className="relative w-full h-screen overflow-hidden bg-zinc-900 border-none">
         <AnimatePresence mode="popLayout">
@@ -262,7 +220,58 @@ export default function LandingPage() {
             </motion.div>
           </motion.div>
         </AnimatePresence>
+
+        {/* Desktop Booking Bar Integration - Sticky at bottom of hero */}
+        <div className={`hidden md:block absolute left-0 right-0 w-full z-40 transition-all duration-500 ease-in-out ${scrolled ? 'fixed top-0' : 'bottom-12'}`}>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className={`mx-auto transition-all duration-500 overflow-hidden backdrop-blur-xl ${scrolled ? 'max-w-full bg-white/60 border-b border-white/50 rounded-none shadow-md' : 'max-w-[55rem] bg-white/40 border border-white/40 shadow-[0_15px_50px_-10px_rgba(0,0,0,0.4)] rounded-full'}`}
+          >
+             <div className={`flex items-center justify-between transition-all duration-500 p-2 ${scrolled ? 'max-w-[80rem] mx-auto' : ''}`}>
+                 <div className={`flex-[1.2] py-3.5 px-6 hover:bg-white/30 border-r border-black/10 transition-all duration-300 cursor-text flex flex-col justify-center group relative ${scrolled ? 'rounded-l-lg' : 'rounded-l-full'}`}>
+                   <div className="flex items-center gap-2 text-[#0B422B] font-[family-name:var(--font-playfair)] text-[16px] tracking-wide">
+                     <MapPin className="w-3.5 h-3.5 text-[#0B422B]" strokeWidth={2} /> <span className="pt-0.5 font-bold">Book Your Destination</span>
+                   </div>
+                   <div className="overflow-hidden max-h-0 opacity-0 group-hover:max-h-[30px] group-hover:opacity-100 group-hover:mt-1 transition-all duration-300">
+                     <input type="text" placeholder="Type city or hotel" className="w-full bg-transparent outline-none text-zinc-900 placeholder:text-zinc-700 font-sans pl-[22px] text-xs font-semibold group-hover:text-[#0B422B]" />
+                   </div>
+                 </div>
+                 
+                 <div className={`flex-[1.2] py-3.5 px-6 hover:bg-white/30 transition-all duration-300 cursor-pointer flex flex-col justify-center group relative`}>
+                   <div className="flex items-center gap-2 text-[#0B422B] font-[family-name:var(--font-playfair)] text-[16px] tracking-wide">
+                     <Calendar className="w-3.5 h-3.5 text-[#0B422B]" strokeWidth={2} /> <span className="pt-0.5 font-bold">Select Dates</span>
+                   </div>
+                   <div className="overflow-hidden max-h-0 opacity-0 group-hover:max-h-[30px] group-hover:opacity-100 group-hover:mt-1 transition-all duration-300">
+                     <input type="text" readOnly placeholder="Select check-in & check-out" className="w-full bg-transparent outline-none text-zinc-900 placeholder:text-zinc-700 font-sans cursor-pointer pl-[22px] text-xs font-semibold group-hover:text-[#0B422B]" />
+                   </div>
+                 </div>
+
+                 <div className="flex-[0.8] flex items-center justify-end px-1 group">
+                    <button className="w-full h-[52px] bg-[#1a4a35] hover:bg-[#123827] text-white rounded-full uppercase tracking-[0.1em] text-[11px] font-semibold shadow-md transition-all duration-300 flex flex-col items-center justify-center overflow-hidden relative">
+                       <span className="block group-hover:-translate-y-[8px] transition-transform duration-300 font-bold z-10 uppercase">BOOK NOW</span>
+                       <span className="flex items-center gap-1 text-[#e0ddc6] text-[7px] font-bold tracking-[0.2em] uppercase z-10 absolute bottom-[9px] opacity-0 translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                          <Crown className="w-[10px] h-[10px] text-[#e0ddc6]" /> Best Rate Guarantee
+                       </span>
+                    </button>
+                 </div>
+             </div>
+          </motion.div>
+        </div>
       </section>
+
+      {/* Trust Signals Ribbon */}
+      <div className="bg-[#0B422B] py-8 border-y border-white/10">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-wrap justify-center md:justify-between items-center gap-8 md:gap-4 opacity-70 grayscale contrast-125 brightness-200">
+            <span className="text-white font-[family-name:var(--font-playfair)] text-lg md:text-xl font-bold tracking-widest italic flex items-center gap-2 saturate-0 scale-90">Tripadvisor <Star className="w-4 h-4 fill-white" /></span>
+            <span className="text-white font-[family-name:var(--font-playfair)] text-lg md:text-xl font-bold tracking-widest flex items-center gap-2 scale-90">FORBES <span className="text-[10px] uppercase font-sans tracking-widest">Travel Guide</span></span>
+            <span className="text-white font-[family-name:var(--font-playfair)] text-lg md:text-xl font-bold tracking-widest uppercase scale-90">Condé Nast Traveler</span>
+            <span className="text-white font-[family-name:var(--font-playfair)] text-lg md:text-xl font-bold tracking-widest scale-90">TRAVEL + LEISURE</span>
+          </div>
+        </div>
+      </div>
 
       {/* Why Book With Us Section */}
       <section className="bg-white py-24 border-b border-zinc-100">
@@ -343,45 +352,100 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Curated Experiences */}
+      {/* Luxury Experience Grid */}
       <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col lg:flex-row justify-between items-end mb-16 gap-8">
             <div className="max-w-2xl">
               <span className="text-[#D4AF37] font-semibold tracking-[0.2em] uppercase text-xs mb-4 block">Live The Moment</span>
-              <h2 className="font-[family-name:var(--font-playfair)] text-4xl lg:text-5xl text-[#0B422B] mb-6">Our Exquisite Experiences</h2>
+              <h2 className="font-[family-name:var(--font-playfair)] text-4xl lg:text-5xl text-[#0B422B] mb-6">Luxury Experiences</h2>
               <div className="w-16 h-[2px] bg-[#D4AF37] mb-6"></div>
               <p className="text-zinc-500 text-lg font-light leading-relaxed">
-                Revel in elegant accommodations, complimentary amenities, and unique sensory experiences tailored perfectly for your stay.
+                Unlock a world of bespoke adventures. From Michelin-starred dining to holistic wellness retreats, immerse yourself in our signature luxury collections.
               </p>
             </div>
             <a href="/services/" className="flex items-center gap-2 text-[#0B422B] hover:text-[#D4AF37] uppercase tracking-widest text-xs font-bold transition-colors">
-              View All Experiences <ArrowRight className="w-4 h-4"/>
+              Explore All <ArrowRight className="w-4 h-4"/>
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {experiences.map((exp, idx) => (
-               <motion.div 
-                 key={idx}
-                 initial={{ opacity: 0, scale: 0.95 }}
-                 whileInView={{ opacity: 1, scale: 1 }}
-                 viewport={{ once: true, margin: "-50px" }}
-                 transition={{ delay: idx * 0.1, duration: 0.5 }}
-                 className="p-10 border border-zinc-100 bg-zinc-50 hover:bg-[#0B422B] group transition-colors duration-500 rounded-lg flex flex-col justify-between min-h-[300px]"
-               >
-                  <div>
-                    <exp.icon className="w-10 h-10 text-[#D4AF37] mb-8" />
-                    <h3 className="font-[family-name:var(--font-playfair)] text-2xl text-[#0B422B] group-hover:text-white mb-4 transition-colors duration-500">{exp.title}</h3>
-                    <p className="text-zinc-500 group-hover:text-white/80 font-light text-sm leading-relaxed transition-colors duration-500">{exp.desc}</p>
-                  </div>
-                  <div className="mt-8 flex justify-end">
-                    <div className="w-10 h-10 rounded-full bg-white group-hover:bg-[#D4AF37] transition-colors duration-500 flex items-center justify-center shadow-sm">
-                      <ArrowRight className="w-4 h-4 text-[#0B422B] group-hover:text-white transition-colors duration-500" />
-                    </div>
-                  </div>
-               </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { title: "World-Class Spa", img: "/images/interior.png", icon: Sparkles },
+              { title: "Fine Dining", img: "/images/resort_2.png", icon: GlassWater },
+              { title: "Private Tours", img: "/images/hero.png", icon: MapPin }
+            ].map((exp, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.2 }}
+                className="group relative h-[500px] rounded-2xl overflow-hidden cursor-pointer"
+              >
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500 z-10" />
+                <Image src={exp.img} alt={exp.title} fill className="object-cover transition-transform duration-1000 group-hover:scale-110" />
+                <div className="absolute inset-0 z-20 flex flex-col justify-end p-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                  <exp.icon className="w-10 h-10 text-[#D4AF37] mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <h3 className="text-white font-[family-name:var(--font-playfair)] text-3xl mb-4">{exp.title}</h3>
+                  <button className="text-white text-[10px] uppercase tracking-[0.3em] font-bold opacity-0 group-hover:opacity-100 transition-all duration-500 underline underline-offset-8">Discover More</button>
+                </div>
+              </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Guest Stories Section */}
+      <section className="py-32 bg-white overflow-hidden relative">
+        <div className="absolute top-0 right-0 p-32 opacity-[0.03] pointer-events-none">
+           <Crown className="w-96 h-96 text-[#0B422B]" />
+        </div>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-20">
+             <span className="text-[#D4AF37] font-semibold tracking-[0.2em] uppercase text-xs mb-4 block">Reviews</span>
+             <h2 className="font-[family-name:var(--font-playfair)] text-4xl lg:text-5xl text-[#0B422B] mb-6">Guest Stories</h2>
+             <div className="w-16 h-[2px] bg-[#D4AF37] mx-auto mb-8"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            <motion.div 
+               initial={{ opacity: 0, x: -30 }} 
+               whileInView={{ opacity: 1, x: 0 }} 
+               viewport={{ once: true }}
+               className="p-12 bg-zinc-50 rounded-3xl relative"
+            >
+               <Sparkles className="w-8 h-8 text-[#D4AF37] mb-8" />
+               <p className="font-serif italic text-2xl md:text-3xl text-[#0B422B] leading-relaxed mb-10">
+                 "An unmatched experience of serenity and luxury. The attention to detail in every corner of the property is truly breathtaking."
+               </p>
+               <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-[#0B422B]/10 flex items-center justify-center font-bold text-[#0B422B]">ES</div>
+                  <div>
+                    <p className="font-bold text-[#0B422B] text-sm italic">Eleanor St. James</p>
+                    <p className="text-[10px] uppercase tracking-widest text-zinc-400">London, UK</p>
+                  </div>
+               </div>
+            </motion.div>
+            
+            <motion.div 
+               initial={{ opacity: 0, x: 30 }} 
+               whileInView={{ opacity: 1, x: 0 }} 
+               viewport={{ once: true }}
+               className="p-12 bg-zinc-50 rounded-3xl relative mt-12 md:mt-24"
+            >
+               <Sparkles className="w-8 h-8 text-[#D4AF37] mb-8" />
+               <p className="font-serif italic text-2xl md:text-3xl text-[#0B422B] leading-relaxed mb-10">
+                 "Truly the epitome of sustainable luxury. Our stay was perfect from the floating breakfast to the starlit dinners."
+               </p>
+               <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-[#0B422B]/10 flex items-center justify-center font-bold text-[#0B422B]">MH</div>
+                  <div>
+                    <p className="font-bold text-[#0B422B] text-sm italic">Maximilian Hoffmann</p>
+                    <p className="text-[10px] uppercase tracking-widest text-zinc-400">Berlin, Germany</p>
+                  </div>
+               </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -399,10 +463,10 @@ export default function LandingPage() {
              
              <div className="flex flex-col sm:flex-row gap-6">
                 <button className="bg-[#D4AF37] hover:bg-[#C19B2E] text-white px-8 py-4 uppercase tracking-[0.2em] text-xs font-bold transition-all text-center">
-                  Plan an Event
+                   Plan an Event
                 </button>
                 <button className="border border-white/30 hover:bg-white hover:text-[#0B422B] text-white px-8 py-4 uppercase tracking-[0.2em] text-xs font-bold transition-all text-center">
-                  Explore Vivaah
+                   Explore Vivaah
                 </button>
              </div>
           </div>
@@ -459,11 +523,20 @@ export default function LandingPage() {
                  <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-colors cursor-pointer text-white/80 hover:text-white">
                    <span className="font-serif italic font-bold">fb</span>
                  </div>
-                 <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-colors cursor-pointer text-white/80 hover:text-white">
-                   <span className="font-serif italic font-bold">ig</span>
+                  <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D4AF37] transition-colors cursor-pointer text-white/80 hover:text-white">
+                    <span className="font-serif italic font-bold">ig</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-span-1 md:col-span-1 lg:col-span-1 border-white/10 lg:border-l lg:pl-12">
+                 <h4 className="font-sans font-bold uppercase tracking-widest text-[11px] mb-8 text-[#D4AF37]">Join the Inner Circle</h4>
+                 <p className="text-white/40 text-[12px] leading-relaxed mb-6">Receive exclusive access to member rates and special curated offers.</p>
+                 <div className="flex flex-col gap-3">
+                   <input type="email" placeholder="Your Email Address" className="bg-white/5 border border-white/10 px-4 py-3 text-xs focus:border-[#D4AF37] outline-none transition-colors rounded" />
+                   <button className="bg-[#D4AF37] hover:bg-[#b09028] text-white px-6 py-3 font-bold text-[10px] rounded transition-colors uppercase tracking-[0.2em]">Subscribe Now</button>
                  </div>
-               </div>
-            </div>
+              </div>
             
             <div>
               <h4 className="font-sans font-bold uppercase tracking-widest text-[11px] mb-8 text-[#D4AF37]">Explore</h4>
