@@ -1,3 +1,11 @@
+Options +Indexes
+DirectoryIndex index.html
 RewriteEngine On
+
+# Force trailing slash
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([^.]+)$ $1.html [NC,L]
+RewriteRule ^([^\.]+)$ $1/ [R=301,L]
+
+# Serve index.html inside folder
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.+)/$ $1/index.html [L]
