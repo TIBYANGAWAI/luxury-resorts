@@ -140,7 +140,7 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
-            <a href="/services" className="font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]">Services</a>
+            <a href="/services/" className="font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]">Services</a>
             <a href="#" className="flex items-center gap-1 font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]"><Crown className="w-3 h-3"/> Crown Collection</a>
             <a href="#" className="font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]">Plan an Event</a>
             <a href="#" className="font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]">Partner with Us</a>
@@ -355,7 +355,7 @@ export default function LandingPage() {
                 Revel in elegant accommodations, complimentary amenities, and unique sensory experiences tailored perfectly for your stay.
               </p>
             </div>
-            <a href="/services" className="flex items-center gap-2 text-[#0B422B] hover:text-[#D4AF37] uppercase tracking-widest text-xs font-bold transition-colors">
+            <a href="/services/" className="flex items-center gap-2 text-[#0B422B] hover:text-[#D4AF37] uppercase tracking-widest text-xs font-bold transition-colors">
               View All Experiences <ArrowRight className="w-4 h-4"/>
             </a>
           </div>
@@ -474,7 +474,7 @@ export default function LandingPage() {
                 <li><a href="#" className="hover:text-white transition-colors">Offers & Packages</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Plan an Event</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Vivaah by The Fern</a></li>
-                <li><a href="/services" className="hover:text-white transition-colors">Our Services</a></li>
+                <li><a href="/services/" className="hover:text-white transition-colors">Our Services</a></li>
               </ul>
             </div>
 
@@ -487,7 +487,7 @@ export default function LandingPage() {
                 <li><a href="#" className="hover:text-white transition-colors">Pressroom / Media</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Opening Soon</a></li>
-                <li><a href="/services" className="hover:text-white transition-colors">Our Services</a></li>
+                <li><a href="/services/" className="hover:text-white transition-colors">Our Services</a></li>
               </ul>
             </div>
 
@@ -534,7 +534,7 @@ export default function LandingPage() {
             </div>
             <nav className="flex flex-col gap-6 mt-10">
                <a href="#" className="text-white text-xl font-[family-name:var(--font-playfair)] tracking-wide">Find Hotels</a>
-               <a href="/services" className="text-white text-xl font-[family-name:var(--font-playfair)] tracking-wide">Services</a>
+               <a href="/services/" className="text-white text-xl font-[family-name:var(--font-playfair)] tracking-wide">Services</a>
                <a href="#" className="flex items-center gap-3 text-white text-xl font-[family-name:var(--font-playfair)] tracking-wide"><Crown className="w-5 h-5 text-[#D4AF37]"/> Crown Collection</a>
                <a href="#" className="text-white text-xl font-[family-name:var(--font-playfair)] tracking-wide">Offers</a>
                <a href="#" className="text-white text-xl font-[family-name:var(--font-playfair)] tracking-wide">Plan an Event</a>
