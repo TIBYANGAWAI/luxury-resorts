@@ -1,6 +1,6 @@
-Options +Indexes
 DirectoryIndex index.html
 RewriteEngine On
+RewriteBase /
 
 # Force trailing slash
 RewriteCond %{REQUEST_FILENAME} !-f
