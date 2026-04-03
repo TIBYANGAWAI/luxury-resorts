@@ -3,3 +3,37 @@
 html, body {
   overflow-x: hidden;
 }
+
+@layer utilities {
+  .shimmer-btn {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .shimmer-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 20%;
+    height: 200%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    transform: rotate(30deg);
+    transition: all 0.7s;
+  }
+  
+  .shimmer-btn:hover::after {
+    left: 120%;
+  }
+
+  .mask-arch {
+    mask-image: url("data:image/svg+xml,%3Csvg width='400' height='600' viewBox='0 0 400 600' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M200 0C89.543 0 0 89.543 0 200V600H400V200C400 89.543 310.457 0 200 0Z' fill='black'/%3E%3C/svg%3E");
+    mask-size: cover;
+    mask-repeat: no-repeat;
+  }
+}

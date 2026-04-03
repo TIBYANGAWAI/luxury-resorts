@@ -158,15 +158,15 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative w-full h-screen overflow-hidden bg-zinc-900 border-none">
+      <section className="relative w-full h-screen overflow-hidden bg-zinc-950 border-none">
         <AnimatePresence mode="popLayout">
             <motion.div
               suppressHydrationWarning
               key={currentSlide}
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, scale: 1 }}
+              animate={{ opacity: 1, scale: 1.15 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 1.8, ease: "easeInOut" }}
+              transition={{ duration: 8, ease: "linear" }}
               className="absolute inset-0"
             >
                <Image
@@ -176,7 +176,7 @@ export default function LandingPage() {
                  className="object-cover"
                  priority
                />
-               <div className="absolute inset-0 bg-black/30 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+               <div className="absolute inset-0 bg-black/40 bg-gradient-to-t from-black/95 via-black/30 to-transparent" />
             </motion.div>
         </AnimatePresence>
         
@@ -184,37 +184,34 @@ export default function LandingPage() {
           <motion.div 
             suppressHydrationWarning
             key={`text-${currentSlide}`}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 1, ease: "easeInOut" }}
-            className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 md:mt-40"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 md:mt-16"
           >
             <motion.p
                suppressHydrationWarning
-               initial={{ opacity: 0, y: 30 }}
-               animate={{ opacity: 1, y: 0 }}
-               transition={{ delay: 0.3, duration: 1 }}
-               className="text-[#D4AF37] uppercase tracking-[0.4em] text-xs font-bold shadow-black drop-shadow-lg mb-6"
+               initial={{ opacity: 0, letterSpacing: "0.2em" }}
+               animate={{ opacity: 1, letterSpacing: "0.5em" }}
+               transition={{ duration: 2 }}
+               className="text-[#D4AF37] uppercase text-[10px] md:text-xs font-bold shadow-black drop-shadow-lg mb-8 tracking-[0.5em]"
             >
                {heroSlides[currentSlide].subtitle}
             </motion.p>
             <motion.h1 
               suppressHydrationWarning
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 1 }}
-              className="font-[family-name:var(--font-playfair)] text-5xl md:text-7xl lg:text-8xl text-white drop-shadow-xl mb-6 leading-[1.1] max-w-6xl font-normal"
+              className="font-[family-name:var(--font-playfair)] text-5xl md:text-8xl lg:text-9xl text-white drop-shadow-2xl mb-10 leading-[1] max-w-7xl font-normal tracking-[-0.02em]"
             >
               {heroSlides[currentSlide].title} <br/>
-              <span className="italic font-light drop-shadow-lg">{heroSlides[currentSlide].highlight}</span>
+              <span className="italic font-light opacity-90">{heroSlides[currentSlide].highlight}</span>
             </motion.h1>
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 1 }}
+              transition={{ delay: 1, duration: 1 }}
             >
-               <button className="flex items-center gap-3 bg-white/10 backdrop-blur hover:bg-white text-white hover:text-[#0B422B] border border-white/30 px-8 py-4 font-bold uppercase tracking-widest transition-all rounded text-xs mx-auto mt-4">
+               <button className="flex items-center gap-4 bg-white/5 backdrop-blur-md hover:bg-white text-white hover:text-[#0B422B] border border-white/20 px-10 py-5 font-bold uppercase tracking-[0.3em] transition-all rounded shadow-2xl text-[10px] mx-auto mt-8 relative overflow-hidden shimmer-btn">
                  Explore Now <ArrowRight className="w-4 h-4" />
                </button>
             </motion.div>
@@ -274,14 +271,20 @@ export default function LandingPage() {
       </div>
 
       {/* Why Book With Us Section */}
-      <section className="bg-white py-24 border-b border-zinc-100">
+      <section className="bg-white py-48 border-b border-zinc-100">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-             <h2 className="font-[family-name:var(--font-playfair)] text-4xl lg:text-5xl text-[#0B422B] mb-4">Why Book With Us</h2>
-             <div className="w-16 h-[2px] bg-[#D4AF37] mx-auto mb-6"></div>
-             <p className="text-zinc-500 max-w-xl mx-auto text-lg font-light">Enjoy the unparalleled benefits of booking directly on our official site.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="text-center mb-24"
+          >
+             <h2 className="font-[family-name:var(--font-playfair)] text-5xl lg:text-6xl text-[#0B422B] mb-8 tracking-tight">The Art Of Hospitality</h2>
+             <div className="w-24 h-[1px] bg-[#D4AF37] mx-auto mb-8"></div>
+             <p className="text-zinc-500 max-w-2xl mx-auto text-xl font-light italic">Experience the unparalleled benefits reserved exclusively for our direct guests.</p>
+          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-24">
             {reasons.map((item, idx) => (
                <motion.div 
                  key={idx}
@@ -303,46 +306,49 @@ export default function LandingPage() {
       </section>
 
       {/* Resort Cards Grid */}
-      <section className="bg-zinc-50 py-32">
+      <section className="bg-zinc-50 py-48">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-20">
-            <span className="text-[#D4AF37] font-semibold tracking-[0.2em] uppercase text-xs mb-4 block">Our Circuits</span>
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl lg:text-6xl text-[#0B422B] mb-6">Handpicked Destinations</h2>
-            <div className="w-16 h-[2px] bg-[#D4AF37] mx-auto mb-8"></div>
-            <p className="text-zinc-500 max-w-3xl mx-auto text-lg font-light">Inviting you to a world of sublime hospitality, unmatched comfort, and faultless service. Be it a leisure getaway or a business trip, discover experiences bespoke and tailored to your unique needs.</p>
-          </div>
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="text-center mb-32"
+          >
+            <span className="text-[#D4AF37] font-semibold tracking-[0.4em] uppercase text-[10px] mb-6 block">Our Circuits</span>
+            <h2 className="font-[family-name:var(--font-playfair)] text-5xl md:text-7xl lg:text-8xl text-[#0B422B] mb-8 font-light italic">Handpicked Haven</h2>
+            <div className="w-24 h-[1px] bg-[#D4AF37] mx-auto mb-10"></div>
+            <p className="text-zinc-500 max-w-4xl mx-auto text-xl font-light leading-relaxed">Inviting you to a world of sublime hospitality, unmatched comfort, and faultless service. Discover experiences bespoke and tailored to your unique needs.</p>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-32">
             {resorts.map((resort, idx) => (
               <motion.div 
                 key={resort.id}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.8, delay: idx * 0.2 }}
-                className="group bg-white rounded-xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col hover:-translate-y-2 transition-transform duration-500 border border-zinc-100/50"
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: idx * 0.2 }}
+                className="group flex flex-col items-center text-center"
               >
-                  <div className="relative h-[22rem] overflow-hidden rounded-t-xl">
+                  <div className="relative w-full aspect-[4/5] mb-12 overflow-hidden mask-arch">
                     <Image 
                       src={resort.image}
                       alt={resort.name}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
+                      className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out" 
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500"/>
-                    
-                    {/* Floating Info Overlay */}
-                    <div className="absolute bottom-0 left-0 w-full p-8 translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
-                      <div className="flex items-center gap-1.5 text-xs text-[#D4AF37] mb-2 font-bold tracking-widest uppercase">
-                        <MapPin className="w-3.5 h-3.5" /> {resort.location}
-                      </div>
-                      <h3 className="font-[family-name:var(--font-playfair)] text-2xl lg:text-3xl text-white mb-0">{resort.name}</h3>
-                    </div>
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700"/>
                   </div>
-                  <div className="p-8 flex-1 flex flex-col items-center text-center">
-                    <p className="text-zinc-500 leading-relaxed mx-auto mb-8 font-light text-sm">{resort.description}</p>
+                  
+                  <div className="flex flex-col items-center">
+                    <div className="flex items-center gap-2 text-[10px] text-[#D4AF37] mb-4 font-bold tracking-[0.3em] uppercase">
+                      <MapPin className="w-3.5 h-3.5" /> {resort.location}
+                    </div>
+                    <h3 className="font-[family-name:var(--font-playfair)] text-3xl lg:text-4xl text-[#0B422B] mb-6 font-normal italic">{resort.name}</h3>
+                    <p className="text-zinc-500 leading-relaxed font-light text-base max-w-[280px] mb-10">{resort.description}</p>
                     
-                    <button className="mt-auto text-[#0B422B] group-hover:text-[#D4AF37] uppercase tracking-[0.2em] text-[10px] font-bold transition-all flex items-center justify-center gap-2 group/btn relative w-full border border-zinc-200 py-3 rounded hover:border-[#D4AF37]">
+                    <button className="border border-[#D4AF37]/30 text-[#0B422B] hover:text-white hover:bg-[#0B422B] uppercase tracking-[0.3em] text-[10px] font-bold transition-all py-4 px-10 rounded relative overflow-hidden shimmer-btn">
                       Explore Hotel
                     </button>
                   </div>
@@ -352,22 +358,35 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Luxury Experience Grid */}
-      <section className="py-32 bg-white">
+      {/* Luxury Experience Grid with Parallax Placeholder Effect */}
+      <section className="py-48 bg-white relative overflow-hidden">
+        {/* Parallax Background Element */}
+        <motion.div 
+           initial={{ y: 0 }}
+           whileInView={{ y: -100 }}
+           transition={{ duration: 2, ease: "easeOut" }}
+           className="absolute top-0 right-0 w-[600px] h-[800px] bg-[#FDFBF7] rounded-full blur-3xl -z-10" 
+        />
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col lg:flex-row justify-between items-end mb-16 gap-8">
-            <div className="max-w-2xl">
-              <span className="text-[#D4AF37] font-semibold tracking-[0.2em] uppercase text-xs mb-4 block">Live The Moment</span>
-              <h2 className="font-[family-name:var(--font-playfair)] text-4xl lg:text-5xl text-[#0B422B] mb-6">Luxury Experiences</h2>
-              <div className="w-16 h-[2px] bg-[#D4AF37] mb-6"></div>
-              <p className="text-zinc-500 text-lg font-light leading-relaxed">
-                Unlock a world of bespoke adventures. From Michelin-starred dining to holistic wellness retreats, immerse yourself in our signature luxury collections.
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="flex flex-col lg:flex-row justify-between items-end mb-24 gap-8"
+          >
+            <div className="max-w-3xl">
+              <span className="text-[#D4AF37] font-semibold tracking-[0.4em] uppercase text-[10px] mb-6 block">Live The Moment</span>
+              <h2 className="font-[family-name:var(--font-playfair)] text-5xl lg:text-7xl text-[#0B422B] mb-8 font-light">Experiences <span className="italic">Redefined</span></h2>
+              <div className="w-24 h-[1px] bg-[#D4AF37] mb-10"></div>
+              <p className="text-zinc-500 text-xl font-light leading-relaxed">
+                Unlock a world of bespoke adventures. From Michelin-starred dining to holistic wellness retreats, immerse yourself in our signature collections.
               </p>
             </div>
-            <a href="/services/" className="flex items-center gap-2 text-[#0B422B] hover:text-[#D4AF37] uppercase tracking-widest text-xs font-bold transition-colors">
-              Explore All <ArrowRight className="w-4 h-4"/>
+            <a href="/services/" className="flex items-center gap-4 text-[#0B422B] hover:text-[#D4AF37] uppercase tracking-[0.3em] text-[10px] font-bold transition-all group">
+              Explore All <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2"/>
             </a>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
