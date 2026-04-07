@@ -6,7 +6,7 @@ import {
   LayoutDashboard, Hotel, Users, Settings, LogOut, 
   DollarSign, CheckCircle, XCircle, Search, Bell,
   Menu, ShieldCheck, ArrowRight, Home, BarChart3,
-  Waves, Sparkles, MapPin, Eye
+  Waves, Sparkles, MapPin, Eye, Calendar
 } from "lucide-react";
 import Image from "next/image";
 
@@ -43,17 +43,30 @@ const initialResorts = [
 
 export default function AdminDashboard() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [activeTab, setActiveTab] = useState("dashboard");
+  const [activeTab, setActiveTab] = useState("resorts"); // Default to resorts for now
   const [resortsList, setResortsList] = useState(initialResorts);
   const [adminId, setAdminId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+
+  const mockReservations = [
+    { id: 1, guest: "Countess Isabella", suite: "Emerald Forest", dates: "Oct 12 - 18", status: "Confirmed", phone: "+919372284069" },
+    { id: 2, guest: "Maximilian Hoffmann", suite: "Golden Sands", dates: "Oct 20 - 25", status: "Pending", phone: "+919372284069" },
+    { id: 3, guest: "Eleanor St. James", suite: "Himalayan Myst", dates: "Nov 02 - 08", status: "Confirmed", phone: "+919372284069" }
+  ];
+
+  const triggerSuccess = () => {
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (adminId === "Admin" && password === "digi9513") {
       setIsLoggedIn(true);
       setError(false);
+      triggerSuccess();
     } else {
       setError(true);
       setTimeout(() => setError(false), 2000);
@@ -64,6 +77,7 @@ export default function AdminDashboard() {
     setResortsList(prev => prev.map(resort => 
       resort.id === id ? { ...resort, status: resort.status === "Available" ? "Booked" : "Available" } : resort
     ));
+    triggerSuccess();
   };
 
   const updatePrice = (id: number, newPrice: string) => {
@@ -71,67 +85,62 @@ export default function AdminDashboard() {
     setResortsList(prev => prev.map(resort => 
       resort.id === id ? { ...resort, price } : resort
     ));
+    triggerSuccess();
   };
 
-  // 1. LOGIN SCREEN (Gatekeeper)
+  // 1. LOGIN SCREEN (The Vault)
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen bg-[#FAF9F6] flex items-center justify-center p-6 font-sans">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className={`w-full max-w-md bg-white p-12 rounded-3xl shadow-[0_20px_50px_-20px_rgba(11,66,43,0.2)] border ${error ? 'border-red-500 shadow-red-500/10' : 'border-[#0B422B]/5'} relative overflow-hidden transition-colors duration-300`}
-        >
-          <div className="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none">
-            <ShieldCheck className="w-32 h-32 text-[#0B422B]" />
-          </div>
+      <div className="min-h-screen relative flex items-center justify-center font-sans overflow-hidden">
+        {/* Cinematic Blurred Background */}
+        <div className="absolute inset-0 z-0">
+          <Image src="/images/resort_1.png" alt="Resort" fill className="object-cover scale-110 blur-[10px] brightness-[0.6]" />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
 
-          <div className="flex flex-col items-center mb-12">
-            <div className="relative h-16 w-40 mb-8">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="w-full max-w-lg bg-white/10 backdrop-blur-2xl p-16 rounded-[3rem] border border-white/20 shadow-[0_40px_100px_-30px_rgba(0,0,0,0.5)] relative z-10 text-white"
+        >
+          <div className="flex flex-col items-center mb-16">
+            <div className="relative h-20 w-44 mb-10 invert brightness-0">
               <Image src="/images/logo.png" alt="Logo" fill className="object-contain" />
             </div>
-            <h1 className="font-[family-name:var(--font-playfair)] text-3xl font-bold text-[#0B422B] text-center mb-2 italic">Gatekeeper Secure Entry</h1>
-            <p className="text-zinc-400 text-xs uppercase tracking-[0.3em] font-semibold">Authorized Luxury Personnel Only</p>
+            <h1 className="font-[family-name:var(--font-playfair)] text-4xl font-bold text-white text-center mb-4 tracking-tight italic">The Manager's Vault</h1>
+            <p className="text-white/40 text-[10px] uppercase tracking-[0.4em] font-bold">Encrypted Executive Terminal</p>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest text-[#0B422B] font-bold">Encrypted ID</label>
+          <form onSubmit={handleLogin} className="space-y-12">
+            <div className="relative group">
               <input 
                 type="text" 
                 value={adminId}
                 onChange={(e) => setAdminId(e.target.value)}
-                placeholder="Ex: Admin" 
-                className="w-full bg-[#FAF9F6] border border-zinc-100 px-5 py-4 rounded-xl text-sm focus:border-[#D4AF37] outline-none transition-all placeholder:text-zinc-300"
+                placeholder="Manager Identifier" 
+                className="w-full bg-transparent border-b border-[#D4AF37]/30 py-5 text-lg outline-none focus:border-[#D4AF37] transition-all placeholder:text-white/20 font-light"
               />
+              <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#D4AF37] group-focus-within:w-full transition-all duration-500"></div>
             </div>
-            <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest text-[#0B422B] font-bold">Secure Access Key</label>
+            <div className="relative group">
               <input 
                 type="password" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••" 
-                className="w-full bg-[#FAF9F6] border border-zinc-100 px-5 py-4 rounded-xl text-sm focus:border-[#D4AF37] outline-none transition-all placeholder:text-zinc-300"
+                placeholder="Access Key" 
+                className="w-full bg-transparent border-b border-[#D4AF37]/30 py-5 text-lg outline-none focus:border-[#D4AF37] transition-all placeholder:text-white/20 font-light"
               />
+              <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#D4AF37] group-focus-within:w-full transition-all duration-500"></div>
             </div>
             
             {error && (
-              <motion.p 
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-red-600 text-[10px] font-bold uppercase tracking-widest text-center"
-              >
-                Access Denied: Invalid Credentials
-              </motion.p>
+              <p className="text-red-400 text-[10px] font-bold uppercase tracking-widest text-center">Protocol Violation: Access Refused</p>
             )}
 
-            <button className="w-full bg-[#0B422B] hover:bg-[#123827] text-white py-4 rounded-xl font-bold uppercase tracking-[0.2em] text-xs transition-all shadow-xl hover:shadow-[#0B422B]/20 flex items-center justify-center gap-3 group">
-              Secure Entry <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <button className="w-full bg-[#D4AF37] hover:bg-[#FAF9F6] text-[#0B422B] py-5 rounded-2xl font-bold uppercase tracking-[0.3em] text-[11px] transition-all shadow-2xl flex items-center justify-center gap-4 group mt-10">
+              Enter The Gateway <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </button>
           </form>
-
-          <p className="mt-12 text-center text-[10px] text-zinc-400 font-medium">© 2026 The Luxury Resorts Portfolio. All entries are audited.</p>
         </motion.div>
       </div>
     );
@@ -139,12 +148,37 @@ export default function AdminDashboard() {
 
   // 2. MAIN DASHBOARD UI
   return (
-    <div className="min-h-screen bg-[#FAF9F6] flex font-sans text-[#0B422B]">
+    <div className="min-h-screen bg-[#FAF9F6] flex font-sans text-[#0B422B] overflow-hidden">
       
-      {/* SIDEBAR */}
-      <aside className="w-72 bg-[#0B422B] text-white flex flex-col fixed inset-y-0 shadow-2xl z-20">
-        <div className="p-10 mb-8 border-b border-white/5">
-          <div className="relative h-14 w-36 invert brightness-0">
+      {/* SUCCESS TOAST */}
+      <AnimatePresence>
+        {showToast && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20, x: 20 }}
+            animate={{ opacity: 1, y: 0, x: 0 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="fixed top-10 right-10 z-[100] bg-white border border-[#D4AF37]/20 shadow-[0_20px_50px_-15px_rgba(11,66,43,0.15)] rounded-2xl px-8 py-5 flex items-center gap-4"
+          >
+            <div className="w-10 h-10 bg-[#0B422B]/5 rounded-full flex items-center justify-center">
+              <Sparkles className="w-5 h-5 text-[#D4AF37]" />
+            </div>
+            <div>
+               <p className="text-[10px] uppercase tracking-[.2em] font-bold">Managerial Success</p>
+               <p className="text-xs text-zinc-400">Vault registers have been synchronized</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      {/* SIDEBAR - Refined with Leather Texture */}
+      <aside className="w-80 bg-[#0B422B] text-white flex flex-col fixed inset-y-0 shadow-2xl z-20 overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.08] pointer-events-none mix-blend-overlay" 
+             style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}>
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30 pointer-events-none"></div>
+
+        <div className="p-12 mb-8 border-b border-white/5 relative">
+          <div className="relative h-14 w-40 invert brightness-0">
              <Image src="/images/logo.png" alt="Logo" fill className="object-contain" />
           </div>
         </div>
@@ -210,22 +244,62 @@ export default function AdminDashboard() {
             exit={{ opacity: 0, x: -40 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
-            {activeTab === "dashboard" && (
-                <div className="grid grid-cols-4 gap-8 mb-16">
-                   {[
-                     { label: "Total Revenue", value: "₹4.2M", icon: DollarSign, trend: "+12%" },
-                     { label: "Active Stays", value: "84", icon: Hotel, trend: "Stable" },
-                     { label: "Priv privileged Guests", value: "512", icon: Users, trend: "+5.1%" },
-                     { label: "Brand Equity", value: "High", icon: Sparkles, trend: "Peak" },
-                   ].map((stat, i) => (
-                     <div key={stat.label} className="bg-white p-8 rounded-3xl shadow-sm border border-zinc-100 hover:shadow-xl hover:shadow-[#0B422B]/5 transition-all">
-                        <stat.icon className="w-8 h-8 text-[#D4AF37] mb-4" />
-                        <p className="text-[10px] uppercase tracking-widest font-bold text-zinc-400 mb-1">{stat.label}</p>
-                        <p className="text-3xl font-bold">{stat.value}</p>
-                        <p className="text-[10px] text-zinc-400 mt-2 font-medium">Trend: <span className="text-[#0B422B]">{stat.trend}</span></p>
+            {activeTab === "bookings" && (
+              <div className="space-y-8">
+                 <div className="flex justify-between items-end mb-12">
+                   <div>
+                     <h3 className="font-[family-name:var(--font-playfair)] text-3xl font-bold italic mb-2">Guest Reservations</h3>
+                     <p className="text-zinc-400 text-[10px] uppercase tracking-widest font-semibold">Active Vault Logs</p>
+                   </div>
+                   <div className="flex gap-4">
+                     <div className="relative">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-300" />
+                        <input type="text" placeholder="Search Guest Name" className="bg-white border border-zinc-100 rounded-xl pl-12 pr-6 py-3 text-xs w-64 outline-none focus:border-[#D4AF37] transition-all" />
                      </div>
-                   ))}
-                </div>
+                   </div>
+                 </div>
+
+                 <div className="grid grid-cols-1 gap-6">
+                    {mockReservations.map((res, i) => (
+                      <motion.div 
+                        key={res.id}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.1 }}
+                        className="bg-white p-8 rounded-[2rem] shadow-sm border border-zinc-100 flex items-center justify-between group hover:shadow-xl hover:shadow-[#0B422B]/5 transition-all"
+                      >
+                         <div className="flex items-center gap-10">
+                            <div className="w-20 h-20 rounded-full bg-[#FAF9F6] border border-[#D4AF37]/10 flex items-center justify-center font-serif text-2xl font-bold text-[#0B422B] italic">
+                               {res.guest.charAt(0)}
+                            </div>
+                            <div>
+                               <h4 className="font-[family-name:var(--font-playfair)] text-2xl font-bold mb-1 italic">{res.guest}</h4>
+                               <div className="flex items-center gap-6">
+                                  <p className="text-xs text-zinc-400 flex items-center gap-2"><Hotel className="w-3.5 h-3.5" /> {res.suite} Suite</p>
+                                  <p className="text-xs text-zinc-400 flex items-center gap-2"><Calendar className="w-3.5 h-3.5" /> {res.dates}</p>
+                               </div>
+                            </div>
+                         </div>
+
+                         <div className="flex items-center gap-12">
+                            <div className="text-right">
+                               <span className={`px-4 py-2 rounded-full text-[9px] uppercase tracking-widest font-bold shadow-sm inline-block mb-1 ${res.status === 'Confirmed' ? 'bg-[#0B422B]/5 text-[#0B422B]' : 'bg-zinc-50 text-zinc-400'}`}>
+                                  {res.status}
+                               </span>
+                               <p className="text-[10px] text-zinc-300 font-medium">Boutique Booking</p>
+                            </div>
+                            <a 
+                              href={`https://wa.me/${res.phone}`}
+                              target="_blank"
+                              className="bg-[#D4AF37] hover:bg-[#0B422B] text-white px-8 py-4 rounded-xl font-bold uppercase tracking-[0.2em] text-[10px] transition-all shadow-lg hover:shadow-[#D4AF37]/30 flex items-center gap-3"
+                            >
+                               WhatsApp Guest <ArrowRight className="w-3.5 h-3.5" />
+                            </a>
+                         </div>
+                      </motion.div>
+                    ))}
+                 </div>
+              </div>
             )}
 
             {activeTab === "resorts" && (

@@ -525,6 +525,64 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Elegant Inquiry Form Section */}
+      <section className="py-48 bg-[#FAF9F6] relative overflow-hidden">
+        {/* Decorative Element */}
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent"></div>
+        
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-white rounded-[3rem] p-12 md:p-20 shadow-[0_50px_100px_-20px_rgba(11,66,43,0.1)] border border-zinc-100 relative overflow-hidden"
+          >
+            {/* Background Texture */}
+            <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
+                 style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}>
+            </div>
+
+            <div className="text-center mb-16">
+              <span className="text-[#D4AF37] font-semibold tracking-[0.4em] uppercase text-[10px] mb-6 block">Bespoke Concierge</span>
+              <h2 className="font-[family-name:var(--font-playfair)] text-5xl lg:text-6xl text-[#0B422B] mb-8 font-light italic">Plan Your Escape</h2>
+              <p className="text-zinc-500 max-w-xl mx-auto text-lg font-light leading-relaxed">
+                Allow our curators to craft your perfect itinerary. Share your desires, and we shall handle the rest.
+              </p>
+            </div>
+
+            <form className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+               <div className="space-y-3">
+                  <label className="text-[10px] uppercase tracking-widest text-[#0B422B] font-bold">Your Full Name</label>
+                  <input type="text" placeholder="Ex: Countess Isabella" className="w-full bg-[#FAF9F6] border-b border-[#D4AF37]/20 py-4 text-sm outline-none focus:border-[#D4AF37] transition-all placeholder:text-zinc-300" />
+               </div>
+               <div className="space-y-3">
+                  <label className="text-[10px] uppercase tracking-widest text-[#0B422B] font-bold">Encrypted Contact</label>
+                  <input type="tel" placeholder="+91 00000 00000" className="w-full bg-[#FAF9F6] border-b border-[#D4AF37]/20 py-4 text-sm outline-none focus:border-[#D4AF37] transition-all placeholder:text-zinc-300" />
+               </div>
+               <div className="space-y-3">
+                  <label className="text-[10px] uppercase tracking-widest text-[#0B422B] font-bold">Suite Preference</label>
+                  <select className="w-full bg-[#FAF9F6] border-b border-[#D4AF37]/20 py-4 text-sm outline-none focus:border-[#D4AF37] transition-all text-zinc-500 appearance-none">
+                     <option>Select Your Sanctuary</option>
+                     <option>The Emerald Forest Resort</option>
+                     <option>Golden Sands Retreat</option>
+                     <option>Himalayan Myst</option>
+                  </select>
+               </div>
+               <div className="space-y-3">
+                  <label className="text-[10px] uppercase tracking-widest text-[#0B422B] font-bold">Arrival Date</label>
+                  <input type="date" className="w-full bg-[#FAF9F6] border-b border-[#D4AF37]/20 py-4 text-sm outline-none focus:border-[#D4AF37] transition-all text-zinc-400" />
+               </div>
+               
+               <div className="md:col-span-2 pt-10">
+                  <button className="w-full bg-[#0B422B] hover:bg-[#1a523a] text-white py-6 rounded-2xl font-bold uppercase tracking-[0.4em] text-xs transition-all shadow-2xl shadow-[#0B422B]/20 flex items-center justify-center gap-4 group">
+                    Send Inquiry <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
+                  </button>
+               </div>
+            </form>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Expanded Footer matching Fern Hotels */}
       <footer className="bg-zinc-950 text-white pt-24 pb-10">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 border-b border-white/10 pb-16">
