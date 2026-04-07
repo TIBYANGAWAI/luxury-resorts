@@ -69,6 +69,29 @@ export default function LandingPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // --- NEW BOOKING BAR STATES ---
+  const [isDestOpen, setIsDestOpen] = useState(false);
+  const [selectedDest, setSelectedDest] = useState("");
+  
+  const [isDateOpen, setIsDateOpen] = useState(false);
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  
+  const [isGuestOpen, setIsGuestOpen] = useState(false);
+  const [adults, setAdults] = useState(2);
+  const [children, setChildren] = useState(0);
+
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleBookNow = () => {
+    if (!selectedDest || !startDate || !endDate) {
+      setErrorMsg("Select Sanctuary & Dates");
+      setTimeout(() => setErrorMsg(""), 3000);
+      return;
+    }
+    alert(`Booking: ${selectedDest}, ${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}, ${adults + children} Guests`);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -83,6 +106,60 @@ export default function LandingPage() {
     }, 6000);
     return () => clearInterval(timer);
   }, []);
+
+  // Calendar Helpers
+  const renderCalendar = (monthOffset: number) => {
+    const date = new Date();
+    date.setMonth(date.getMonth() + monthOffset);
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const monthName = date.toLocaleString('default', { month: 'long' });
+    
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    
+    const days = [];
+    for (let i = 0; i < firstDay; i++) days.push(null);
+    for (let i = 1; i <= daysInMonth; i++) days.push(new Date(year, month, i));
+
+    return (
+      <div className="w-full">
+        <h4 className="text-center font-bold text-[#0B422B] mb-4 uppercase text-[10px] tracking-widest">{monthName} {year}</h4>
+        <div className="grid grid-cols-7 gap-1">
+          {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(d => <div key={d} className="text-[9px] text-zinc-300 text-center font-bold">{d}</div>)}
+          {days.map((d, i) => {
+            if (!d) return <div key={i} />;
+            const isStart = startDate && d.toDateString() === startDate.toDateString();
+            const isEnd = endDate && d.toDateString() === endDate.toDateString();
+            const isInRange = startDate && endDate && d > startDate && d < endDate;
+            
+            return (
+              <button 
+                key={i} 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (!startDate || (startDate && endDate)) {
+                    setStartDate(d);
+                    setEndDate(null);
+                  } else {
+                    if (d < startDate) {
+                      setStartDate(d);
+                      setEndDate(null);
+                    } else {
+                      setEndDate(d);
+                    }
+                  }
+                }}
+                className={`h-8 w-8 text-[10px] rounded-full flex items-center justify-center transition-all ${isStart || isEnd ? 'bg-[#D4AF37] text-white font-bold' : isInRange ? 'bg-[#D4AF37]/10 text-[#0B422B]' : 'hover:bg-zinc-50'}`}
+              >
+                {d.getDate()}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <main className="min-h-screen bg-zinc-50 font-sans text-zinc-900 pb-[65px] md:pb-0 md:pt-[96px]">
@@ -218,39 +295,111 @@ export default function LandingPage() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Desktop Booking Bar Integration - Sticky at bottom of hero */}
-        <div className={`hidden md:block absolute left-0 right-0 w-full z-40 transition-all duration-500 ease-in-out ${scrolled ? 'fixed top-0' : 'bottom-12'}`}>
+        {/* Professional Hero Booking Bar Integration */}
+        <div className={`hidden md:block absolute left-0 right-0 w-full z-40 transition-all duration-700 ease-in-out ${scrolled ? 'fixed top-0' : 'bottom-12'}`}>
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className={`mx-auto transition-all duration-500 overflow-hidden backdrop-blur-xl ${scrolled ? 'max-w-full bg-white/60 border-b border-white/50 rounded-none shadow-md' : 'max-w-[55rem] bg-white/40 border border-white/40 shadow-[0_15px_50px_-10px_rgba(0,0,0,0.4)] rounded-full'}`}
+            className={`mx-auto transition-all duration-700 backdrop-blur-3xl overflow-visible ${scrolled ? 'max-w-full bg-white/95 border-b border-white/50 rounded-none shadow-2xl' : 'max-w-[70rem] bg-white/40 border border-white/30 shadow-[0_30px_60px_-10px_rgba(0,0,0,0.5)] rounded-full'}`}
           >
-             <div className={`flex items-center justify-between transition-all duration-500 p-2 ${scrolled ? 'max-w-[80rem] mx-auto' : ''}`}>
-                 <div className={`flex-[1.2] py-3.5 px-6 hover:bg-white/30 border-r border-black/10 transition-all duration-300 cursor-text flex flex-col justify-center group relative ${scrolled ? 'rounded-l-lg' : 'rounded-l-full'}`}>
-                   <div className="flex items-center gap-2 text-[#0B422B] font-[family-name:var(--font-playfair)] text-[16px] tracking-wide">
-                     <MapPin className="w-3.5 h-3.5 text-[#0B422B]" strokeWidth={2} /> <span className="pt-0.5 font-bold">Book Your Destination</span>
-                   </div>
-                   <div className="overflow-hidden max-h-0 opacity-0 group-hover:max-h-[30px] group-hover:opacity-100 group-hover:mt-1 transition-all duration-300">
-                     <input type="text" placeholder="Type city or hotel" className="w-full bg-transparent outline-none text-zinc-900 placeholder:text-zinc-700 font-sans pl-[22px] text-xs font-semibold group-hover:text-[#0B422B]" />
-                   </div>
+             <div className={`flex items-center justify-between transition-all duration-700 p-2 ${scrolled ? 'max-w-[85rem] mx-auto' : ''}`}>
+                 
+                 {/* 1. Destination Dropdown */}
+                 <div className={`flex-[1.2] py-4 px-8 border-r border-[#0B422B]/10 hover:bg-white/40 transition-all duration-300 cursor-pointer relative group ${scrolled ? 'rounded-l-lg' : 'rounded-l-full'}`}
+                      onClick={() => { setIsDestOpen(!isDestOpen); setIsDateOpen(false); setIsGuestOpen(false); }}>
+                    <div className="flex items-center gap-3 text-[#0B422B] font-[family-name:var(--font-playfair)]">
+                      <MapPin className="w-4 h-4 text-[#0B422B]" /> 
+                      <span className="text-[17px] font-bold tracking-tight">{selectedDest || "Book Your Sanctuary"}</span>
+                      <ChevronDown className={`w-3 h-3 transition-transform ${isDestOpen ? 'rotate-180' : ''}`} />
+                    </div>
+                    <p className="text-[9px] uppercase tracking-[0.2em] font-bold text-[#0B422B]/40 mt-1 ml-7">Select Destination</p>
+                    
+                    <AnimatePresence>
+                      {isDestOpen && (
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }}
+                                   className="absolute top-full left-0 w-full bg-white mt-4 shadow-2xl p-4 rounded-2xl border border-zinc-100 z-50">
+                          {resorts.map(r => (
+                            <div key={r.id} onClick={(e) => { e.stopPropagation(); setSelectedDest(r.name); setIsDestOpen(false); }}
+                                 className="px-5 py-4 text-xs font-bold uppercase tracking-widest text-[#0B422B] hover:text-[#D4AF37] hover:bg-zinc-50 rounded-xl transition-all border-b border-zinc-50 last:border-none">
+                               {r.name}
+                            </div>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                  </div>
                  
-                 <div className={`flex-[1.2] py-3.5 px-6 hover:bg-white/30 transition-all duration-300 cursor-pointer flex flex-col justify-center group relative`}>
-                   <div className="flex items-center gap-2 text-[#0B422B] font-[family-name:var(--font-playfair)] text-[16px] tracking-wide">
-                     <Calendar className="w-3.5 h-3.5 text-[#0B422B]" strokeWidth={2} /> <span className="pt-0.5 font-bold">Select Dates</span>
-                   </div>
-                   <div className="overflow-hidden max-h-0 opacity-0 group-hover:max-h-[30px] group-hover:opacity-100 group-hover:mt-1 transition-all duration-300">
-                     <input type="text" readOnly placeholder="Select check-in & check-out" className="w-full bg-transparent outline-none text-zinc-900 placeholder:text-zinc-700 font-sans cursor-pointer pl-[22px] text-xs font-semibold group-hover:text-[#0B422B]" />
-                   </div>
+                 {/* 2. Dual Pane Date Picker */}
+                 <div className="flex-[1.4] py-4 px-8 border-r border-[#0B422B]/10 hover:bg-white/40 transition-all duration-300 cursor-pointer relative"
+                      onClick={() => { setIsDateOpen(!isDateOpen); setIsDestOpen(false); setIsGuestOpen(false); }}>
+                    <div className="flex items-center gap-3 text-[#0B422B] font-[family-name:var(--font-playfair)]">
+                      <Calendar className="w-4 h-4 text-[#0B422B]" /> 
+                      <span className="text-[17px] font-bold tracking-tight">
+                         {startDate ? `${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – ${endDate ? endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Select Date'}` : "Select Dates"}
+                      </span>
+                    </div>
+                    <p className="text-[9px] uppercase tracking-[0.2em] font-bold text-[#0B422B]/40 mt-1 ml-7">Check-in / Check-out</p>
+                    
+                    <AnimatePresence>
+                      {isDateOpen && (
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }}
+                                   className="absolute top-full right-0 w-[600px] bg-white mt-4 shadow-2xl p-8 rounded-[2rem] border border-zinc-100 z-50"
+                                   onClick={(e) => e.stopPropagation()}>
+                           <div className="grid grid-cols-2 gap-12">
+                              {renderCalendar(0)}
+                              {renderCalendar(1)}
+                           </div>
+                           <button onClick={() => setIsDateOpen(false)} className="w-full bg-[#0B422B] text-white py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest mt-8 hover:bg-[#1a523a]">Done</button>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                  </div>
 
-                 <div className="flex-[0.8] flex items-center justify-end px-1 group">
-                    <button className="w-full h-[52px] bg-[#1a4a35] hover:bg-[#123827] text-white rounded-full uppercase tracking-[0.1em] text-[11px] font-semibold shadow-md transition-all duration-300 flex flex-col items-center justify-center overflow-hidden relative">
-                       <span className="block group-hover:-translate-y-[8px] transition-transform duration-300 font-bold z-10 uppercase">BOOK NOW</span>
-                       <span className="flex items-center gap-1 text-[#e0ddc6] text-[7px] font-bold tracking-[0.2em] uppercase z-10 absolute bottom-[9px] opacity-0 translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                          <Crown className="w-[10px] h-[10px] text-[#e0ddc6]" /> Best Rate Guarantee
-                       </span>
+                 {/* 3. Guest Selector */}
+                 <div className="flex-[1] py-4 px-8 hover:bg-white/40 transition-all duration-300 cursor-pointer relative"
+                      onClick={() => { setIsGuestOpen(!isGuestOpen); setIsDestOpen(false); setIsDateOpen(false); }}>
+                    <div className="flex items-center gap-3 text-[#0B422B] font-[family-name:var(--font-playfair)]">
+                      <Users className="w-4 h-4 text-[#0B422B]" /> 
+                      <span className="text-[17px] font-bold tracking-tight">{adults + children} Guests</span>
+                      <ChevronDown className={`w-3 h-3 transition-transform ${isGuestOpen ? 'rotate-180' : ''}`} />
+                    </div>
+                    <p className="text-[9px] uppercase tracking-[0.2em] font-bold text-[#0B422B]/40 mt-1 ml-7">{adults} Adults, {children} Children</p>
+
+                    <AnimatePresence>
+                      {isGuestOpen && (
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }}
+                                   className="absolute top-full right-0 w-64 bg-white mt-4 shadow-2xl p-8 rounded-2xl border border-zinc-100 z-50"
+                                   onClick={(e) => e.stopPropagation()}>
+                           <div className="space-y-8">
+                             <div className="flex items-center justify-between">
+                                <span className="text-[11px] font-bold uppercase tracking-widest text-[#0B422B]">Adults</span>
+                                <div className="flex items-center gap-4">
+                                   <button onClick={() => setAdults(Math.max(1, adults - 1))} className="w-7 h-7 rounded-full border border-zinc-200 text-[#D4AF37]">-</button>
+                                   <span className="text-xs font-bold w-4 text-center">{adults}</span>
+                                   <button onClick={() => setAdults(adults + 1)} className="w-7 h-7 rounded-full border border-zinc-200 text-[#D4AF37]">+</button>
+                                </div>
+                             </div>
+                             <div className="flex items-center justify-between">
+                                <span className="text-[11px] font-bold uppercase tracking-widest text-[#0B422B]">Children</span>
+                                <div className="flex items-center gap-4">
+                                   <button onClick={() => setChildren(Math.max(0, children - 1))} className="w-7 h-7 rounded-full border border-zinc-200 text-[#D4AF37]">-</button>
+                                   <span className="text-xs font-bold w-4 text-center">{children}</span>
+                                   <button onClick={() => setChildren(children + 1)} className="w-7 h-7 rounded-full border border-zinc-200 text-[#D4AF37]">+</button>
+                                </div>
+                             </div>
+                           </div>
+                           <button onClick={() => setIsGuestOpen(false)} className="w-full bg-[#0B422B] text-white py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest mt-8">Apply</button>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                 </div>
+
+                 {/* 4. Action Button */}
+                 <div className="flex-[0.8] px-2 relative">
+                    {errorMsg && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute -top-6 left-0 w-full text-center text-[9px] font-bold text-red-500 uppercase tracking-widest">{errorMsg}</motion.div>}
+                    <button onClick={handleBookNow}
+                            className={`w-full h-[60px] bg-[#0B422B] hover:bg-[#D4AF37] text-white font-bold uppercase tracking-[0.2em] text-[10px] transition-all duration-300 shadow-xl hover:shadow-[#D4AF37]/30 ${scrolled ? 'rounded-xl' : 'rounded-full'}`}>
+                       BOOK NOW
                     </button>
                  </div>
              </div>
@@ -522,64 +671,6 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Elegant Inquiry Form Section */}
-      <section className="py-48 bg-[#FAF9F6] relative overflow-hidden">
-        {/* Decorative Element */}
-        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent"></div>
-        
-        <div className="max-w-5xl mx-auto px-6">
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-[3rem] p-12 md:p-20 shadow-[0_50px_100px_-20px_rgba(11,66,43,0.1)] border border-zinc-100 relative overflow-hidden"
-          >
-            {/* Background Texture */}
-            <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
-                 style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}>
-            </div>
-
-            <div className="text-center mb-16">
-              <span className="text-[#D4AF37] font-semibold tracking-[0.4em] uppercase text-[10px] mb-6 block">Bespoke Concierge</span>
-              <h2 className="font-[family-name:var(--font-playfair)] text-5xl lg:text-6xl text-[#0B422B] mb-8 font-light italic">Plan Your Escape</h2>
-              <p className="text-zinc-500 max-w-xl mx-auto text-lg font-light leading-relaxed">
-                Allow our curators to craft your perfect itinerary. Share your desires, and we shall handle the rest.
-              </p>
-            </div>
-
-            <form className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-               <div className="space-y-3">
-                  <label className="text-[10px] uppercase tracking-widest text-[#0B422B] font-bold">Your Full Name</label>
-                  <input type="text" placeholder="Ex: Countess Isabella" className="w-full bg-[#FAF9F6] border-b border-[#D4AF37]/20 py-4 text-sm outline-none focus:border-[#D4AF37] transition-all placeholder:text-zinc-300" />
-               </div>
-               <div className="space-y-3">
-                  <label className="text-[10px] uppercase tracking-widest text-[#0B422B] font-bold">Encrypted Contact</label>
-                  <input type="tel" placeholder="+91 00000 00000" className="w-full bg-[#FAF9F6] border-b border-[#D4AF37]/20 py-4 text-sm outline-none focus:border-[#D4AF37] transition-all placeholder:text-zinc-300" />
-               </div>
-               <div className="space-y-3">
-                  <label className="text-[10px] uppercase tracking-widest text-[#0B422B] font-bold">Suite Preference</label>
-                  <select className="w-full bg-[#FAF9F6] border-b border-[#D4AF37]/20 py-4 text-sm outline-none focus:border-[#D4AF37] transition-all text-zinc-500 appearance-none">
-                     <option>Select Your Sanctuary</option>
-                     <option>The Emerald Forest Resort</option>
-                     <option>Golden Sands Retreat</option>
-                     <option>Himalayan Myst</option>
-                  </select>
-               </div>
-               <div className="space-y-3">
-                  <label className="text-[10px] uppercase tracking-widest text-[#0B422B] font-bold">Arrival Date</label>
-                  <input type="date" className="w-full bg-[#FAF9F6] border-b border-[#D4AF37]/20 py-4 text-sm outline-none focus:border-[#D4AF37] transition-all text-zinc-400" />
-               </div>
-               
-               <div className="md:col-span-2 pt-10">
-                  <button className="w-full bg-[#0B422B] hover:bg-[#1a523a] text-white py-6 rounded-2xl font-bold uppercase tracking-[0.4em] text-xs transition-all shadow-2xl shadow-[#0B422B]/20 flex items-center justify-center gap-4 group">
-                    Send Inquiry <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
-                  </button>
-               </div>
-            </form>
-          </motion.div>
         </div>
       </section>
 
