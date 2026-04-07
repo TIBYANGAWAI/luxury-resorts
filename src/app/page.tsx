@@ -68,6 +68,7 @@ export default function LandingPage() {
   const [scrolled, setScrolled] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileBookingOpen, setIsMobileBookingOpen] = useState(false);
 
   // --- NEW BOOKING BAR STATES ---
   const [isDestOpen, setIsDestOpen] = useState(false);
@@ -234,81 +235,73 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative w-full h-screen overflow-hidden bg-zinc-950 border-none">
-        <AnimatePresence mode="popLayout">
-            <motion.div
-              suppressHydrationWarning
-              key={currentSlide}
-              initial={{ opacity: 0, scale: 1 }}
-              animate={{ opacity: 1, scale: 1.15 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 8, ease: "linear" }}
-              className="absolute inset-0"
-            >
-               <Image
-                 src={heroSlides[currentSlide].image}
-                 alt={heroSlides[currentSlide].subtitle}
-                 fill
-                 className="object-cover"
-                 priority
-               />
-               <div className="absolute inset-0 bg-black/40 bg-gradient-to-t from-black/95 via-black/30 to-transparent" />
-            </motion.div>
-        </AnimatePresence>
-        
-        <AnimatePresence mode="wait">
-          <motion.div 
-            suppressHydrationWarning
-            key={`text-${currentSlide}`}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 md:mt-16"
-          >
-            <motion.p
-               suppressHydrationWarning
-               initial={{ opacity: 0, letterSpacing: "0.2em" }}
-               animate={{ opacity: 1, letterSpacing: "0.5em" }}
-               transition={{ duration: 2 }}
-               className="text-[#D4AF37] uppercase text-[10px] md:text-xs font-bold shadow-black drop-shadow-lg mb-8 tracking-[0.5em]"
-            >
-               {heroSlides[currentSlide].subtitle}
-            </motion.p>
-            <motion.h1 
-              suppressHydrationWarning
-              className="font-[family-name:var(--font-playfair)] text-5xl md:text-8xl lg:text-9xl text-white drop-shadow-2xl mb-10 leading-[1] max-w-7xl font-normal tracking-[-0.02em]"
-            >
-              {heroSlides[currentSlide].title} <br/>
-              <span className="italic font-light opacity-90">{heroSlides[currentSlide].highlight}</span>
-            </motion.h1>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1, duration: 1 }}
-            >
-               <button className="flex items-center gap-4 bg-white/5 backdrop-blur-md hover:bg-white text-white hover:text-[#0B422B] border border-white/20 px-10 py-5 font-bold uppercase tracking-[0.3em] transition-all rounded shadow-2xl text-[10px] mx-auto mt-8 relative overflow-hidden shimmer-btn">
-                 Explore Now <ArrowRight className="w-4 h-4" />
-               </button>
-            </motion.div>
-          </motion.div>
-        </AnimatePresence>
+      {/* Overhauled Fern-Style Hero Section */}
+      <section className="relative w-full h-auto lg:h-[85vh] overflow-visible bg-white">
+        <div className="flex flex-col lg:flex-row h-full">
+          {/* Left: Cinematic Image Slider */}
+          <div className="relative w-full lg:w-[65%] h-[50vh] lg:h-full overflow-hidden">
+            <AnimatePresence mode="popLayout">
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.5 }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={heroSlides[currentSlide].image}
+                  alt={heroSlides[currentSlide].subtitle}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+                <div className="absolute inset-0 bg-black/10" />
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-        {/* Professional Hero Booking Bar Integration */}
-        <div className={`hidden md:block absolute left-0 right-0 w-full z-40 transition-all duration-700 ease-in-out ${scrolled ? 'fixed top-0' : 'bottom-12'}`}>
+          {/* Right: Forest Green Content Block */}
+          <div className="w-full lg:w-[35%] bg-[#0B422B] p-12 lg:p-24 flex flex-col justify-center items-start text-white relative">
+            <motion.div
+              key={`text-block-${currentSlide}`}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1 }}
+            >
+              <h2 className="text-[#D4AF37] uppercase text-[10px] font-bold tracking-[0.4em] mb-8">
+                {heroSlides[currentSlide].subtitle}
+              </h2>
+              <h1 className="font-[family-name:var(--font-playfair)] text-5xl lg:text-7xl font-light leading-[1.1] mb-10 tracking-tight italic">
+                Seamless <br/> <span className="not-italic font-medium">Stays</span>
+              </h1>
+              <p className="text-white/60 text-sm font-light leading-relaxed max-w-sm mb-12">
+                Experience the epitome of eco-sensitive luxury. Our sanctuaries are crafted for those who seek harmony between nature and comfort.
+              </p>
+              <button 
+                onClick={() => setIsMobileBookingOpen(true)}
+                className="group flex items-center gap-4 text-[#D4AF37] uppercase tracking-[0.3em] text-[10px] font-bold"
+              >
+                Book Your Sanctuary <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
+              </button>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Floating Desktop Booking Bar Integration */}
+        <div className={`hidden lg:block absolute left-1/2 -translate-x-1/2 z-40 transition-all duration-700 ease-in-out ${scrolled ? 'fixed top-0 w-full rounded-none' : 'bottom-[-40px] w-full max-w-[75rem]'}`}>
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`mx-auto transition-all duration-700 backdrop-blur-3xl overflow-visible ${scrolled ? 'max-w-full bg-white/95 border-b border-white/50 rounded-none shadow-2xl' : 'max-w-[70rem] bg-white/40 border border-white/30 shadow-[0_30px_60px_-10px_rgba(0,0,0,0.5)] rounded-full'}`}
+            className={`transition-all duration-700 backdrop-blur-3xl overflow-visible ${scrolled ? 'bg-white/95 border-b border-black/5 shadow-2xl' : 'bg-white border border-[#0B422B]/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] rounded-2xl'}`}
           >
              <div className={`flex items-center justify-between transition-all duration-700 p-2 ${scrolled ? 'max-w-[85rem] mx-auto' : ''}`}>
                  
                  {/* 1. Destination Dropdown */}
-                 <div className={`flex-[1.2] py-4 px-8 border-r border-[#0B422B]/10 hover:bg-white/40 transition-all duration-300 cursor-pointer relative group ${scrolled ? 'rounded-l-lg' : 'rounded-l-full'}`}
+                 <div className="flex-[1.2] py-4 px-10 border-r border-[#0B422B]/10 hover:bg-zinc-50 transition-all duration-300 cursor-pointer relative group"
                       onClick={() => { setIsDestOpen(!isDestOpen); setIsDateOpen(false); setIsGuestOpen(false); }}>
                     <div className="flex items-center gap-3 text-[#0B422B] font-[family-name:var(--font-playfair)]">
-                      <MapPin className="w-4 h-4 text-[#0B422B]" /> 
+                      <MapPin className="w-4 h-4 text-[#D4AF37]" /> 
                       <span className="text-[17px] font-bold tracking-tight">{selectedDest || "Book Your Sanctuary"}</span>
                       <ChevronDown className={`w-3 h-3 transition-transform ${isDestOpen ? 'rotate-180' : ''}`} />
                     </div>
@@ -317,7 +310,7 @@ export default function LandingPage() {
                     <AnimatePresence>
                       {isDestOpen && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }}
-                                   className="absolute top-full left-0 w-full bg-white mt-4 shadow-2xl p-4 rounded-2xl border border-zinc-100 z-50">
+                                   className="absolute top-full left-0 w-full bg-white mt-4 shadow-2xl p-4 rounded-xl border border-zinc-100 z-50">
                           {resorts.map(r => (
                             <div key={r.id} onClick={(e) => { e.stopPropagation(); setSelectedDest(r.name); setIsDestOpen(false); }}
                                  className="px-5 py-4 text-xs font-bold uppercase tracking-widest text-[#0B422B] hover:text-[#D4AF37] hover:bg-zinc-50 rounded-xl transition-all border-b border-zinc-50 last:border-none">
@@ -330,10 +323,10 @@ export default function LandingPage() {
                  </div>
                  
                  {/* 2. Dual Pane Date Picker */}
-                 <div className="flex-[1.4] py-4 px-8 border-r border-[#0B422B]/10 hover:bg-white/40 transition-all duration-300 cursor-pointer relative"
+                 <div className="flex-[1.4] py-4 px-10 border-r border-[#0B422B]/10 hover:bg-zinc-50 transition-all duration-300 cursor-pointer relative"
                       onClick={() => { setIsDateOpen(!isDateOpen); setIsDestOpen(false); setIsGuestOpen(false); }}>
                     <div className="flex items-center gap-3 text-[#0B422B] font-[family-name:var(--font-playfair)]">
-                      <Calendar className="w-4 h-4 text-[#0B422B]" /> 
+                      <Calendar className="w-4 h-4 text-[#D4AF37]" /> 
                       <span className="text-[17px] font-bold tracking-tight">
                          {startDate ? `${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – ${endDate ? endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Select Date'}` : "Select Dates"}
                       </span>
@@ -349,17 +342,16 @@ export default function LandingPage() {
                               {renderCalendar(0)}
                               {renderCalendar(1)}
                            </div>
-                           <button onClick={() => setIsDateOpen(false)} className="w-full bg-[#0B422B] text-white py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest mt-8 hover:bg-[#1a523a]">Done</button>
                         </motion.div>
                       )}
                     </AnimatePresence>
                  </div>
 
                  {/* 3. Guest Selector */}
-                 <div className="flex-[1] py-4 px-8 hover:bg-white/40 transition-all duration-300 cursor-pointer relative"
+                 <div className="flex-[1] py-4 px-10 hover:bg-zinc-50 transition-all duration-300 cursor-pointer relative"
                       onClick={() => { setIsGuestOpen(!isGuestOpen); setIsDestOpen(false); setIsDateOpen(false); }}>
                     <div className="flex items-center gap-3 text-[#0B422B] font-[family-name:var(--font-playfair)]">
-                      <Users className="w-4 h-4 text-[#0B422B]" /> 
+                      <Users className="w-4 h-4 text-[#D4AF37]" /> 
                       <span className="text-[17px] font-bold tracking-tight">{adults + children} Guests</span>
                       <ChevronDown className={`w-3 h-3 transition-transform ${isGuestOpen ? 'rotate-180' : ''}`} />
                     </div>
@@ -388,17 +380,15 @@ export default function LandingPage() {
                                 </div>
                              </div>
                            </div>
-                           <button onClick={() => setIsGuestOpen(false)} className="w-full bg-[#0B422B] text-white py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest mt-8">Apply</button>
                         </motion.div>
                       )}
                     </AnimatePresence>
                  </div>
 
-                 {/* 4. Action Button */}
                  <div className="flex-[0.8] px-2 relative">
                     {errorMsg && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute -top-6 left-0 w-full text-center text-[9px] font-bold text-red-500 uppercase tracking-widest">{errorMsg}</motion.div>}
                     <button onClick={handleBookNow}
-                            className={`w-full h-[60px] bg-[#0B422B] hover:bg-[#D4AF37] text-white font-bold uppercase tracking-[0.2em] text-[10px] transition-all duration-300 shadow-xl hover:shadow-[#D4AF37]/30 ${scrolled ? 'rounded-xl' : 'rounded-full'}`}>
+                            className={`w-full h-[64px] bg-[#0B422B] hover:bg-[#D4AF37] text-white font-bold uppercase tracking-[0.2em] text-[10px] transition-all duration-300 shadow-xl hover:shadow-[#D4AF37]/30 ${scrolled ? 'rounded-xl' : 'rounded-xl'}`}>
                        BOOK NOW
                     </button>
                  </div>
@@ -755,60 +745,128 @@ export default function LandingPage() {
         </div>
       </footer>
 
-      {/* Mobile Nav Overlay */}
+      {/* Mobile Full-Screen Booking Modal */}
       <AnimatePresence>
-        {isMobileMenuOpen && (
+        {isMobileBookingOpen && (
           <motion.div 
-            initial={{ x: "-100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "-100%" }}
-            transition={{ type: "tween", duration: 0.3 }}
-            className="fixed inset-0 z-[100] bg-[#0B422B] flex flex-col pt-6 px-6"
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-0 z-[110] bg-white flex flex-col"
           >
-            <div className="flex justify-between items-center pb-6 border-b border-white/20">
-               <div className="relative h-10 w-28">
-                 <Image src="/images/logo.png" alt="Logo" fill className="object-contain object-left" />
+            <div className="p-6 border-b border-zinc-100 flex justify-between items-center bg-[#FAF9F6]">
+               <div>
+                  <h3 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-[#0B422B] italic">Online Reservations</h3>
+                  <p className="text-[9px] uppercase tracking-widest text-[#D4AF37] font-bold">Secure Your Sanctuary</p>
                </div>
-               <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-white -mr-2">
-                 <X className="w-8 h-8" />
+               <button onClick={() => setIsMobileBookingOpen(false)} className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center">
+                  <X className="w-5 h-5 text-[#0B422B]" />
                </button>
             </div>
-            <nav className="flex flex-col gap-6 mt-10">
-               <a href="#" className="text-white text-xl font-[family-name:var(--font-playfair)] tracking-wide">Find Hotels</a>
-               <a href="/services/" className="text-white text-xl font-[family-name:var(--font-playfair)] tracking-wide">Services</a>
-               <a href="#" className="flex items-center gap-3 text-white text-xl font-[family-name:var(--font-playfair)] tracking-wide"><Crown className="w-5 h-5 text-[#D4AF37]"/> Crown Collection</a>
-               <a href="#" className="text-white text-xl font-[family-name:var(--font-playfair)] tracking-wide">Offers</a>
-               <a href="#" className="text-white text-xl font-[family-name:var(--font-playfair)] tracking-wide">Plan an Event</a>
-               <a href="#" className="text-white text-xl font-[family-name:var(--font-playfair)] tracking-wide">Partner with Us</a>
-               <button className="mt-8 bg-[#D4AF37] hover:bg-[#b09028] transition-colors text-white py-4 font-bold text-xs rounded uppercase tracking-[0.2em] w-full">
-                 Book Login
+
+            <div className="flex-1 overflow-y-auto p-8 space-y-12">
+               {/* 1. Destination */}
+               <div className="space-y-4">
+                  <label className="text-[10px] uppercase tracking-widest text-[#0B422B]/60 font-bold ml-1">Choice of Destination</label>
+                  <div className="grid grid-cols-1 gap-3">
+                     {resorts.map(r => (
+                        <button 
+                          key={r.id}
+                          onClick={() => setSelectedDest(r.name)}
+                          className={`w-full text-left px-6 py-5 rounded-2xl border transition-all flex items-center justify-between ${selectedDest === r.name ? 'border-[#D4AF37] bg-[#D4AF37]/5 ring-1 ring-[#D4AF37]' : 'border-zinc-100'}`}
+                        >
+                           <span className="text-sm font-bold text-[#0B422B]">{r.name}</span>
+                           {selectedDest === r.name && <CheckCircle2 className="w-4 h-4 text-[#D4AF37]" />}
+                        </button>
+                     ))}
+                  </div>
+               </div>
+
+               {/* 2. Date Selector (Simplified for Mobile scroll) */}
+               <div className="space-y-4">
+                  <label className="text-[10px] uppercase tracking-widest text-[#0B422B]/60 font-bold ml-1">Travel Dates</label>
+                  <div className="bg-[#FAF9F6] p-6 rounded-3xl border border-zinc-100">
+                     <div className="flex justify-between items-center mb-8 px-2">
+                        <div className="flex flex-col">
+                           <span className="text-[8px] uppercase tracking-widest font-bold text-zinc-400">Check-in</span>
+                           <span className="text-sm font-bold text-[#0B422B]">{startDate ? startDate.toLocaleDateString() : 'Pick Date'}</span>
+                        </div>
+                        <ArrowRight className="w-4 h-4 text-[#D4AF37]" />
+                        <div className="flex flex-col text-right">
+                           <span className="text-[8px] uppercase tracking-widest font-bold text-zinc-400">Check-out</span>
+                           <span className="text-sm font-bold text-[#0B422B]">{endDate ? endDate.toLocaleDateString() : 'Pick Date'}</span>
+                        </div>
+                     </div>
+                     <div className="overflow-visible">
+                        {renderCalendar(0)}
+                        <div className="mt-8">
+                           {renderCalendar(1)}
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               {/* 3. Guests */}
+               <div className="space-y-4">
+                  <label className="text-[10px] uppercase tracking-widest text-[#0B422B]/60 font-bold ml-1">Occupancy</label>
+                  <div className="flex gap-4">
+                     <div className="flex-1 bg-zinc-50 p-6 rounded-2xl flex flex-col items-center gap-4">
+                        <span className="text-xs font-bold text-[#0B422B]">Adults</span>
+                        <div className="flex items-center gap-6">
+                           <button onClick={() => setAdults(Math.max(1, adults - 1))} className="w-8 h-8 rounded-full border border-zinc-200 transition-colors">-</button>
+                           <span className="font-bold text-lg">{adults}</span>
+                           <button onClick={() => setAdults(adults + 1)} className="w-8 h-8 rounded-full border border-zinc-200 transition-colors">+</button>
+                        </div>
+                     </div>
+                     <div className="flex-1 bg-zinc-50 p-6 rounded-2xl flex flex-col items-center gap-4">
+                        <span className="text-xs font-bold text-[#0B422B]">Children</span>
+                        <div className="flex items-center gap-6">
+                           <button onClick={() => setChildren(Math.max(0, children - 1))} className="w-8 h-8 rounded-full border border-zinc-200 transition-colors">-</button>
+                           <span className="font-bold text-lg">{children}</span>
+                           <button onClick={() => setChildren(children + 1)} className="w-8 h-8 rounded-full border border-zinc-200 transition-colors">+</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <div className="p-6 bg-white border-t border-zinc-100">
+               <button 
+                  onClick={handleBookNow}
+                  className="w-full bg-[#0B422B] text-white py-6 rounded-2xl font-bold uppercase tracking-[0.4em] text-xs transition-all shadow-2xl"
+               >
+                  Verify Availability
                </button>
-            </nav>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* Mobile Sticky Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white/80 backdrop-blur-md border-t border-zinc-200">
-        <div className="flex items-center justify-between h-[65px]">
-          <a href="#" className="flex-1 flex flex-col items-center justify-center gap-1.5 text-[#0B422B] hover:text-[#C5A059] transition-colors h-full">
+      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white shadow-[0_-10px_30px_-15px_rgba(0,0,0,0.15)]">
+        <div className="flex items-center justify-between h-[75px]">
+          <a href="#" className="flex-1 flex flex-col items-center justify-center gap-1.5 text-[#0B422B] transition-colors h-full">
             <Hotel className="w-5 h-5" strokeWidth={1.5} />
-            <span className="text-[9px] font-semibold uppercase tracking-widest">Hotels</span>
+            <span className="text-[9px] font-bold uppercase tracking-widest">Hotels</span>
           </a>
           
-          <button className="flex-1 flex flex-col items-center justify-center gap-1.5 bg-[#C5A059] text-white h-full hover:bg-[#b09028] transition-colors">
+          <button 
+            onClick={() => setIsMobileBookingOpen(true)}
+            className="flex-1 flex flex-col items-center justify-center gap-1.5 bg-[#D4AF37] text-white h-full transition-colors active:bg-[#b09028]"
+          >
             <Calendar className="w-5 h-5" strokeWidth={1.5} />
             <span className="text-[9px] font-bold uppercase tracking-widest">Book Now</span>
           </button>
           
-          <a href="tel:+919372284069" className="flex-1 flex flex-col items-center justify-center gap-1.5 text-[#0B422B] hover:text-[#C5A059] transition-colors h-full">
+          <a href="tel:+919372284069" className="flex-1 flex flex-col items-center justify-center gap-1.5 text-[#0B422B] transition-colors h-full">
             <Phone className="w-5 h-5" strokeWidth={1.5} />
-            <span className="text-[9px] font-semibold uppercase tracking-widest">Contact</span>
+            <span className="text-[9px] font-bold uppercase tracking-widest">Contact</span>
           </a>
           
-          <button onClick={() => setIsMobileMenuOpen(true)} className="flex-1 flex flex-col items-center justify-center gap-1.5 text-[#0B422B] hover:text-[#C5A059] transition-colors h-full">
+          <button onClick={() => setIsMobileMenuOpen(true)} className="flex-1 flex flex-col items-center justify-center gap-1.5 text-[#0B422B] transition-colors h-full">
             <Menu className="w-5 h-5" strokeWidth={1.5} />
-            <span className="text-[9px] font-semibold uppercase tracking-widest">Menu</span>
+            <span className="text-[9px] font-bold uppercase tracking-widest">Menu</span>
           </button>
         </div>
       </div>
