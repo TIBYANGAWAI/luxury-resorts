@@ -45,13 +45,18 @@ export default function AdminDashboard() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activeTab, setActiveTab] = useState("dashboard");
   const [resortsList, setResortsList] = useState(initialResorts);
-  const [email, setEmail] = useState("");
+  const [adminId, setAdminId] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email && password) {
+    if (adminId === "Admin" && password === "digi9513") {
       setIsLoggedIn(true);
+      setError(false);
+    } else {
+      setError(true);
+      setTimeout(() => setError(false), 2000);
     }
   };
 
@@ -75,7 +80,7 @@ export default function AdminDashboard() {
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="w-full max-w-md bg-white p-12 rounded-3xl shadow-[0_20px_50px_-20px_rgba(11,66,43,0.2)] border border-[#0B422B]/5 relative overflow-hidden"
+          className={`w-full max-w-md bg-white p-12 rounded-3xl shadow-[0_20px_50px_-20px_rgba(11,66,43,0.2)] border ${error ? 'border-red-500 shadow-red-500/10' : 'border-[#0B422B]/5'} relative overflow-hidden transition-colors duration-300`}
         >
           <div className="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none">
             <ShieldCheck className="w-32 h-32 text-[#0B422B]" />
@@ -93,10 +98,10 @@ export default function AdminDashboard() {
             <div className="space-y-2">
               <label className="text-[10px] uppercase tracking-widest text-[#0B422B] font-bold">Encrypted ID</label>
               <input 
-                type="email" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@luxuryresorts.com" 
+                type="text" 
+                value={adminId}
+                onChange={(e) => setAdminId(e.target.value)}
+                placeholder="Ex: Admin" 
                 className="w-full bg-[#FAF9F6] border border-zinc-100 px-5 py-4 rounded-xl text-sm focus:border-[#D4AF37] outline-none transition-all placeholder:text-zinc-300"
               />
             </div>
@@ -110,6 +115,17 @@ export default function AdminDashboard() {
                 className="w-full bg-[#FAF9F6] border border-zinc-100 px-5 py-4 rounded-xl text-sm focus:border-[#D4AF37] outline-none transition-all placeholder:text-zinc-300"
               />
             </div>
+            
+            {error && (
+              <motion.p 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-red-600 text-[10px] font-bold uppercase tracking-widest text-center"
+              >
+                Access Denied: Invalid Credentials
+              </motion.p>
+            )}
+
             <button className="w-full bg-[#0B422B] hover:bg-[#123827] text-white py-4 rounded-xl font-bold uppercase tracking-[0.2em] text-xs transition-all shadow-xl hover:shadow-[#0B422B]/20 flex items-center justify-center gap-3 group">
               Secure Entry <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </button>
