@@ -262,7 +262,7 @@ export default function LandingPage() {
           </div>
 
           {/* Right: Forest Green Content Block */}
-          <div className="w-full lg:w-[35%] bg-[#0B422B] p-12 lg:p-24 flex flex-col justify-center items-start text-white relative">
+          <div className="w-full lg:w-[35%] bg-[#0B422B] p-12 lg:p-24 flex flex-col justify-end lg:pb-32 items-start text-white relative">
             <motion.div
               key={`text-block-${currentSlide}`}
               initial={{ opacity: 0, x: 20 }}
@@ -273,44 +273,40 @@ export default function LandingPage() {
                 {heroSlides[currentSlide].subtitle}
               </h2>
               <h1 className="font-[family-name:var(--font-playfair)] text-5xl lg:text-7xl font-light leading-[1.1] mb-10 tracking-tight italic">
-                Seamless <br/> <span className="not-italic font-medium">Stays</span>
+                Seamless <br/> <span className="not-italic font-medium text-white/90">Stays</span>
               </h1>
               <p className="text-white/60 text-sm font-light leading-relaxed max-w-sm mb-12">
                 Experience the epitome of eco-sensitive luxury. Our sanctuaries are crafted for those who seek harmony between nature and comfort.
               </p>
               <button 
                 onClick={() => setIsMobileBookingOpen(true)}
-                className="group flex items-center gap-4 text-[#D4AF37] uppercase tracking-[0.3em] text-[10px] font-bold"
+                className="bg-white/10 hover:bg-white text-white hover:text-[#0B422B] border border-white/20 px-10 py-5 font-bold uppercase tracking-[0.3em] transition-all rounded text-[10px]"
               >
-                Book Your Sanctuary <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
+                Explore Now
               </button>
             </motion.div>
           </div>
         </div>
 
-        {/* Floating Desktop Booking Bar Integration */}
-        <div className={`hidden lg:block absolute left-1/2 -translate-x-1/2 z-40 transition-all duration-700 ease-in-out ${scrolled ? 'fixed top-0 w-full rounded-none' : 'bottom-[-40px] w-full max-w-[75rem]'}`}>
+        {/* Floating Desktop Booking Bar Integration - High Placement like Fern Hotels */}
+        <div className={`hidden lg:block absolute left-0 right-0 z-40 transition-all duration-700 ease-in-out ${scrolled ? 'fixed top-0 w-full rounded-none' : 'top-[15%] px-20'}`}>
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`transition-all duration-700 backdrop-blur-3xl overflow-visible ${scrolled ? 'bg-white/95 border-b border-black/5 shadow-2xl' : 'bg-white border border-[#0B422B]/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] rounded-2xl'}`}
+            className={`mx-auto transition-all duration-700 backdrop-blur-3xl overflow-visible ${scrolled ? 'bg-white/95 border-b border-black/5 shadow-2xl' : 'bg-white/90 border border-[#0B422B]/10 shadow-xl rounded-xl max-w-[80rem]'}`}
           >
-             <div className={`flex items-center justify-between transition-all duration-700 p-2 ${scrolled ? 'max-w-[85rem] mx-auto' : ''}`}>
+             <div className={`flex items-center justify-between transition-all duration-700 p-2 ${scrolled ? 'px-8' : ''}`}>
                  
                  {/* 1. Destination Dropdown */}
-                 <div className="flex-[1.2] py-4 px-10 border-r border-[#0B422B]/10 hover:bg-zinc-50 transition-all duration-300 cursor-pointer relative group"
+                 <div className="flex-1 py-4 px-8 border-r border-zinc-200 hover:bg-zinc-50 transition-all duration-300 cursor-pointer relative group flex items-center gap-4"
                       onClick={() => { setIsDestOpen(!isDestOpen); setIsDateOpen(false); setIsGuestOpen(false); }}>
-                    <div className="flex items-center gap-3 text-[#0B422B] font-[family-name:var(--font-playfair)]">
-                      <MapPin className="w-4 h-4 text-[#D4AF37]" /> 
-                      <span className="text-[17px] font-bold tracking-tight">{selectedDest || "Book Your Sanctuary"}</span>
-                      <ChevronDown className={`w-3 h-3 transition-transform ${isDestOpen ? 'rotate-180' : ''}`} />
-                    </div>
-                    <p className="text-[9px] uppercase tracking-[0.2em] font-bold text-[#0B422B]/40 mt-1 ml-7">Select Destination</p>
+                    <MapPin className="w-4 h-4 text-zinc-400" /> 
+                    <span className="text-[15px] font-medium text-[#0B422B] tracking-tight">{selectedDest || "Book Your Destination"}</span>
                     
                     <AnimatePresence>
                       {isDestOpen && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }}
-                                   className="absolute top-full left-0 w-full bg-white mt-4 shadow-2xl p-4 rounded-xl border border-zinc-100 z-50">
+                                   className="absolute top-[calc(100%+12px)] left-0 w-full bg-white shadow-2xl p-4 rounded-xl border border-zinc-100 z-50">
                           {resorts.map(r => (
                             <div key={r.id} onClick={(e) => { e.stopPropagation(); setSelectedDest(r.name); setIsDestOpen(false); }}
                                  className="px-5 py-4 text-xs font-bold uppercase tracking-widest text-[#0B422B] hover:text-[#D4AF37] hover:bg-zinc-50 rounded-xl transition-all border-b border-zinc-50 last:border-none">
@@ -323,20 +319,17 @@ export default function LandingPage() {
                  </div>
                  
                  {/* 2. Dual Pane Date Picker */}
-                 <div className="flex-[1.4] py-4 px-10 border-r border-[#0B422B]/10 hover:bg-zinc-50 transition-all duration-300 cursor-pointer relative"
+                 <div className="flex-1 py-4 px-8 border-r border-zinc-200 hover:bg-zinc-50 transition-all duration-300 cursor-pointer relative flex items-center gap-4"
                       onClick={() => { setIsDateOpen(!isDateOpen); setIsDestOpen(false); setIsGuestOpen(false); }}>
-                    <div className="flex items-center gap-3 text-[#0B422B] font-[family-name:var(--font-playfair)]">
-                      <Calendar className="w-4 h-4 text-[#D4AF37]" /> 
-                      <span className="text-[17px] font-bold tracking-tight">
-                         {startDate ? `${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – ${endDate ? endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Select Date'}` : "Select Dates"}
-                      </span>
-                    </div>
-                    <p className="text-[9px] uppercase tracking-[0.2em] font-bold text-[#0B422B]/40 mt-1 ml-7">Check-in / Check-out</p>
+                    <Calendar className="w-4 h-4 text-zinc-400" /> 
+                    <span className="text-[15px] font-medium text-[#0B422B] tracking-tight">
+                       {startDate ? `${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – ${endDate ? endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Select Date'}` : "Select Dates"}
+                    </span>
                     
                     <AnimatePresence>
                       {isDateOpen && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }}
-                                   className="absolute top-full right-0 w-[600px] bg-white mt-4 shadow-2xl p-8 rounded-[2rem] border border-zinc-100 z-50"
+                                   className="absolute top-[calc(100%+12px)] right-0 w-[600px] bg-white shadow-2xl p-8 rounded-[2rem] border border-zinc-100 z-50"
                                    onClick={(e) => e.stopPropagation()}>
                            <div className="grid grid-cols-2 gap-12">
                               {renderCalendar(0)}
@@ -348,19 +341,15 @@ export default function LandingPage() {
                  </div>
 
                  {/* 3. Guest Selector */}
-                 <div className="flex-[1] py-4 px-10 hover:bg-zinc-50 transition-all duration-300 cursor-pointer relative"
+                 <div className="w-[200px] py-4 px-8 hover:bg-zinc-50 transition-all duration-300 cursor-pointer relative flex items-center gap-4"
                       onClick={() => { setIsGuestOpen(!isGuestOpen); setIsDestOpen(false); setIsDateOpen(false); }}>
-                    <div className="flex items-center gap-3 text-[#0B422B] font-[family-name:var(--font-playfair)]">
-                      <Users className="w-4 h-4 text-[#D4AF37]" /> 
-                      <span className="text-[17px] font-bold tracking-tight">{adults + children} Guests</span>
-                      <ChevronDown className={`w-3 h-3 transition-transform ${isGuestOpen ? 'rotate-180' : ''}`} />
-                    </div>
-                    <p className="text-[9px] uppercase tracking-[0.2em] font-bold text-[#0B422B]/40 mt-1 ml-7">{adults} Adults, {children} Children</p>
+                    <Users className="w-4 h-4 text-zinc-400" /> 
+                    <span className="text-[15px] font-medium text-[#0B422B] tracking-tight">{adults + children} Guests</span>
 
                     <AnimatePresence>
                       {isGuestOpen && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }}
-                                   className="absolute top-full right-0 w-64 bg-white mt-4 shadow-2xl p-8 rounded-2xl border border-zinc-100 z-50"
+                                   className="absolute top-[calc(100%+12px)] right-0 w-64 bg-white shadow-2xl p-8 rounded-2xl border border-zinc-100 z-50"
                                    onClick={(e) => e.stopPropagation()}>
                            <div className="space-y-8">
                              <div className="flex items-center justify-between">
@@ -385,10 +374,9 @@ export default function LandingPage() {
                     </AnimatePresence>
                  </div>
 
-                 <div className="flex-[0.8] px-2 relative">
-                    {errorMsg && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute -top-6 left-0 w-full text-center text-[9px] font-bold text-red-500 uppercase tracking-widest">{errorMsg}</motion.div>}
+                 <div className="w-[220px] px-2 relative h-[56px]">
                     <button onClick={handleBookNow}
-                            className={`w-full h-[64px] bg-[#0B422B] hover:bg-[#D4AF37] text-white font-bold uppercase tracking-[0.2em] text-[10px] transition-all duration-300 shadow-xl hover:shadow-[#D4AF37]/30 ${scrolled ? 'rounded-xl' : 'rounded-xl'}`}>
+                            className="w-full h-full bg-[#0B422B] hover:bg-[#D4AF37] text-white font-bold uppercase tracking-[0.2em] text-[10px] transition-all duration-300 shadow-md rounded-lg">
                        BOOK NOW
                     </button>
                  </div>
