@@ -13,8 +13,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Lumina Resorts | Luxury Rethought",
-  description: "Experience the pinnacle of luxury and serenity at Lumina Resorts.",
+  title: "Luxury Resorts | Luxury Rethought",
+  description: "Experience the pinnacle of luxury and serenity at Luxury Resorts.",
 };
 
 export default function RootLayout({

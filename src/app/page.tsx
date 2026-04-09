@@ -326,7 +326,7 @@ export default function LandingPage() {
             <motion.div
               key={`text-block-${currentSlide}`}
               initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
             >
               <h2 className="text-[#D4AF37] uppercase text-[10px] font-bold tracking-[0.4em] mb-8">
