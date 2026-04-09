@@ -245,7 +245,7 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Responsive Hero Section */}
+      {/* Overhauled Luxury Resorts Hero Section */}
       <section className="relative w-full overflow-hidden">
         
         {/* MOBILE HERO: Full Background Slider (Visible on < lg screens) */}
@@ -296,7 +296,7 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* DESKTOP HERO: Fern-Style Split Layout (Visible on >= lg screens) */}
+        {/* DESKTOP HERO: Split Layout (Visible on >= lg screens) */}
         <div className="hidden lg:flex flex-row h-[85vh] bg-white">
           {/* Left: Cinematic Image Slider */}
           <div className="relative w-[65%] h-full overflow-hidden">
@@ -326,7 +326,7 @@ export default function LandingPage() {
             <motion.div
               key={`text-block-${currentSlide}`}
               initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
             >
               <h2 className="text-[#D4AF37] uppercase text-[10px] font-bold tracking-[0.4em] mb-8">
@@ -348,7 +348,7 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* Floating Desktop Booking Bar Integration - High Placement like Fern Hotels */}
+        {/* Floating Desktop Booking Bar Integration */}
         <div className={`hidden lg:block absolute left-0 right-0 z-40 transition-all duration-700 ease-in-out ${scrolled ? 'fixed top-0 w-full rounded-none' : 'top-[15%] px-20'}`}>
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
@@ -712,7 +712,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Expanded Footer matching Fern Hotels */}
+      {/* Professional Branded Footer */}
       <footer className="bg-zinc-950 text-white pt-24 pb-10">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 border-b border-white/10 pb-16">
             <div className="col-span-1 pr-0 lg:pr-8">
@@ -752,7 +752,7 @@ export default function LandingPage() {
                 <li><a href="#" className="hover:text-white transition-colors">Best Rate Guarantee</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Offers & Packages</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Plan an Event</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Vivaah by The Fern</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Vivaah by Luxury Resorts</a></li>
                 <li><a href="/services/" className="hover:text-white transition-colors">Our Services</a></li>
               </ul>
             </div>

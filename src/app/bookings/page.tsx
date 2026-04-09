@@ -94,7 +94,7 @@ function BookingContent() {
              <h1 className="font-[family-name:var(--font-playfair)] text-xl text-[#0B422B] font-bold tracking-tight">Luxury Resorts</h1>
           </div>
 
-          {/* Taj-Style Progress Stepper */}
+          {/* Professional Progress Stepper */}
           <div className="flex items-center gap-1 sm:gap-4 overflow-x-auto no-scrollbar pb-2 md:pb-0">
              <div className="flex items-center gap-2 whitespace-nowrap">
                 <span className="w-6 h-6 rounded-full bg-[#0B422B] text-white text-[10px] flex items-center justify-center font-bold">1</span>
@@ -176,7 +176,7 @@ function BookingContent() {
             </div>
           </div>
 
-          {/* Right: Sticky Summary Box (Taj Style) */}
+          {/* Right: Sticky Summary Box (Luxury Resorts Style) */}
           <div className="lg:col-span-4 lg:sticky lg:top-32 h-fit">
             <div className="bg-white rounded-3xl border border-zinc-100 p-8 shadow-2xl relative overflow-hidden">
                <div className="absolute top-0 left-0 w-full h-1.5 bg-[#D4AF37]" />
@@ -249,10 +249,10 @@ function BookingContent() {
         </div>
       </div>
       
-      {/* Taj-Style Trusted Footer bar */}
+      {/* Luxury Resorts Dedicated Footer bar */}
       <footer className="bg-zinc-950 text-white py-12">
          <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
-            <h4 className="font-[family-name:var(--font-playfair)] text-2xl italic mb-6">Experience Tajness with Luxury Resorts</h4>
+            <h4 className="font-[family-name:var(--font-playfair)] text-2xl italic mb-6">Experience the Pinnacle of Sanctuary with Luxury Resorts</h4>
             <div className="flex flex-wrap justify-center gap-12 grayscale opacity-40">
                <span className="text-xs font-bold uppercase tracking-widest italic group hover:opacity-100">Tripadvisor Certified</span>
                <span className="text-xs font-bold uppercase tracking-widest italic">Condé Nast Traveler</span>

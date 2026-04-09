@@ -294,7 +294,7 @@ export default function ServicesPage() {
           </button>
         </div>
       </div>
-      {/* Expanded Footer matching Fern Hotels */}
+      {/* Professional Branded Footer */}
       <footer className="bg-zinc-950 text-white pt-24 pb-10">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 border-b border-white/10 pb-16">
             <div className="col-span-1 pr-0 lg:pr-8">
@@ -334,7 +334,7 @@ export default function ServicesPage() {
                 <li><a href="#" className="hover:text-white transition-colors">Best Rate Guarantee</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Offers & Packages</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Plan an Event</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Vivaah by The Fern</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Vivaah by Luxury Resorts</a></li>
                 <li><a href="/services/" className="hover:text-white transition-colors">Our Services</a></li>
               </ul>
             </div>
