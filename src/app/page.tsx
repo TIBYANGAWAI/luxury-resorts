@@ -90,7 +90,17 @@ export default function LandingPage() {
       setTimeout(() => setErrorMsg(""), 3000);
       return;
     }
-    alert(`Booking: ${selectedDest}, ${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}, ${adults + children} Guests`);
+    
+    // Redirect to the new dedicated bookings page with selection data
+    const query = new URLSearchParams({
+      destination: selectedDest,
+      checkin: startDate.toISOString(),
+      checkout: endDate.toISOString(),
+      adults: adults.toString(),
+      children: children.toString()
+    }).toString();
+    
+    window.location.href = `/bookings?${query}`;
   };
 
   useEffect(() => {
