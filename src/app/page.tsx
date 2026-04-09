@@ -235,11 +235,61 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Overhauled Fern-Style Hero Section */}
-      <section className="relative w-full h-auto lg:h-[85vh] overflow-visible bg-white">
-        <div className="flex flex-col lg:flex-row h-full">
+      {/* Responsive Hero Section */}
+      <section className="relative w-full overflow-hidden">
+        
+        {/* MOBILE HERO: Full Background Slider (Visible on < lg screens) */}
+        <div className="lg:hidden relative w-full h-[90vh]">
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={currentSlide}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.5 }}
+              className="absolute inset-0"
+            >
+              <Image 
+                src={heroSlides[currentSlide].image} 
+                alt={heroSlides[currentSlide].title} 
+                fill 
+                className="object-cover" 
+                priority
+              />
+              <div className="absolute inset-0 bg-black/40" />
+            </motion.div>
+          </AnimatePresence>
+
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6">
+            <motion.h2 
+              key={`mob-sub-${currentSlide}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-[#D4AF37] uppercase text-[10px] font-bold tracking-[0.4em] mb-4"
+            >
+              {heroSlides[currentSlide].subtitle}
+            </motion.h2>
+            <motion.h1 
+              key={`mob-title-${currentSlide}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="font-[family-name:var(--font-playfair)] text-5xl text-white font-light italic mb-8"
+            >
+              {heroSlides[currentSlide].title}
+            </motion.h1>
+            <button 
+              onClick={() => setIsMobileBookingOpen(true)}
+              className="border border-white/40 bg-black/20 backdrop-blur-sm text-white px-10 py-4 font-bold uppercase tracking-[0.3em] text-[10px] rounded"
+            >
+              Explore Sanctuary
+            </button>
+          </div>
+        </div>
+
+        {/* DESKTOP HERO: Fern-Style Split Layout (Visible on >= lg screens) */}
+        <div className="hidden lg:flex flex-row h-[85vh] bg-white">
           {/* Left: Cinematic Image Slider */}
-          <div className="relative w-full lg:w-[65%] h-[50vh] lg:h-full overflow-hidden">
+          <div className="relative w-[65%] h-full overflow-hidden">
             <AnimatePresence mode="popLayout">
               <motion.div
                 key={currentSlide}
@@ -262,7 +312,7 @@ export default function LandingPage() {
           </div>
 
           {/* Right: Forest Green Content Block */}
-          <div className="w-full lg:w-[35%] bg-[#0B422B] p-12 lg:p-24 flex flex-col justify-end lg:pb-32 items-start text-white relative">
+          <div className="w-[35%] bg-[#0B422B] p-24 flex flex-col justify-end pb-32 items-start text-white relative">
             <motion.div
               key={`text-block-${currentSlide}`}
               initial={{ opacity: 0, x: 20 }}
@@ -272,7 +322,7 @@ export default function LandingPage() {
               <h2 className="text-[#D4AF37] uppercase text-[10px] font-bold tracking-[0.4em] mb-8">
                 {heroSlides[currentSlide].subtitle}
               </h2>
-              <h1 className="font-[family-name:var(--font-playfair)] text-5xl lg:text-7xl font-light leading-[1.1] mb-10 tracking-tight italic">
+              <h1 className="font-[family-name:var(--font-playfair)] text-7xl font-light leading-[1.1] mb-10 tracking-tight italic">
                 Seamless <br/> <span className="not-italic font-medium text-white/90">Stays</span>
               </h1>
               <p className="text-white/60 text-sm font-light leading-relaxed max-w-sm mb-12">
