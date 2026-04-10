@@ -173,9 +173,9 @@ export default function LandingPage() {
   };
 
   return (
-    <main className="min-h-screen bg-zinc-50 font-sans text-zinc-900 pb-[65px] md:pb-0 md:pt-[96px]">
+    <main className="min-h-screen bg-zinc-50 font-sans text-zinc-900 pb-[65px] md:pb-0">
       {/* Header */}
-      <header className={`fixed top-0 w-full z-50 transition-all duration-500 ease-in-out bg-white shadow-md ${scrolled ? 'md:-translate-y-full py-3' : 'translate-y-0 py-5'}`}>
+      <header className={`sticky top-0 w-full z-50 transition-all duration-500 ease-in-out bg-white shadow-md ${scrolled ? 'md:-translate-y-full py-3' : 'translate-y-0 py-5'}`}>
         <div className="max-w-[90rem] mx-auto px-4 md:px-8 flex items-center justify-between">
           
           {/* Mobile hamburger */}
