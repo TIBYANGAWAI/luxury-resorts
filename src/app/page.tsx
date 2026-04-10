@@ -918,6 +918,82 @@ export default function LandingPage() {
           </button>
         </div>
       </div>
+      {/* Mobile Menu Drawer */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[150] md:hidden"
+            />
+            {/* Drawer */}
+            <motion.div 
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed inset-y-0 left-0 w-[80%] max-w-sm bg-white z-[160] md:hidden flex flex-col shadow-2xl"
+            >
+              <div className="p-6 border-b border-zinc-100 flex justify-between items-center bg-[#FAF9F6]">
+                <div className="flex items-center gap-3">
+                  <div className="relative h-8 w-8">
+                    <Image src="/images/logo.png" alt="Logo" fill className="object-contain" />
+                  </div>
+                  <span className="font-[family-name:var(--font-playfair)] text-[#0B422B] font-bold tracking-tight">Luxury Resorts</span>
+                </div>
+                <button onClick={() => setIsMobileMenuOpen(false)} className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center">
+                  <X className="w-5 h-5 text-[#0B422B]" />
+                </button>
+              </div>
+
+              <nav className="flex-1 overflow-y-auto p-8">
+                <ul className="space-y-8">
+                  <li><a href="/" onClick={() => setIsMobileMenuOpen(false)} className="block text-xl font-medium text-[#0B422B] hover:text-[#D4AF37] transition-colors font-[family-name:var(--font-playfair)]">Home</a></li>
+                  <li><a href="/services" onClick={() => setIsMobileMenuOpen(false)} className="block text-xl font-medium text-[#0B422B] hover:text-[#D4AF37] transition-colors font-[family-name:var(--font-playfair)]">Our Services</a></li>
+                  <li><a href="#" onClick={() => setIsMobileMenuOpen(false)} className="block text-xl font-medium text-[#0B422B] hover:text-[#D4AF37] transition-colors font-[family-name:var(--font-playfair)]">Crown Collection</a></li>
+                  <li><a href="#" onClick={() => setIsMobileMenuOpen(false)} className="block text-xl font-medium text-[#0B422B] hover:text-[#D4AF37] transition-colors font-[family-name:var(--font-playfair)]">Plan an Event</a></li>
+                  <li><a href="#" onClick={() => setIsMobileMenuOpen(false)} className="block text-xl font-medium text-[#0B422B] hover:text-[#D4AF37] transition-colors font-[family-name:var(--font-playfair)]">Partner with Us</a></li>
+                </ul>
+                
+                <div className="mt-16 pt-12 border-t border-zinc-100">
+                  <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-400 mb-6 font-sans">Reservations</p>
+                  <a href="tel:+919372284069" className="flex items-center gap-4 text-[#0B422B] mb-8">
+                    <div className="w-10 h-10 rounded-full bg-[#0B422B]/5 flex items-center justify-center">
+                      <Phone className="w-5 h-5" />
+                    </div>
+                    <span className="font-bold tracking-tight">+91 93722 84069</span>
+                  </a>
+                  
+                  <div className="flex gap-4">
+                    <div className="w-10 h-10 rounded-full bg-zinc-50 flex items-center justify-center text-[#0B422B]">
+                      <span className="font-serif italic font-bold">fb</span>
+                    </div>
+                    <div className="w-10 h-10 rounded-full bg-zinc-50 flex items-center justify-center text-[#0B422B]">
+                      <span className="font-serif italic font-bold">ig</span>
+                    </div>
+                    <div className="w-10 h-10 rounded-full bg-zinc-50 flex items-center justify-center text-[#0B422B]">
+                      <span className="font-serif italic font-bold">in</span>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+
+              <div className="p-8 bg-[#FAF9F6] border-t border-zinc-100">
+                <button 
+                  onClick={() => { setIsMobileMenuOpen(false); setIsMobileBookingOpen(true); }}
+                  className="w-full bg-[#0B422B] text-white py-5 rounded-xl font-bold uppercase tracking-[0.3em] text-[10px] shadow-lg"
+                >
+                  Book Your Sanctuary
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
