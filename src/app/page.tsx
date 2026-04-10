@@ -245,107 +245,56 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Overhauled Luxury Resorts Hero Section */}
-      <section className="relative w-full overflow-hidden">
-        
-        {/* MOBILE HERO: Full Background Slider (Visible on < lg screens) */}
-        <div className="lg:hidden relative w-full h-[90vh]">
-          <AnimatePresence mode="wait">
-            <motion.div 
-              key={currentSlide}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.5 }}
-              className="absolute inset-0"
-            >
-              <Image 
-                src={heroSlides[currentSlide].image} 
-                alt={heroSlides[currentSlide].title} 
-                fill 
-                className="object-cover" 
-                priority
-              />
-              <div className="absolute inset-0 bg-black/40" />
-            </motion.div>
-          </AnimatePresence>
+      {/* Cinematic Video Hero Section (Taj Hotels Style) */}
+      <section className="relative w-full h-screen overflow-hidden bg-zinc-950">
+        <video 
+          autoPlay 
+          muted 
+          loop 
+          playsInline 
+          poster={heroSlides[0].image}
+          className="absolute inset-0 w-full h-full object-cover z-0"
+        >
+          <source src="/videos/hero-background.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
 
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6">
-            <motion.h2 
-              key={`mob-sub-${currentSlide}`}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-[#D4AF37] uppercase text-[10px] font-bold tracking-[0.4em] mb-4"
-            >
-              {heroSlides[currentSlide].subtitle}
-            </motion.h2>
-            <motion.h1 
-              key={`mob-title-${currentSlide}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="font-[family-name:var(--font-playfair)] text-5xl text-white font-light italic mb-8"
-            >
-              {heroSlides[currentSlide].title}
-            </motion.h1>
-            <button 
-              onClick={() => setIsMobileBookingOpen(true)}
-              className="border border-white/40 bg-black/20 backdrop-blur-sm text-white px-10 py-4 font-bold uppercase tracking-[0.3em] text-[10px] rounded"
-            >
-              Explore Sanctuary
-            </button>
-          </div>
-        </div>
+        {/* Cinematic Overlays */}
+        <div className="absolute inset-0 bg-black/30 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent z-10" />
 
-        {/* DESKTOP HERO: Split Layout (Visible on >= lg screens) */}
-        <div className="hidden lg:flex flex-row h-[85vh] bg-white">
-          {/* Left: Cinematic Image Slider */}
-          <div className="relative w-[65%] h-full overflow-hidden">
-            <AnimatePresence mode="popLayout">
-              <motion.div
-                key={currentSlide}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1.5 }}
-                className="absolute inset-0"
-              >
-                <Image
-                  src={heroSlides[currentSlide].image}
-                  alt={heroSlides[currentSlide].subtitle}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                <div className="absolute inset-0 bg-black/10" />
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Right: Forest Green Content Block */}
-          <div className="w-[35%] bg-[#0B422B] p-24 flex flex-col justify-end pb-32 items-start text-white relative">
-            <motion.div
-              key={`text-block-${currentSlide}`}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1 }}
-            >
-              <h2 className="text-[#D4AF37] uppercase text-[10px] font-bold tracking-[0.4em] mb-8">
-                {heroSlides[currentSlide].subtitle}
-              </h2>
-              <h1 className="font-[family-name:var(--font-playfair)] text-7xl font-light leading-[1.1] mb-10 tracking-tight italic">
-                Seamless <br/> <span className="not-italic font-medium text-white/90">Stays</span>
-              </h1>
-              <p className="text-white/60 text-sm font-light leading-relaxed max-w-sm mb-12">
-                Experience the epitome of eco-sensitive luxury. Our sanctuaries are crafted for those who seek harmony between nature and comfort.
-              </p>
-              <button 
-                onClick={() => setIsMobileBookingOpen(true)}
-                className="bg-white/10 hover:bg-white text-white hover:text-[#0B422B] border border-white/20 px-10 py-5 font-bold uppercase tracking-[0.3em] transition-all rounded text-[10px]"
-              >
-                Explore Now
-              </button>
-            </motion.div>
-          </div>
+        {/* Hero Content - Centered for Maximum Impact */}
+        <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-6 md:pt-20">
+          <motion.div
+             initial={{ opacity: 0, y: 30 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ duration: 1.2, ease: "easeOut" }}
+             className="max-w-4xl"
+          >
+            <h2 className="text-[#D4AF37] uppercase text-[10px] md:text-xs font-bold tracking-[0.6em] mb-6 drop-shadow-lg">
+               The Pinnacle of Sanctuary
+            </h2>
+            <h1 className="font-[family-name:var(--font-playfair)] text-5xl md:text-8xl text-white font-light leading-[1.1] mb-12 tracking-tight italic">
+               Seamless <span className="not-italic font-medium text-white/90">Stays</span>
+            </h1>
+            <p className="text-white/80 text-sm md:text-base font-light leading-relaxed max-w-xl mx-auto mb-16 px-4">
+               Experience the epitome of eco-sensitive luxury. Our sanctuaries are crafted for those who seek harmony between nature and comfort.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+               <button 
+                 onClick={() => setIsMobileBookingOpen(true)}
+                 className="w-full sm:w-auto bg-[#D4AF37] hover:bg-white text-white hover:text-[#0B422B] px-12 py-5 font-bold uppercase tracking-[0.3em] transition-all rounded text-[11px] shadow-2xl"
+               >
+                 Discover Sanctuaries
+               </button>
+               <button 
+                 onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
+                 className="w-full sm:w-auto bg-transparent hover:bg-white/10 text-white border border-white/40 px-12 py-5 font-bold uppercase tracking-[0.3em] transition-all rounded text-[11px] backdrop-blur-sm"
+               >
+                 Our Story
+               </button>
+            </div>
+          </motion.div>
         </div>
 
         {/* Floating Desktop Booking Bar Integration */}
