@@ -252,7 +252,7 @@ export default function LandingPage() {
           muted 
           loop 
           playsInline 
-          poster={heroSlides[0].image}
+          poster="/images/hero-fallback.jpg"
           className="absolute inset-0 w-full h-full object-cover z-0"
         >
           <source src="/videos/hero-background.mp4" type="video/mp4" />
@@ -260,7 +260,7 @@ export default function LandingPage() {
         </video>
 
         {/* Cinematic Overlays */}
-        <div className="absolute inset-0 bg-black/30 z-10" />
+        <div className="absolute inset-0 bg-black/40 z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent z-10" />
 
         {/* Hero Content - Centered for Maximum Impact */}
