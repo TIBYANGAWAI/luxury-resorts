@@ -245,14 +245,13 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Cinematic Video Hero Section (Taj Hotels Style) */}
-      <section className="relative w-full h-screen overflow-hidden bg-zinc-950">
+      {/* Cinematic Video Hero Section (Exclusively Video) */}
+      <section className="relative w-full h-screen overflow-hidden bg-[#0B422B]">
         <video 
           autoPlay 
           muted 
           loop 
           playsInline 
-          poster="/images/hero-fallback.jpg"
           className="absolute inset-0 w-full h-full object-cover z-0"
         >
           <source src="/videos/hero-background.mp4" type="video/mp4" />
