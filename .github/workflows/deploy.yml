@@ -38,4 +38,6 @@ jobs:
           security: loose
           protocol: ftp
           port: 21
+          exclude: |
+            **/videos/**
 
