@@ -38,7 +38,7 @@ jobs:
           security: loose
           protocol: ftps
           port: 21
-          parallel: 1
+          dangerous-clean-slate: false
           timeout: 900000
           exclude: |
             videos/**
