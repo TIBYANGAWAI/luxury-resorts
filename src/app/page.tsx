@@ -245,13 +245,14 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Cinematic Video Hero Section (Exclusively Video) */}
+      {/* Cinematic Video Hero Section (CDN Optimized) */}
       <section className="relative w-full h-screen overflow-hidden bg-[#0B422B]">
         <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline 
+          autoPlay={true}
+          muted={true} 
+          loop={true} 
+          playsInline={true} 
+          preload="auto"
           className="absolute inset-0 w-full h-full object-cover z-0"
         >
           <source src="/videos/hero-background.mp4" type="video/mp4" />
