@@ -209,30 +209,96 @@ function BookingContent() {
             </div>
           </div>
 
-                       <div>
-                          <p className="text-[10px] uppercase tracking-widest font-bold text-zinc-400 mb-1">Total Payable</p>
-                          <p className="text-3xl font-bold text-[#0B422B]">₹{totalAmount.toLocaleString()}</p>
-                          <p className="text-[8px] text-zinc-400 italic">Inclusive of all taxes</p>
-                       </div>
-                    </div>
-                    <button 
-                      className="w-full bg-[#0B422B] hover:bg-[#D4AF37] text-white mt-8 py-5 rounded-xl font-bold uppercase tracking-[0.3em] text-[10px] transition-all flex items-center justify-center gap-4 group"
-                    >
-                      Book Your Experience <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
-                    </button>
-                 </div>
-               ) : (
-                 <div className="py-8 text-center bg-zinc-50 rounded-2xl border border-dashed border-zinc-200">
-                    <p className="text-[10px] uppercase tracking-widest font-bold text-zinc-400">Please select a room to continue</p>
-                 </div>
-               )}
+          {/* Right: Sticky Summary Box */}
+          <div className="lg:w-[400px]">
+             <div className="sticky top-32 space-y-6">
+                <div className="bg-[#0B422B] text-white rounded-2xl p-8 shadow-2xl relative overflow-hidden">
+                   {/* Decorative circle */}
+                   <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/5 rounded-full" />
+                   
+                   <h3 className="font-[family-name:var(--font-playfair)] text-2xl italic mb-8 border-b border-white/10 pb-4">Booking Summary</h3>
+                   
+                   <div className="space-y-6">
+                      <div className="flex items-center gap-4">
+                         <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
+                            <MapPin className="w-5 h-5 text-[#D4AF37]" />
+                         </div>
+                         <div>
+                            <span className="block text-[9px] uppercase tracking-widest text-white/40 font-bold">Sanctuary</span>
+                            <span className="text-sm font-medium">{destination}</span>
+                         </div>
+                      </div>
 
-               <div className="mt-8 flex items-center gap-3 justify-center text-[8px] uppercase tracking-widest font-bold text-zinc-400">
-                  <ShieldCheck className="w-3 h-3 text-green-500" /> Secure checkout powered by Luxury Lagoon Resort
-               </div>
-            </div>
+                      <div className="flex items-center gap-4">
+                         <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
+                            <Calendar className="w-5 h-5 text-[#D4AF37]" />
+                         </div>
+                         <div className="flex-1 grid grid-cols-2 gap-4">
+                            <div>
+                               <span className="block text-[9px] uppercase tracking-widest text-white/40 font-bold">Check In</span>
+                               <span className="text-sm font-medium">{checkin.toLocaleDateString('default', { month: 'short', day: 'numeric' })}</span>
+                            </div>
+                            <div>
+                               <span className="block text-[9px] uppercase tracking-widest text-white/40 font-bold">Check Out</span>
+                               <span className="text-sm font-medium">{checkout.toLocaleDateString('default', { month: 'short', day: 'numeric' })}</span>
+                            </div>
+                         </div>
+                      </div>
+
+                      <div className="flex items-center gap-4">
+                         <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
+                            <Users className="w-5 h-5 text-[#D4AF37]" />
+                         </div>
+                         <div>
+                            <span className="block text-[9px] uppercase tracking-widest text-white/40 font-bold">Occupancy</span>
+                            <span className="text-sm font-medium">{adults} Adults, {children} Children</span>
+                         </div>
+                      </div>
+
+                      {selectedRoom && (
+                        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="pt-6 border-t border-white/10 space-y-4">
+                           <div className="flex justify-between items-center">
+                              <span className="text-white/60 text-sm">{selectedRoom.name} x {nights} nights</span>
+                              <span className="font-bold">₹{totalAmount.toLocaleString()}</span>
+                           </div>
+                           <div className="flex justify-between items-center text-[#D4AF37]">
+                              <span className="text-sm">Taxes & Fees</span>
+                              <span className="font-bold">Inclusive</span>
+                           </div>
+                           <div className="pt-4 flex justify-between items-end border-t border-white/20">
+                              <div>
+                                 <span className="block text-[10px] uppercase tracking-[0.2em] font-bold text-white/40">Total Amount</span>
+                                 <span className="text-3xl font-bold font-[family-name:var(--font-playfair)] italic">₹{totalAmount.toLocaleString()}</span>
+                              </div>
+                              <span className="text-[10px] bg-[#D4AF37] px-2 py-1 rounded text-white font-bold uppercase tracking-widest mb-1 animate-pulse">Best Price</span>
+                           </div>
+                        </motion.div>
+                      )}
+                   </div>
+
+                   <button 
+                     disabled={!selectedRoom}
+                     className={`w-full mt-10 py-5 rounded-xl font-bold uppercase tracking-[0.3em] text-[11px] transition-all flex items-center justify-center gap-3 ${selectedRoom ? 'bg-[#D4AF37] text-white hover:bg-white hover:text-[#0B422B] shadow-xl' : 'bg-white/10 text-white/40 cursor-not-allowed'}`}
+                   >
+                     Confirm Reservation <ArrowRight className="w-4 h-4" />
+                   </button>
+                </div>
+
+                <div className="bg-white border border-zinc-200 rounded-2xl p-6 flex items-center gap-4 shadow-sm">
+                   <div className="w-12 h-12 rounded-full bg-[#0B422B]/5 flex items-center justify-center">
+                      <ShieldCheck className="w-6 h-6 text-[#0B422B]" />
+                   </div>
+                   <div>
+                      <span className="block text-sm font-bold text-[#0B422B]">Safe & Secure</span>
+                      <span className="text-[11px] text-zinc-400">Encrypted payment & verified privacy.</span>
+                   </div>
+                </div>
+                
+                <div className="mt-8 flex items-center gap-3 justify-center text-[8px] uppercase tracking-widest font-bold text-zinc-400">
+                   <ShieldCheck className="w-3 h-3 text-green-500" /> Secure checkout powered by Luxury Lagoon Resort
+                </div>
+             </div>
           </div>
-
         </div>
       </main>
       
