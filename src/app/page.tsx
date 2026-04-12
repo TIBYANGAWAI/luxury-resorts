@@ -349,8 +349,15 @@ export default function LandingPage() {
                     </AnimatePresence>
                  </div>
 
+                 {/* 4. Book Button */}
                  <div className="p-2">
-                    <button onClick={handleBookNow}
+                    <button onClick={handleBookNow} 
+                            className="bg-[#0B422B] hover:bg-[#0e5437] text-white h-[60px] px-12 rounded-lg font-bold uppercase tracking-[0.2em] text-[11px] transition-all flex items-center justify-center gap-3">
+                       {errorMsg ? errorMsg : "Check Availability"} <ArrowRight className="w-4 h-4" />
+                    </button>
+                 </div>
+             </div>
+          </motion.div>
         </div>
       </section>
 

@@ -228,23 +228,33 @@ function BookingContent() {
                )}
 
                <div className="mt-8 flex items-center gap-3 justify-center text-[8px] uppercase tracking-widest font-bold text-zinc-400">
-                  <ShieldCheck className="w-3 h-3 text-green-500" /> Secure checkout powered by DigiAdda
+                  <ShieldCheck className="w-3 h-3 text-green-500" /> Secure checkout powered by Luxury Lagoon Resort
                </div>
             </div>
           </div>
 
         </div>
-      </div>
+      </main>
       
-      {/* Luxury Resorts Dedicated Footer bar */}
-      <footer className="bg-zinc-950 text-white py-12">
-         <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
-            <h4 className="font-[family-name:var(--font-playfair)] text-2xl italic mb-6">Experience the Pinnacle of Sanctuary with Luxury Resorts</h4>
-            <div className="flex flex-wrap justify-center gap-12 grayscale opacity-40">
-               <span className="text-xs font-bold uppercase tracking-widest italic group hover:opacity-100">Tripadvisor Certified</span>
-               <span className="text-xs font-bold uppercase tracking-widest italic">Condé Nast Traveler</span>
-               <span className="text-xs font-bold uppercase tracking-widest italic">Forbes Travel Guide</span>
+      {/* Luxury Lagoon Resort Dedicated Footer bar */}
+      <footer className="bg-[#0B422B] text-white py-12 mt-20">
+         <div className="max-w-7xl mx-auto px-6 text-center">
+            <h4 className="font-[family-name:var(--font-playfair)] text-2xl italic mb-6">Experience the Pinnacle of Sanctuary with Luxury Lagoon Resort</h4>
+            <div className="flex items-center justify-center gap-8 mb-8">
+               <div className="flex flex-col items-center">
+                  <Wifi className="w-5 h-5 text-[#D4AF37] mb-2" />
+                  <span className="text-[9px] uppercase tracking-widest font-bold">Free High-Speed Wi-Fi</span>
+               </div>
+               <div className="flex flex-col items-center">
+                  <Coffee className="w-5 h-5 text-[#D4AF37] mb-2" />
+                  <span className="text-[9px] uppercase tracking-widest font-bold">Gourmet Breakfast</span>
+               </div>
+               <div className="flex flex-col items-center">
+                  <ShieldCheck className="w-5 h-5 text-[#D4AF37] mb-2" />
+                  <span className="text-[9px] uppercase tracking-widest font-bold">Best Rate Guarantee</span>
+               </div>
             </div>
+            <p className="text-white/30 text-[9px] uppercase tracking-widest font-bold">© 2026 Luxury Lagoon Resort Portfolio. Bhatkal, Karnataka.</p>
          </div>
       </footer>
     </div>
