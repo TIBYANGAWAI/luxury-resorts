@@ -245,19 +245,33 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Cinematic Video Hero Section (CDN Optimized) */}
+      {/* Cinematic Hero Section (Responsive CDN) */}
       <section className="relative w-full h-screen overflow-hidden bg-[#0B422B]">
-        <video 
-          autoPlay={true}
-          muted={true} 
-          loop={true} 
-          playsInline={true} 
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-cover z-0"
-        >
-          <source src="/videos/hero-background.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        {/* Mobile: High-End Static Background (Fast Loading) */}
+        <div className="md:hidden absolute inset-0 z-0">
+          <Image 
+            src="/images/slider_1.jpg" 
+            alt="Luxury Resort Sanctuary" 
+            fill 
+            className="object-cover" 
+            priority
+          />
+        </div>
+
+        {/* Desktop: Cloudinary Cinematic Video Background */}
+        <div className="hidden md:block absolute inset-0 z-0">
+          <video 
+            autoPlay={true}
+            muted={true} 
+            loop={true} 
+            playsInline={true} 
+            preload="auto"
+            className="w-full h-full object-cover"
+          >
+            <source src="https://res.cloudinary.com/dtduolhdc/video/upload/v1776001611/K_K_Developers_Lagoon_Resort_Qm_Lowres_1_jipkac.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
 
         {/* Cinematic Overlays */}
         <div className="absolute inset-0 bg-black/40 z-10" />

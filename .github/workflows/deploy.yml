@@ -36,9 +36,9 @@ jobs:
           server-dir: ./
           state-name: .ftp-deploy-sync-state.json
           security: loose
-          protocol: ftps
+          protocol: ftp
           port: 21
-          dangerous-clean-slate: false
           timeout: 900000
           exclude: |
             videos/**
+
