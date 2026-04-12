@@ -13,8 +13,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Luxury Resorts | Luxury Rethought",
-  description: "Experience the pinnacle of luxury and serenity at Luxury Resorts.",
+  title: "Luxury Lagoon Resort | Premium Stays in Bhatkal",
+  description: "Experience the pinnacle of luxury and serenity at Luxury Lagoon Resort, Bhatkal's premier sanctuary portfolio.",
 };
 
 export default function RootLayout({

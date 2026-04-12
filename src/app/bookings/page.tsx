@@ -20,8 +20,11 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 
 const roomTypes = [
+  // Luxury Lagoon Resort (NH Bhatkal)
   { 
     id: 1, 
+    property: "Luxury Lagoon Resort",
+    location: "NH Bhatkal",
     name: "Deluxe Room (King/Twin)", 
     price: 5000, 
     img: "/images/interior.png", 
@@ -30,6 +33,8 @@ const roomTypes = [
   },
   { 
     id: 2, 
+    property: "Luxury Lagoon Resort",
+    location: "NH Bhatkal",
     name: "Luxury Room (King)", 
     price: 6000, 
     img: "/images/resort_2.png", 
@@ -38,6 +43,8 @@ const roomTypes = [
   },
   { 
     id: 3, 
+    property: "Luxury Lagoon Resort",
+    location: "NH Bhatkal",
     name: "Executive Suite Room", 
     price: 8000, 
     img: "/images/resort_1.png", 
@@ -46,20 +53,36 @@ const roomTypes = [
   },
   { 
     id: 4, 
+    property: "Luxury Lagoon Resort",
+    location: "NH Bhatkal",
     name: "Presidential Suit Villa", 
     price: 25000, 
     img: "/images/hero.png", 
     amenities: ["Private Pool", "Private Chef", "Butler Service", "Unending Panoramic View"],
     description: "The ultimate expression of luxury, offering unmatched privacy and grandeur."
   },
+  // The Jungle Stay
   { 
-    id: 5, 
-    name: "Luxury Cottage", 
-    price: 12000, 
-    img: "/images/resort_3.png", 
-    amenities: ["Secluded Location", "Outdoor Rain Shower", "Private Sun Deck"],
-    description: "Charming, private cottages nestled in nature for a serene escape."
+    id: 6, 
+    property: "The Jungle Stay",
+    location: "Sagar Road, Bhatkal",
+    name: "Premium Forest Cabin", 
+    price: 10000, 
+    img: "/images/brand-jungle.png", 
+    amenities: ["Secluded Location", "Nature Trails", "Eco-friendly Cabin"],
+    description: "Experience deep harmony with the forest in our premium handcrafted cabins."
   },
+  // Luxury Beach House
+  { 
+    id: 7, 
+    property: "Luxury Beach House",
+    location: "Jali Bhatkal",
+    name: "Private Oceanfront Villa", 
+    price: 40000, 
+    img: "/images/brand-beach.png", 
+    amenities: ["Private Jali Beach Access", "Private Pool", "Butler Service"],
+    description: "Ultra-luxury oceanfront experience with the sounds of the Arabian Sea as your soundtrack."
+  }
 ];
 
 function BookingContent() {
@@ -67,7 +90,7 @@ function BookingContent() {
   const [selectedRoomId, setSelectedRoomId] = useState<number | null>(null);
   
   // States from URL
-  const destination = searchParams.get("destination") || "The Emerald Forest Resort";
+  const destination = searchParams.get("destination") || "Luxury Lagoon Resort";
   const checkinStr = searchParams.get("checkin");
   const checkoutStr = searchParams.get("checkout");
   const adults = searchParams.get("adults") || "2";
@@ -78,6 +101,12 @@ function BookingContent() {
   
   const diffTime = Math.abs(checkout.getTime() - checkin.getTime());
   const nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) || 1;
+
+  // Filter rooms by destination property
+  const filteredRooms = roomTypes.filter(r => r.property === destination);
+  
+  // If destination doesn't match any property (or is empty), show all
+  const displayRooms = filteredRooms.length > 0 ? filteredRooms : roomTypes;
 
   const selectedRoom = roomTypes.find(r => r.id === selectedRoomId);
   const totalAmount = selectedRoom ? selectedRoom.price * nights : 0;
@@ -91,137 +120,95 @@ function BookingContent() {
              <div className="w-10 h-10 relative">
                <Image src="/images/logo.png" alt="Logo" fill className="object-contain" />
              </div>
-             <h1 className="font-[family-name:var(--font-playfair)] text-xl text-[#0B422B] font-bold tracking-tight">Luxury Resorts</h1>
+             <h1 className="font-[family-name:var(--font-playfair)] text-xl text-[#0B422B] font-bold tracking-tight">Luxury Lagoon Resort</h1>
           </div>
 
           {/* Professional Progress Stepper */}
           <div className="flex items-center gap-1 sm:gap-4 overflow-x-auto no-scrollbar pb-2 md:pb-0">
              <div className="flex items-center gap-2 whitespace-nowrap">
                 <span className="w-6 h-6 rounded-full bg-[#0B422B] text-white text-[10px] flex items-center justify-center font-bold">1</span>
-                <span className="text-[10px] uppercase tracking-widest font-bold text-[#0B422B]">Select Room</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[#0B422B]">Sanctury</span>
              </div>
-             <ChevronRight className="w-4 h-4 text-zinc-300 flex-shrink-0" />
+             <ChevronRight className="w-3 h-3 text-zinc-300 flex-shrink-0" />
              <div className="flex items-center gap-2 whitespace-nowrap opacity-40">
-                <span className="w-6 h-6 rounded-full bg-zinc-400 text-white text-[10px] flex items-center justify-center font-bold">2</span>
-                <span className="text-[10px] uppercase tracking-widest font-bold text-zinc-600">Personal Details</span>
+                <span className="w-6 h-6 rounded-full bg-zinc-200 text-zinc-600 text-[10px] flex items-center justify-center font-bold">2</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Details</span>
              </div>
-             <ChevronRight className="w-4 h-4 text-zinc-300 flex-shrink-0" />
+             <ChevronRight className="w-3 h-3 text-zinc-300 flex-shrink-0" />
              <div className="flex items-center gap-2 whitespace-nowrap opacity-40">
-                <span className="w-6 h-6 rounded-full bg-zinc-400 text-white text-[10px] flex items-center justify-center font-bold">3</span>
-                <span className="text-[10px] uppercase tracking-widest font-bold text-zinc-600">Confirmation</span>
+                <span className="w-6 h-6 rounded-full bg-zinc-200 text-zinc-600 text-[10px] flex items-center justify-center font-bold">3</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Confirm</span>
              </div>
           </div>
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <main className="max-w-7xl mx-auto px-6 py-12">
+        <div className="flex flex-col lg:flex-row gap-12">
           
-          {/* Left: Room Selection Grid */}
-          <div className="lg:col-span-8 space-y-10">
-            <div>
-              <h2 className="font-[family-name:var(--font-playfair)] text-3xl text-[#0B422B] mb-2">{destination}</h2>
-              <div className="flex items-center gap-6 text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
-                 <span className="flex items-center gap-2"><Calendar className="w-3.5 h-3.5" /> {checkin.toLocaleDateString('en-GB')} - {checkout.toLocaleDateString('en-GB')}</span>
-                 <span className="flex items-center gap-2"><Users className="w-3.5 h-3.5" /> {adults} Adults, {children} Children</span>
-              </div>
+          {/* Left: Rooms List */}
+          <div className="flex-1 space-y-8">
+            <div className="mb-10">
+               <span className="text-[10px] text-[#D4AF37] uppercase tracking-[0.4em] font-bold mb-2 block">Bhatkal, Karnataka</span>
+               <h2 className="font-[family-name:var(--font-playfair)] text-4xl text-[#0B422B] italic">{destination}</h2>
+               <p className="text-zinc-500 text-sm mt-2">Available accommodations for your selected dates</p>
             </div>
 
             <div className="space-y-6">
-              {roomTypes.map((room) => (
+              {displayRooms.map((room) => (
                 <motion.div 
                   key={room.id}
                   whileHover={{ y: -4 }}
-                  className={`bg-white rounded-2xl overflow-hidden border transition-all duration-300 flex flex-col md:flex-row ${selectedRoomId === room.id ? 'border-[#D4AF37] ring-1 ring-[#D4AF37] shadow-xl' : 'border-zinc-100 hover:border-zinc-300 shadow-sm'}`}
+                  className={`relative bg-white border rounded-2xl overflow-hidden transition-all duration-300 ${selectedRoomId === room.id ? 'border-[#D4AF37] shadow-2xl ring-1 ring-[#D4AF37]' : 'border-zinc-100 shadow-xl'}`}
                 >
-                  <div className="md:w-2/5 relative h-64 md:h-auto overflow-hidden">
-                    <Image src={room.img} alt={room.name} fill className="object-cover" />
-                    <div className="absolute top-4 left-4">
-                       <span className="bg-[#0B422B] text-white text-[10px] px-3 py-1 font-bold uppercase tracking-widest rounded-full">Sanitized</span>
+                  <div className="flex flex-col md:flex-row">
+                    <div className="md:w-72 h-64 md:h-auto relative">
+                      <Image src={room.img} alt={room.name} fill className="object-cover" />
+                      {selectedRoomId === room.id && (
+                        <div className="absolute top-4 left-4 bg-[#D4AF37] text-white px-3 py-1 rounded text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
+                           <Check className="w-3 h-3" /> Selected
+                        </div>
+                      )}
                     </div>
-                  </div>
-                  
-                  <div className="md:w-3/5 p-8 flex flex-col justify-between">
-                    <div>
+                    
+                    <div className="flex-1 p-8">
                       <div className="flex justify-between items-start mb-4">
-                        <h3 className="font-[family-name:var(--font-playfair)] text-2xl text-[#0B422B] font-bold">{room.name}</h3>
+                        <div>
+                           <h3 className="font-[family-name:var(--font-playfair)] text-2xl text-[#0B422B] mb-1">{room.name}</h3>
+                           <div className="flex items-center gap-2 text-[10px] text-zinc-400 font-bold uppercase tracking-widest">
+                             <MapPin className="w-3 h-3" /> {room.location}
+                           </div>
+                        </div>
                         <div className="text-right">
-                          <p className="text-[9px] uppercase tracking-widest text-zinc-400 font-bold mb-1">Starting from</p>
-                          <p className="text-2xl font-bold text-[#0B422B]">₹{room.price.toLocaleString()}</p>
-                          <p className="text-[9px] uppercase tracking-widest text-zinc-400 font-bold">Per Night</p>
+                          <span className="text-sm text-zinc-400 line-through block">₹{Math.round(room.price * 1.2)}</span>
+                          <span className="text-2xl font-bold text-[#0B422B]">₹{room.price.toLocaleString()}</span>
+                          <span className="text-[10px] text-zinc-400 block uppercase font-bold tracking-tighter">Per Night</span>
                         </div>
                       </div>
-                      
-                      <p className="text-sm text-zinc-500 mb-6 leading-relaxed">{room.description}</p>
-                      
-                      <div className="grid grid-cols-2 gap-y-3 mb-8">
-                        {room.amenities.map(amenity => (
-                          <div key={amenity} className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.1em] text-zinc-600">
-                             <Check className="w-3.5 h-3.5 text-[#D4AF37]" /> {amenity}
+
+                      <p className="text-zinc-500 text-sm leading-relaxed mb-6 font-light">{room.description}</p>
+
+                      <div className="flex flex-wrap gap-4 mb-8">
+                        {room.amenities.map(a => (
+                          <div key={a} className="flex items-center gap-2 text-[11px] text-zinc-600 bg-zinc-50 px-3 py-1 rounded-full border border-zinc-100">
+                             <div className="w-1 h-1 rounded-full bg-[#D4AF37]" /> {a}
                           </div>
                         ))}
                       </div>
-                    </div>
 
-                    <button 
-                      onClick={() => setSelectedRoomId(room.id)}
-                      className={`w-full py-4 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] transition-all ${selectedRoomId === room.id ? 'bg-[#D4AF37] text-white' : 'bg-[#0B422B] text-white hover:bg-[#1a4a35]'}`}
-                    >
-                      {selectedRoomId === room.id ? 'Selected' : 'Select Room'}
-                    </button>
+                      <button 
+                        onClick={() => setSelectedRoomId(room.id)}
+                        className={`w-full md:w-auto px-10 py-4 rounded-lg font-bold uppercase tracking-[0.2em] text-[10px] transition-all ${selectedRoomId === room.id ? 'bg-[#D4AF37] text-white' : 'bg-[#0B422B] text-white hover:bg-[#135a3d]'}`}
+                      >
+                        {selectedRoomId === room.id ? "Room Selected" : "Select Sanctuary"}
+                      </button>
+                    </div>
                   </div>
                 </motion.div>
               ))}
             </div>
           </div>
 
-          {/* Right: Sticky Summary Box (Luxury Resorts Style) */}
-          <div className="lg:col-span-4 lg:sticky lg:top-32 h-fit">
-            <div className="bg-white rounded-3xl border border-zinc-100 p-8 shadow-2xl relative overflow-hidden">
-               <div className="absolute top-0 left-0 w-full h-1.5 bg-[#D4AF37]" />
-               
-               <h3 className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#D4AF37] mb-8">Your Stay Summary</h3>
-               
-               <div className="space-y-6 mb-10 pb-8 border-b border-zinc-100">
-                  <div className="flex items-start gap-4">
-                    <MapPin className="w-5 h-5 text-[#0B422B] flex-shrink-0" />
-                    <div>
-                       <p className="text-[9px] uppercase tracking-widest font-bold text-zinc-400 mb-0.5">Destiantion</p>
-                       <p className="text-sm font-bold text-[#0B422B] leading-tight">{destination}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-4">
-                    <Calendar className="w-5 h-5 text-[#0B422B] flex-shrink-0" />
-                    <div className="grid grid-cols-2 gap-4 w-full">
-                       <div>
-                          <p className="text-[9px] uppercase tracking-widest font-bold text-zinc-400 mb-0.5">Check-in</p>
-                          <p className="text-sm font-bold text-[#0B422B]">{checkin.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
-                       </div>
-                       <div>
-                          <p className="text-[9px] uppercase tracking-widest font-bold text-zinc-400 mb-0.5">Check-out</p>
-                          <p className="text-sm font-bold text-[#0B422B]">{checkout.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
-                       </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <Users className="w-5 h-5 text-[#0B422B] flex-shrink-0" />
-                    <div>
-                       <p className="text-[9px] uppercase tracking-widest font-bold text-zinc-400 mb-0.5">Occupancy</p>
-                       <p className="text-sm font-bold text-[#0B422B]">{adults} Adults, {children} Children ({nights} {nights > 1 ? 'Nights' : 'Night'})</p>
-                    </div>
-                  </div>
-               </div>
-
-               {selectedRoom ? (
-                 <div className="space-y-4">
-                    <div className="flex justify-between items-center text-zinc-500">
-                       <span className="text-xs">{selectedRoom.name} x {nights} Night(s)</span>
-                       <span className="text-sm font-bold text-[#0B422B]">₹{totalAmount.toLocaleString()}</span>
-                    </div>
-                    <div className="flex justify-between items-end pt-4">
                        <div>
                           <p className="text-[10px] uppercase tracking-widest font-bold text-zinc-400 mb-1">Total Payable</p>
                           <p className="text-3xl font-bold text-[#0B422B]">₹{totalAmount.toLocaleString()}</p>

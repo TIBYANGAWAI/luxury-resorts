@@ -217,7 +217,7 @@ export default function AdminDashboard() {
         {/* HEADER */}
         <header className="flex justify-between items-center mb-16">
           <div>
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl font-bold italic mb-2">Welcome back, Digi Adda Admin</h2>
+            <h2 className="font-[family-name:var(--font-playfair)] text-4xl font-bold italic mb-2">Welcome back, Luxury Lagoon Resort Admin</h2>
             <p className="text-zinc-400 text-[10px] uppercase tracking-[0.3em] font-semibold">Exquisite Management Portfolio v2.4</p>
           </div>
           <div className="flex items-center gap-8">

@@ -361,17 +361,27 @@ export default function ServicesPage() {
                 <li><a href="#" className="hover:text-white transition-colors">GDS Codes</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Pet Friendly Hotels</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Vivaah by Luxury Lagoon Resort</a></li>
               </ul>
+            </div>
+            
+            <div>
+              <h5 className="text-[#D4AF37] uppercase text-[10px] font-bold tracking-[0.4em] mb-10">Newsletter</h5>
+              <p className="text-white/40 text-sm font-light mb-8">Receive bespoke offers and stories from our sanctuaries.</p>
+              <div className="relative group">
+                <input type="email" placeholder="Your Email Address" className="w-full bg-white/5 border-b border-white/20 py-4 text-sm font-light outline-none focus:border-[#D4AF37] transition-all" />
+                <button className="absolute right-0 bottom-4 opacity-40 group-hover:opacity-100 transition-opacity">
+                   <ArrowRight className="w-5 h-5" />
+                </button>
+              </div>
             </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 pt-10 flex flex-col md:flex-row items-center justify-between text-white/30 text-[11px] font-light tracking-wider">
-          <p>Copyright &copy; 2026, The Luxury Resorts & Hotels Portfolio. All rights reserved.</p>
-          <div className="flex gap-6 mt-4 md:mt-0 font-medium text-white/40">
-            <span>Our Brands</span>
-            <span>|</span>
-            <span>Sitemap</span>
-          </div>
+        <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 px-6">
+          <h4 className="font-[family-name:var(--font-playfair)] text-2xl italic">Experience the Pinnacle of Sanctuary with Luxury Lagoon Resort</h4>
+          <p className="text-white/30 text-[10px] uppercase tracking-[0.2em] font-bold">
+            © 2026 Luxury Lagoon Resort. All Rights Reserved.
+          </p>
         </div>
       </footer>
     </main>

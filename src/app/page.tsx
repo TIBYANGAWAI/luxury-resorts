@@ -5,37 +5,37 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
   Calendar, Users, ChevronDown, Phone, MapPin, Star,
   Wifi, Coffee, ShieldCheck, CreditCard, CheckCircle2, DoorOpen,
-  Heart, Flame, Bird, HandHeart, ArrowRight, Crown, Leaf, GlassWater, Sparkles, Menu, Search, X, Hotel
+  Heart, Flame, Bird, HandHeart, ArrowRight, Crown, Leaf, GlassWater, Sparkles, Menu, Search, X, Hotel, ChevronRight
 } from "lucide-react";
 import Image from "next/image";
 
 const heroSlides = [
   { image: "/images/slider_1.jpg", subtitle: "Luxury Lagoon Resort", title: "Epitome Of Comfort And", highlight: "Eco-Sensitive" },
-  { image: "/images/slider_2.png", subtitle: "Luxury Guest House", title: "Your Private Haven In", highlight: "The Wilderness" },
-  { image: "/images/slider_3.jpg", subtitle: "Luxury Cottage", title: "Bespoke Elegance Meets", highlight: "Natural Charm" }
+  { image: "/images/slider_2.png", subtitle: "Luxury Lagoon Resort", title: "Your Private Haven In", highlight: "The Wilderness" },
+  { image: "/images/slider_3.jpg", subtitle: "Luxury Lagoon Resort", title: "Bespoke Elegance Meets", highlight: "Natural Charm" }
 ];
 
 const resorts = [
   {
     id: 1,
-    name: "The Emerald Forest Resort",
-    location: "Munnar, Kerala",
+    name: "Luxury Lagoon Resort",
+    location: "NH Bhatkal",
     image: "/images/resort_1.png",
-    description: "Nestled in the lush hills with private forest trails and eco-luxury suites featuring breathtaking valley views."
+    description: "Our flagship sanctuary redefines eco-luxury with suites featuring breathtaking coastal and mountain views."
   },
   {
     id: 2,
-    name: "Golden Sands Retreat",
-    location: "Goa",
-    image: "/images/resort_2.png",
-    description: "Beachfront villas redefining coastal elegance with private plunge pools, world-class spas, and sunset fine dining."
+    name: "The Jungle Stay",
+    location: "Sagar Road, Bhatkal",
+    image: "/images/brand-jungle.png",
+    description: "Deep in the Bhatkal forest, experience premium cabins designed for those who seek total harmony with nature."
   },
   {
     id: 3,
-    name: "Himalayan Myst",
-    location: "Shimla, Himachal Pradesh",
-    image: "/images/resort_3.png",
-    description: "Snow-capped luxury where you can touch the sky from your private terrace, complete with crackling fireplaces."
+    name: "Luxury Beach House",
+    location: "Jali Bhatkal",
+    image: "/images/brand-beach.png",
+    description: "Exclusive oceanfront living with private access to Jali Beach, featuring bespoke butler services."
   }
 ];
 
@@ -100,7 +100,7 @@ export default function LandingPage() {
       children: children.toString()
     }).toString();
     
-    window.location.href = `/bookings?${query}`;
+    window.location.href = `/bookings/?${query}`;
   };
 
   useEffect(() => {
@@ -114,28 +114,34 @@ export default function LandingPage() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 6000);
+    }, 8000);
     return () => clearInterval(timer);
   }, []);
 
+  // Helper for calendar days
+  const getDaysInMonth = (month: number, year: number) => {
+    const date = new Date(year, month, 1);
+    const days = [];
+    while (date.getMonth() === month) {
+      days.push(new Date(date));
+      date.setDate(date.getDate() + 1);
+    }
+    return days;
+  };
+
   // Calendar Helpers
   const renderCalendar = (monthOffset: number) => {
-    const date = new Date();
-    date.setMonth(date.getMonth() + monthOffset);
-    const month = date.getMonth();
-    const year = date.getFullYear();
-    const monthName = date.toLocaleString('default', { month: 'long' });
-    
-    const firstDay = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    
-    const days = [];
-    for (let i = 0; i < firstDay; i++) days.push(null);
-    for (let i = 1; i <= daysInMonth; i++) days.push(new Date(year, month, i));
+    const now = new Date();
+    const date = new Date(now.getFullYear(), now.getMonth() + monthOffset, 1);
+    const days = getDaysInMonth(date.getMonth(), date.getFullYear());
+    const firstDay = days[0].getDay();
+    for (let i = 0; i < firstDay; i++) {
+      days.unshift(null as any);
+    }
 
     return (
       <div className="w-full">
-        <h4 className="text-center font-bold text-[#0B422B] mb-4 uppercase text-[10px] tracking-widest">{monthName} {year}</h4>
+        <h4 className="text-center font-bold text-[#0B422B] mb-4 uppercase text-[10px] tracking-widest">{date.toLocaleString('default', { month: 'long', year: 'numeric' })}</h4>
         <div className="grid grid-cols-7 gap-1">
           {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(d => <div key={d} className="text-[9px] text-zinc-300 text-center font-bold">{d}</div>)}
           {days.map((d, i) => {
@@ -199,44 +205,18 @@ export default function LandingPage() {
               <button className="flex items-center gap-1 font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]">
                 Find Hotels <ChevronDown className="w-3 h-3 ml-1 opacity-70" />
               </button>
-              {/* Mega Menu Dropdown */}
-              <div className="absolute top-10 left-[-200px] w-[700px] bg-white text-black p-8 rounded shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 grid grid-cols-3 gap-8 border-t-4 border-[#0B422B]">
-                <div>
-                   <h3 className="text-[#0B422B] font-[family-name:var(--font-playfair)] text-xl font-bold mb-4 border-b border-zinc-200 pb-2">By Region</h3>
-                   <ul className="space-y-3 text-xs text-zinc-600 font-semibold tracking-wider uppercase">
-                     <li className="hover:text-[#D4AF37] hover:translate-x-1 transition-all cursor-pointer">North India</li>
-                     <li className="hover:text-[#D4AF37] hover:translate-x-1 transition-all cursor-pointer">South India</li>
-                     <li className="hover:text-[#D4AF37] hover:translate-x-1 transition-all cursor-pointer">Central India</li>
-                     <li className="hover:text-[#D4AF37] hover:translate-x-1 transition-all cursor-pointer">West India</li>
-                   </ul>
-                </div>
-                <div>
-                   <h3 className="text-[#0B422B] font-[family-name:var(--font-playfair)] text-xl font-bold mb-4 border-b border-zinc-200 pb-2">Our Circuits</h3>
-                   <ul className="space-y-3 text-xs text-zinc-600 font-semibold tracking-wider uppercase">
-                     <li className="hover:text-[#D4AF37] hover:translate-x-1 transition-all cursor-pointer">Wildlife Safari</li>
-                     <li className="hover:text-[#D4AF37] hover:translate-x-1 transition-all cursor-pointer">Coastal Retreats</li>
-                     <li className="hover:text-[#D4AF37] hover:translate-x-1 transition-all cursor-pointer">Heritage Hubs</li>
-                     <li className="hover:text-[#D4AF37] hover:translate-x-1 transition-all cursor-pointer">Mountain Escapes</li>
-                   </ul>
-                </div>
-                <div className="relative h-full w-full rounded overflow-hidden">
-                  <Image src="/images/interior.png" alt="Promo" fill className="object-cover" />
-                  <div className="absolute inset-0 bg-black/40 p-4 flex flex-col justify-end">
-                    <span className="text-white font-[family-name:var(--font-playfair)] text-xl font-bold">New Openings</span>
-                    <span className="text-white/90 text-[10px] uppercase tracking-widest mt-1 group-hover:text-[#D4AF37] transition-colors flex items-center gap-1">Explore Now <ArrowRight className="w-3 h-3"/></span>
-                  </div>
-                </div>
-              </div>
             </div>
-            <a href="/services/" className="font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]">Services</a>
-            <a href="#" className="flex items-center gap-1 font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]"><Crown className="w-3 h-3"/> Crown Collection</a>
-            <a href="#" className="font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]">Plan an Event</a>
-            <a href="#" className="font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]">Partner with Us</a>
+            <button className="font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]">Our Brands</button>
+            <button className="font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]">Experiences</button>
+            <button className="font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]">Sustainability</button>
           </nav>
 
           <div className="flex items-center justify-end gap-3 md:gap-6 z-10 w-10 md:w-auto">
-            <div className="md:hidden text-[#0B422B]">
-              <Search className="w-6 h-6" />
+            <div className="hidden md:flex flex-col items-end mr-4">
+              <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-bold mb-1">Reservations</span>
+              <a href="tel:+919900000000" className="text-[13px] font-bold text-[#0B422B] hover:text-[#D4AF37] transition-colors tracking-tighter">
+                +91 99000 00000
+              </a>
             </div>
             <button className="hidden md:block bg-[#D4AF37] hover:bg-[#b09028] text-white px-8 py-3 font-bold text-[10px] rounded transition-colors uppercase tracking-[0.2em]">
               Book Login
@@ -245,9 +225,8 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Cinematic Hero Section (Unified Cloudinary CDN) */}
+      {/* Cinematic Hero Section */}
       <section className="relative w-full h-screen overflow-hidden bg-[#0B422B]">
-        {/* Global Cloudinary Cinematic Video Background */}
         <div className="absolute inset-0 z-0">
           <video 
             autoPlay={true}
@@ -263,11 +242,9 @@ export default function LandingPage() {
           </video>
         </div>
 
-        {/* Cinematic Overlays */}
         <div className="absolute inset-0 bg-black/40 z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent z-10" />
 
-        {/* Hero Content - Centered for Maximum Impact */}
         <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-6 md:pt-20">
           <motion.div
              initial={{ opacity: 0, y: 30 }}
@@ -281,9 +258,6 @@ export default function LandingPage() {
             <h1 className="font-[family-name:var(--font-playfair)] text-5xl md:text-8xl text-white font-light leading-[1.1] mb-12 tracking-tight italic">
                Seamless <span className="not-italic font-medium text-white/90">Stays</span>
             </h1>
-            <p className="text-white/80 text-sm md:text-base font-light leading-relaxed max-w-xl mx-auto mb-16 px-4">
-               Experience the epitome of eco-sensitive luxury. Our sanctuaries are crafted for those who seek harmony between nature and comfort.
-            </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                <button 
                  onClick={() => setIsMobileBookingOpen(true)}
@@ -291,17 +265,11 @@ export default function LandingPage() {
                >
                  Discover Sanctuaries
                </button>
-               <button 
-                 onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
-                 className="w-full sm:w-auto bg-transparent hover:bg-white/10 text-white border border-white/40 px-12 py-5 font-bold uppercase tracking-[0.3em] transition-all rounded text-[11px] backdrop-blur-sm"
-               >
-                 Our Story
-               </button>
             </div>
           </motion.div>
         </div>
 
-        {/* Floating Desktop Booking Bar Integration */}
+        {/* Floating Desktop Booking Bar */}
         <div className={`hidden lg:block absolute left-0 right-0 z-40 transition-all duration-700 ease-in-out ${scrolled ? 'fixed top-0 w-full rounded-none' : 'top-[15%] px-20'}`}>
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
@@ -310,7 +278,6 @@ export default function LandingPage() {
           >
              <div className={`flex items-center justify-between transition-all duration-700 p-2 ${scrolled ? 'px-8' : ''}`}>
                  
-                 {/* 1. Destination Dropdown */}
                  <div className="flex-1 py-4 px-8 border-r border-zinc-200 hover:bg-zinc-50 transition-all duration-300 cursor-pointer relative group flex items-center gap-4"
                       onClick={() => { setIsDestOpen(!isDestOpen); setIsDateOpen(false); setIsGuestOpen(false); }}>
                     <MapPin className="w-4 h-4 text-zinc-400" /> 
@@ -322,8 +289,9 @@ export default function LandingPage() {
                                    className="absolute top-[calc(100%+12px)] left-0 w-full bg-white shadow-2xl p-4 rounded-xl border border-zinc-100 z-50">
                           {resorts.map(r => (
                             <div key={r.id} onClick={(e) => { e.stopPropagation(); setSelectedDest(r.name); setIsDestOpen(false); }}
-                                 className="px-5 py-4 text-xs font-bold uppercase tracking-widest text-[#0B422B] hover:text-[#D4AF37] hover:bg-zinc-50 rounded-xl transition-all border-b border-zinc-50 last:border-none">
-                               {r.name}
+                                 className="p-3 hover:bg-[#0B422B]/5 rounded-lg border-b border-zinc-50 last:border-0 transition-colors flex flex-col items-start">
+                               <span className="text-zinc-900 font-bold text-xs uppercase tracking-widest">{r.name}</span>
+                               <span className="text-zinc-400 text-[9px] uppercase tracking-widest mt-1">{r.location}</span>
                             </div>
                           ))}
                         </motion.div>
@@ -331,8 +299,7 @@ export default function LandingPage() {
                     </AnimatePresence>
                  </div>
                  
-                 {/* 2. Dual Pane Date Picker */}
-                 <div className="flex-1 py-4 px-8 border-r border-zinc-200 hover:bg-zinc-50 transition-all duration-300 cursor-pointer relative flex items-center gap-4"
+                 <div className="flex-1 py-4 px-8 border-r border-zinc-200 hover:bg-zinc-50 transition-all duration-300 cursor-pointer relative group flex items-center gap-4"
                       onClick={() => { setIsDateOpen(!isDateOpen); setIsDestOpen(false); setIsGuestOpen(false); }}>
                     <Calendar className="w-4 h-4 text-zinc-400" /> 
                     <span className="text-[15px] font-medium text-[#0B422B] tracking-tight">
@@ -342,59 +309,48 @@ export default function LandingPage() {
                     <AnimatePresence>
                       {isDateOpen && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }}
-                                   className="absolute top-[calc(100%+12px)] right-0 w-[600px] bg-white shadow-2xl p-8 rounded-[2rem] border border-zinc-100 z-50"
+                                   className="absolute top-[calc(100%+12px)] left-1/2 -translate-x-1/2 w-[600px] bg-white shadow-2xl p-8 rounded-xl border border-zinc-100 z-50 flex gap-8"
                                    onClick={(e) => e.stopPropagation()}>
-                           <div className="grid grid-cols-2 gap-12">
-                              {renderCalendar(0)}
-                              {renderCalendar(1)}
-                           </div>
+                           {renderCalendar(0)}
+                           {renderCalendar(1)}
                         </motion.div>
                       )}
                     </AnimatePresence>
                  </div>
 
-                 {/* 3. Guest Selector */}
-                 <div className="w-[200px] py-4 px-8 hover:bg-zinc-50 transition-all duration-300 cursor-pointer relative flex items-center gap-4"
+                 <div className="flex-1 py-4 px-8 hover:bg-zinc-50 transition-all duration-300 cursor-pointer relative group flex items-center gap-4"
                       onClick={() => { setIsGuestOpen(!isGuestOpen); setIsDestOpen(false); setIsDateOpen(false); }}>
                     <Users className="w-4 h-4 text-zinc-400" /> 
-                    <span className="text-[15px] font-medium text-[#0B422B] tracking-tight">{adults + children} Guests</span>
+                    <span className="text-[15px] font-medium text-[#0B422B] tracking-tight">{adults} Adults, {children} Children</span>
 
                     <AnimatePresence>
                       {isGuestOpen && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }}
-                                   className="absolute top-[calc(100%+12px)] right-0 w-64 bg-white shadow-2xl p-8 rounded-2xl border border-zinc-100 z-50"
+                                   className="absolute top-[calc(100%+12px)] left-0 w-full bg-white shadow-2xl p-6 rounded-xl border border-zinc-100 z-50 flex flex-col gap-6"
                                    onClick={(e) => e.stopPropagation()}>
-                           <div className="space-y-8">
-                             <div className="flex items-center justify-between">
-                                <span className="text-[11px] font-bold uppercase tracking-widest text-[#0B422B]">Adults</span>
-                                <div className="flex items-center gap-4">
-                                   <button onClick={() => setAdults(Math.max(1, adults - 1))} className="w-7 h-7 rounded-full border border-zinc-200 text-[#D4AF37]">-</button>
-                                   <span className="text-xs font-bold w-4 text-center">{adults}</span>
-                                   <button onClick={() => setAdults(adults + 1)} className="w-7 h-7 rounded-full border border-zinc-200 text-[#D4AF37]">+</button>
-                                </div>
-                             </div>
-                             <div className="flex items-center justify-between">
-                                <span className="text-[11px] font-bold uppercase tracking-widest text-[#0B422B]">Children</span>
-                                <div className="flex items-center gap-4">
-                                   <button onClick={() => setChildren(Math.max(0, children - 1))} className="w-7 h-7 rounded-full border border-zinc-200 text-[#D4AF37]">-</button>
-                                   <span className="text-xs font-bold w-4 text-center">{children}</span>
-                                   <button onClick={() => setChildren(children + 1)} className="w-7 h-7 rounded-full border border-zinc-200 text-[#D4AF37]">+</button>
-                                </div>
-                             </div>
+                           <div className="flex items-center justify-between">
+                              <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Adults</span>
+                              <div className="flex items-center gap-4">
+                                <button onClick={(e) => { e.stopPropagation(); setAdults(Math.max(1, adults - 1)); }} className="w-8 h-8 rounded-full border border-zinc-200 flex items-center justify-center hover:bg-[#0B422B] hover:text-white">-</button>
+                                <span className="font-bold text-[#0B422B]">{adults}</span>
+                                <button onClick={(e) => { e.stopPropagation(); setAdults(adults + 1); }} className="w-8 h-8 rounded-full border border-zinc-200 flex items-center justify-center hover:bg-[#0B422B] hover:text-white">+</button>
+                              </div>
+                           </div>
+                           <div className="flex items-center justify-between">
+                              <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Children</span>
+                              <div className="flex items-center gap-4">
+                                <button onClick={(e) => { e.stopPropagation(); setChildren(Math.max(0, children - 1)); }} className="w-8 h-8 rounded-full border border-zinc-200 flex items-center justify-center hover:bg-[#0B422B] hover:text-white">-</button>
+                                <span className="font-bold text-[#0B422B]">{children}</span>
+                                <button onClick={(e) => { e.stopPropagation(); setChildren(children + 1); }} className="w-8 h-8 rounded-full border border-zinc-200 flex items-center justify-center hover:bg-[#0B422B] hover:text-white">+</button>
+                              </div>
                            </div>
                         </motion.div>
                       )}
                     </AnimatePresence>
                  </div>
 
-                 <div className="w-[220px] px-2 relative h-[56px]">
+                 <div className="p-2">
                     <button onClick={handleBookNow}
-                            className="w-full h-full bg-[#0B422B] hover:bg-[#D4AF37] text-white font-bold uppercase tracking-[0.2em] text-[10px] transition-all duration-300 shadow-md rounded-lg">
-                       BOOK NOW
-                    </button>
-                 </div>
-             </div>
-          </motion.div>
         </div>
       </section>
 
