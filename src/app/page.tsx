@@ -245,27 +245,17 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Cinematic Hero Section (Responsive CDN) */}
+      {/* Cinematic Hero Section (Unified Cloudinary CDN) */}
       <section className="relative w-full h-screen overflow-hidden bg-[#0B422B]">
-        {/* Mobile: High-End Static Background (Fast Loading) */}
-        <div className="md:hidden absolute inset-0 z-0">
-          <Image 
-            src="/images/slider_1.jpg" 
-            alt="Luxury Resort Sanctuary" 
-            fill 
-            className="object-cover" 
-            priority
-          />
-        </div>
-
-        {/* Desktop: Cloudinary Cinematic Video Background */}
-        <div className="hidden md:block absolute inset-0 z-0">
+        {/* Global Cloudinary Cinematic Video Background */}
+        <div className="absolute inset-0 z-0">
           <video 
             autoPlay={true}
             muted={true} 
             loop={true} 
             playsInline={true} 
             preload="auto"
+            poster="/images/slider_1.jpg"
             className="w-full h-full object-cover"
           >
             <source src="https://res.cloudinary.com/dtduolhdc/video/upload/v1776001611/K_K_Developers_Lagoon_Resort_Qm_Lowres_1_jipkac.mp4" type="video/mp4" />

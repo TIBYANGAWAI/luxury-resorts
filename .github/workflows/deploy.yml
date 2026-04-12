@@ -39,7 +39,7 @@ jobs:
           protocol: ftp
           port: 21
           timeout: 900000
-          dangerous-clean-slate: true
+          dangerous-clean-slate: false
           exclude: |
             videos/**
 
