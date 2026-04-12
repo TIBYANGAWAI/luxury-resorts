@@ -6,7 +6,7 @@ const nextConfig = {
     unoptimized: true,
   },
   generateBuildId: async () => {
-    return 'luxury-lagoon-v1.0.2'
+    return 'bhatkal-v1'
   },
 };
 
