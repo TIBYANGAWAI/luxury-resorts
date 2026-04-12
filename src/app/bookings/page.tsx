@@ -486,9 +486,6 @@ function BookingContent() {
     </div>
   );
 }
->
-  );
-}
 
 export default function BookingLandingPage() {
   return (
