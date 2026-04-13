@@ -26,6 +26,21 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: 🧹 Root Clutter Cleanup (FTP)
+        uses: appleboy/ftp-action@master
+        with:
+          host: 45.130.228.221
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          command: |
+             rm -rf ./admin
+             rm -rf ./_next
+             rm -rf ./bookings
+             rm -rf ./services
+             rm -rf ./dashboard
+             rm -rf ./404.html
+             rm -rf ./index.html
+
       - name: 📂 Sync files (FTP)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -33,10 +48,12 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./out/
-          server-dir: public_html/
+          server-dir: ./public_html/
           security: loose
           protocol: ftp
           port: 21
           log-level: verbose
           timeout: 1000000
           dangerous-clean-slate: true
+          exclude: |
+            videos/**
