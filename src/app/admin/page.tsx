@@ -1,27 +1,26 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   LayoutDashboard, Hotel, Users, Settings, LogOut, 
-  CheckCircle, XCircle, Search, Bell,
-  ArrowRight, BarChart3, MapPin, Eye, Calendar,
-  TrendingUp, ArrowUpRight, DollarSign, Wallet
+  MapPin, Calendar, TrendingUp, DollarSign,
+  ArrowUpRight, CheckCircle, XCircle, BarChart3,
+  Search, ShieldCheck, Mail, Share2
 } from "lucide-react";
 import Image from "next/image";
 
-// 100% BHATKAL EXCLUSIVE INVENTORY
-const bhatkalPortfolio = [
+// 🏆 THE TAJ STANDARD: BHATKAL EXCLUSIVE INVENTORY
+const tajBhatkalInventory = [
   {
     id: "luxury-lagoon",
     name: "Luxury Lagoon Resort",
     location: "NH Bhatkal",
     image: "/images/interior.png",
     price: 5000,
-    status: "Live",
-    bookings: 45,
-    occupancy: "88%",
-    revenue: "₹2,25,000"
+    status: "Active",
+    revenue: "₹2.25L",
+    growth: "+15.2%"
   },
   {
     id: "jungle-stay",
@@ -29,10 +28,9 @@ const bhatkalPortfolio = [
     location: "Sagar Road, Bhatkal",
     image: "/images/brand-jungle.png",
     price: 10000,
-    status: "Live",
-    bookings: 22,
-    occupancy: "92%",
-    revenue: "₹2,20,000"
+    status: "Active",
+    revenue: "₹1.80L",
+    growth: "+22.5%"
   },
   {
     id: "beach-house",
@@ -41,20 +39,19 @@ const bhatkalPortfolio = [
     image: "/images/brand-beach.png",
     price: 40000,
     status: "Maintenance",
-    bookings: 8,
-    occupancy: "100%",
-    revenue: "₹3,20,000"
+    revenue: "₹3.40L",
+    growth: "+8.9%"
   }
 ];
 
-export default function LuxuryAdmin() {
+export default function TajAdmin() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [activeTab, setActiveTab] = useState("portfolio");
-  const [portfolio, setPortfolio] = useState(bhatkalPortfolio);
+  const [inventory, setInventory] = useState(tajBhatkalInventory);
+  const [activeTab, setActiveTab] = useState("inventory");
   const [adminId, setAdminId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-  const [editingPrice, setEditingPrice] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,57 +64,49 @@ export default function LuxuryAdmin() {
     }
   };
 
-  const updatePrice = (id: string, newPrice: number) => {
-    setPortfolio(prev => prev.map(p => p.id === id ? { ...p, price: newPrice } : p));
-    setEditingPrice(null);
+  const updatePrice = (id: string, price: number) => {
+    setInventory(prev => prev.map(p => p.id === id ? { ...p, price } : p));
+    setEditingId(null);
   };
 
   const toggleStatus = (id: string) => {
-    setPortfolio(prev => prev.map(p => p.id === id ? { ...p, status: p.status === "Live" ? "Maintenance" : "Live" } : p));
+    setInventory(prev => prev.map(p => p.id === id ? { ...p, status: p.status === "Active" ? "Maintenance" : "Active" } : p));
   };
 
+  // 1. SECURE TERMINAL (THE VAULT)
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen bg-[#0B422B] flex items-center justify-center p-6 selection:bg-[#D4AF37] selection:text-white">
-        <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
-          <Image src="/images/hero.png" alt="Overlay" fill className="object-cover grayscale" />
+      <div className="min-h-screen bg-[#0B422B] flex items-center justify-center p-8 selection:bg-[#D4AF37] selection:text-white">
+        <div className="absolute inset-0 z-0 opacity-10 pointer-events-none grayscale">
+          <Image src="/images/hero.png" alt="Overlay" fill className="object-cover" />
         </div>
-        
         <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="w-full max-w-md bg-white/10 backdrop-blur-3xl p-12 rounded-[2.5rem] border border-white/20 shadow-2xl relative z-10"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="w-full max-w-lg bg-white/5 backdrop-blur-2xl p-16 rounded-[4rem] border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] relative z-10"
         >
-          <div className="text-center mb-12">
-            <div className="w-20 h-20 bg-[#D4AF37] rounded-3xl mx-auto mb-8 flex items-center justify-center shadow-lg shadow-[#D4AF37]/20 rotate-12">
-               <Wallet className="w-10 h-10 text-[#0B422B]" />
-            </div>
-            <h1 className="font-[family-name:var(--font-playfair)] text-4xl text-white italic mb-2">The Vault</h1>
-            <p className="text-[#D4AF37] text-[10px] uppercase tracking-[0.5em] font-bold">Luxury Lagoon Admin</p>
+          <div className="text-center mb-16">
+            <h1 className="font-[family-name:var(--font-playfair)] text-5xl text-white italic mb-4">The Taj Terminal</h1>
+            <p className="text-[#D4AF37] text-[10px] uppercase tracking-[0.6em] font-bold">Elite Portfolio Management</p>
           </div>
-
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div className="group">
-              <input 
-                type="text" 
-                value={adminId}
-                onChange={(e) => setAdminId(e.target.value)}
-                placeholder="Manager ID"
-                className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-white/20 outline-none focus:border-[#D4AF37] transition-all"
-              />
-            </div>
-            <div className="group">
-              <input 
-                type="password" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Access Key"
-                className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-white/20 outline-none focus:border-[#D4AF37] transition-all"
-              />
-            </div>
-            {error && <p className="text-red-400 text-[10px] text-center uppercase tracking-widest font-bold">Access Refused</p>}
-            <button className="w-full bg-[#D4AF37] hover:bg-white text-[#0B422B] py-5 rounded-2xl font-bold uppercase tracking-[0.4em] text-[10px] transition-all shadow-xl active:scale-95">
-               Authenticate
+          <form onSubmit={handleLogin} className="space-y-8">
+            <input 
+              type="text" 
+              value={adminId}
+              onChange={(e) => setAdminId(e.target.value)}
+              placeholder="System Identifier"
+              className="w-full bg-white/5 border border-white/10 rounded-[2rem] px-10 py-6 text-white placeholder:text-white/20 outline-none focus:border-[#D4AF37] transition-all"
+            />
+            <input 
+              type="password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Executive Key"
+              className="w-full bg-white/5 border border-white/10 rounded-[2rem] px-10 py-6 text-white placeholder:text-white/20 outline-none focus:border-[#D4AF37] transition-all"
+            />
+            {error && <p className="text-red-400 text-[10px] text-center uppercase tracking-widest font-bold">Protocol Error: Access Denied</p>}
+            <button className="w-full bg-[#D4AF37] hover:bg-white text-[#0B422B] py-6 rounded-[2rem] font-bold uppercase tracking-[0.5em] text-[11px] transition-all active:scale-95 shadow-2xl">
+              Initialize Session
             </button>
           </form>
         </motion.div>
@@ -125,161 +114,169 @@ export default function LuxuryAdmin() {
     );
   }
 
+  // 2. MODERN DASHBOARD UI
   return (
-    <div className="min-h-screen bg-[#FAF9F6] text-[#0B422B] selection:bg-[#D4AF37] selection:text-white">
-      {/* Sidebar Navigation */}
-      <aside className="fixed left-0 top-0 bottom-0 w-80 bg-[#0B422B] p-10 flex flex-col z-50">
-         <div className="mb-20">
-            <h2 className="font-[family-name:var(--font-playfair)] text-2xl text-white italic">Luxury Lagoon</h2>
-            <p className="text-[#D4AF37] text-[8px] uppercase tracking-[0.4em] font-bold mt-1">Management Hub</p>
+    <div className="min-h-screen bg-[#FAF9F6] text-[#0B422B]">
+      {/* Sleek Navigation Sidebar */}
+      <aside className="fixed left-0 top-0 bottom-0 w-80 bg-[#0B422B] p-12 flex flex-col z-50">
+         <div className="mb-24">
+            <p className="text-[#D4AF37] text-[9px] uppercase tracking-[0.6em] font-extrabold mb-1">Taj Edition</p>
+            <h2 className="font-[family-name:var(--font-playfair)] text-3xl text-white italic">Luxury Lagoon</h2>
          </div>
-
-         <nav className="flex-1 space-y-4">
+         <nav className="flex-1 space-y-6">
             {[
-              { id: "dashboard", label: "Overview", icon: LayoutDashboard },
-              { id: "portfolio", label: "Inventory", icon: Hotel },
-              { id: "bookings", label: "Reservations", icon: Calendar },
-              { id: "analytics", label: "Performance", icon: BarChart3 },
+              { id: "dashboard", label: "Executive Desk", icon: LayoutDashboard },
+              { id: "inventory", label: "Taj Portfolio", icon: Hotel },
+              { id: "analytics", label: "Revenue Grid", icon: BarChart3 },
+              { id: "settings", label: "System Core", icon: Settings },
             ].map(item => (
               <button 
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center gap-4 px-6 py-4 rounded-2xl transition-all ${activeTab === item.id ? 'bg-[#D4AF37] text-white' : 'text-white/40 hover:text-white hover:bg-white/5'}`}
+                className={`w-full flex items-center gap-6 px-4 py-4 rounded-3xl transition-all ${activeTab === item.id ? 'bg-[#D4AF37] text-white' : 'text-white/30 hover:text-white hover:bg-white/5'}`}
               >
                 <item.icon className="w-5 h-5" />
-                <span className="text-[10px] uppercase font-bold tracking-widest">{item.label}</span>
+                <span className="text-[10px] uppercase font-bold tracking-widest leading-none">{item.label}</span>
               </button>
             ))}
          </nav>
-
-         <button 
-           onClick={() => setIsLoggedIn(false)}
-           className="mt-auto flex items-center gap-4 text-red-300 px-6 py-4 hover:bg-red-500/10 rounded-2xl transition-all"
-         >
-            <LogOut className="w-5 h-5" />
-            <span className="text-[10px] uppercase font-bold tracking-widest">Sign Out</span>
+         <button onClick={() => setIsLoggedIn(false)} className="mt-auto flex items-center gap-6 text-red-300 font-bold text-[10px] uppercase tracking-widest hover:text-red-400">
+            <LogOut className="w-5 h-5" /> Terminate Session
          </button>
       </aside>
 
-      <main className="ml-80 p-16">
-         {/* HEADER */}
-         <header className="flex justify-between items-end mb-16">
-            <div>
-               <h1 className="font-[family-name:var(--font-playfair)] text-4xl italic mb-2 uppercase tracking-tight">Portfolio Control</h1>
-               <div className="flex items-center gap-4">
-                  <span className="text-[9px] uppercase tracking-widest font-bold text-[#D4AF37]">Bhatkal Master Collection</span>
-                  <div className="w-1 h-1 rounded-full bg-zinc-300" />
-                  <span className="text-[9px] uppercase tracking-widest font-bold text-zinc-400">Version 2.0.4 Agency-Grade</span>
+      <main className="ml-80 p-20 max-w-7xl">
+         {/* HEADER SUMMARY SECTION */}
+         <header className="flex justify-between items-start mb-20">
+            <div className="space-y-3">
+               <h1 className="font-[family-name:var(--font-playfair)] text-5xl italic tracking-tighter">Taj Dashboard</h1>
+               <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-[0.2em] text-[#D4AF37]">
+                  <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500" /> Server Optimized: Bhatkal Hub</span>
+                  <span className="text-zinc-300">|</span>
+                  <span className="text-zinc-400">Build 3.0.1 (Stable)</span>
                </div>
             </div>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-8 border-l border-zinc-200 pl-8">
                <div className="text-right">
-                  <p className="text-[10px] font-bold uppercase tracking-widest leading-none">System Admin</p>
-                  <p className="text-[9px] text-[#D4AF37] uppercase tracking-widest font-bold">Secure Session</p>
+                  <p className="text-[11px] font-bold text-[#0B422B] uppercase tracking-widest leading-none mb-1">Chief Executive</p>
+                  <p className="text-[9px] text-[#D4AF37] uppercase tracking-[0.3em] font-extrabold uppercase">Authenticated</p>
                </div>
-               <div className="w-12 h-12 bg-[#0B422B] rounded-2xl flex items-center justify-center text-white font-bold text-sm">A</div>
+               <div className="w-14 h-14 bg-[#0B422B] rounded-3xl flex items-center justify-center text-white border-4 border-white shadow-2xl font-bold">LL</div>
             </div>
          </header>
 
-         {/* ANALYTICS BAR CHART (MINI) */}
-         <section className="mb-16">
-            <div className="bg-white rounded-[2rem] p-10 shadow-sm border border-zinc-100">
-               <div className="flex justify-between items-center mb-10">
-                  <div className="flex items-center gap-3">
-                     <TrendingUp className="w-5 h-5 text-[#D4AF37]" />
-                     <h3 className="text-[10px] uppercase font-bold tracking-[0.3em]">7-Day Booking Velocity</h3>
-                  </div>
-                  <span className="text-[10px] font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">+24% Revenue Increase</span>
+         {/* REVENUE INSIGHTS (TAJ STANDARD) */}
+         <section className="mb-20">
+            <div className="bg-white rounded-[3rem] p-12 shadow-[0_30px_60px_-15px_rgba(11,66,43,0.05)] border border-zinc-100 relative overflow-hidden">
+               <div className="absolute top-0 right-0 p-12 opacity-5">
+                  <TrendingUp className="w-40 h-40 text-[#0B422B]" />
                </div>
-               <div className="h-40 flex items-end justify-between gap-4">
-                  {[45, 65, 35, 85, 55, 95, 75].map((h, i) => (
-                    <div key={i} className="flex-1 flex flex-col items-center gap-4 group">
-                       <motion.div 
-                         initial={{ height: 0 }}
-                         animate={{ height: `${h}%` }}
-                         className="w-full bg-[#0B422B]/5 rounded-t-xl relative overflow-hidden group-hover:bg-[#0B422B]/10 transition-colors"
-                       >
-                          <div className="absolute bottom-0 left-0 right-0 bg-[#0B422B] h-[30%] opacity-20" />
-                       </motion.div>
-                       <span className="text-[8px] font-bold text-zinc-300 uppercase">Day {i+1}</span>
-                    </div>
+               <div className="flex justify-between items-center mb-16 relative z-10">
+                  <div>
+                     <h3 className="text-[11px] uppercase tracking-[0.4em] font-extrabold text-zinc-400 mb-2">Revenue Insights</h3>
+                     <p className="font-[family-name:var(--font-playfair)] text-3xl italic">Monthly Performance Velocity</p>
+                  </div>
+                  <div className="flex gap-4">
+                     <div className="px-6 py-3 bg-green-50 rounded-2xl border border-green-100 flex items-center gap-3">
+                        <TrendingUp className="w-4 h-4 text-green-600" />
+                        <span className="text-[11px] font-bold text-green-600 uppercase tracking-widest">Growth: +28.4%</span>
+                     </div>
+                  </div>
+               </div>
+               
+               <div className="h-64 flex items-end justify-between gap-6 relative z-10">
+                  {[65, 45, 85, 35, 95, 55, 100, 75, 45, 80, 60, 90].map((h, i) => (
+                    <motion.div 
+                      key={i} 
+                      className="flex-1 group relative"
+                      initial={{ height: 0 }}
+                      animate={{ height: `${h}%` }}
+                    >
+                       <div className="w-full h-full bg-[#0B422B]/5 rounded-2xl group-hover:bg-[#D4AF37]/20 transition-all duration-500 relative overflow-hidden">
+                          <div className={`absolute bottom-0 left-0 right-0 h-1/2 bg-[#0B422B] transition-all group-hover:bg-[#D4AF37] ${i === 6 ? 'opacity-40' : 'opacity-10'}`} />
+                       </div>
+                       <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-[8px] font-bold text-zinc-300 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Month {i+1}</span>
+                    </motion.div>
                   ))}
                </div>
             </div>
          </section>
 
-         {/* PROPERTY GRID (GLASS-GRADE) */}
-         <section className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {portfolio.map((prop) => (
+         {/* PROPERTY GRID (GLASSMORPHISM CARDS) */}
+         <section className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {inventory.map((property) => (
               <motion.div 
-                key={prop.id}
-                whileHover={{ y: -8 }}
-                className="bg-white/40 backdrop-blur-xl border border-[#D4AF37]/20 rounded-[2.5rem] overflow-hidden shadow-xl"
+                key={property.id}
+                whileHover={{ y: -10 }}
+                className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-[3rem] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.08)]"
               >
-                <div className="h-56 relative group">
-                   <Image src={prop.image} alt={prop.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
-                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B422B]/60 to-transparent" />
-                   <div className="absolute top-6 right-6">
+                <div className="h-64 relative group">
+                   <Image src={property.image} alt={property.name} fill className="object-cover transition-transform duration-1000 group-hover:scale-110" />
+                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                   <div className="absolute top-8 right-8">
                       <button 
-                        onClick={() => toggleStatus(prop.id)}
-                        className={`px-4 py-1.5 rounded-full text-[8px] uppercase font-bold tracking-widest backdrop-blur-md border border-white/20 transition-all ${prop.status === "Live" ? "bg-green-500/80 text-white" : "bg-amber-500/80 text-white"}`}
+                        onClick={() => toggleStatus(property.id)}
+                        className={`px-5 py-2 rounded-full text-[9px] uppercase font-extrabold tracking-[0.2em] backdrop-blur-md border border-white/20 transition-all ${property.status === "Active" ? 'bg-green-500/80 text-white' : 'bg-orange-500/80 text-white'}`}
                       >
-                         {prop.status}
+                         {property.status}
                       </button>
                    </div>
-                   <div className="absolute bottom-6 left-6 text-white">
-                      <p className="text-[9px] uppercase tracking-[0.2em] opacity-70 flex items-center gap-1.5 font-bold mb-1">
-                         <MapPin className="w-3 h-3 text-[#D4AF37]" /> {prop.location}
-                      </p>
-                      <h4 className="font-[family-name:var(--font-playfair)] text-2xl italic">{prop.name}</h4>
+                   <div className="absolute bottom-8 left-8 text-white">
+                      <div className="flex items-center gap-2 text-[10px] uppercase font-bold tracking-[0.3em] text-[#D4AF37] mb-2">
+                         <MapPin className="w-3.5 h-3.5" /> {property.location}
+                      </div>
+                      <h4 className="font-[family-name:var(--font-playfair)] text-3xl font-bold tracking-tight">{property.name}</h4>
                    </div>
                 </div>
 
-                <div className="p-10 space-y-8">
-                   <div className="grid grid-cols-2 gap-6">
-                      <div className="bg-zinc-50 p-4 rounded-2xl">
-                         <p className="text-[8px] uppercase tracking-widest text-zinc-400 font-bold mb-1">Bookings</p>
-                         <p className="text-xl font-bold">{prop.bookings}</p>
+                <div className="p-12 space-y-12">
+                   <div className="flex justify-between items-center bg-zinc-50/50 p-6 rounded-[2rem]">
+                      <div>
+                         <p className="text-[9px] uppercase tracking-[0.3em] text-zinc-400 font-bold mb-1">Monthly Revenue</p>
+                         <p className="text-2xl font-bold text-[#0B422B]">{property.revenue}</p>
                       </div>
-                      <div className="bg-zinc-50 p-4 rounded-2xl">
-                         <p className="text-[8px] uppercase tracking-widest text-zinc-400 font-bold mb-1">Occupancy</p>
-                         <p className="text-xl font-bold">{prop.occupancy}</p>
+                      <div className="text-right">
+                         <p className="text-[9px] uppercase tracking-[0.3em] text-zinc-400 font-bold mb-1">MoM Growth</p>
+                         <p className="text-sm font-bold text-green-600">{property.growth}</p>
                       </div>
                    </div>
 
-                   <div>
-                      <label className="text-[9px] uppercase tracking-widest text-zinc-400 font-bold block mb-4">Pricing Control (Click to Edit)</label>
-                      {editingPrice === prop.id ? (
-                        <input 
-                           autoFocus
-                           type="number"
-                           onBlur={(e) => updatePrice(prop.id, parseInt(e.target.value))}
-                           onKeyDown={(e) => e.key === 'Enter' && updatePrice(prop.id, parseInt((e.target as HTMLInputElement).value))}
-                           defaultValue={prop.price}
-                           className="text-4xl font-bold bg-[#0B422B] text-white w-full py-2 px-4 rounded-xl outline-none"
-                        />
+                   <div className="space-y-4">
+                      <label className="text-[10px] uppercase tracking-[0.4em] text-zinc-400 font-extrabold block">Price Management</label>
+                      {editingId === property.id ? (
+                        <div className="flex items-center gap-4">
+                           <input 
+                              type="number"
+                              autoFocus
+                              className="text-3xl font-bold bg-[#0B422B] text-white w-full px-6 py-4 rounded-3xl outline-none"
+                              defaultValue={property.price}
+                              onBlur={(e) => updatePrice(property.id, parseInt(e.target.value))}
+                              onKeyDown={(e) => e.key === 'Enter' && updatePrice(property.id, parseInt((e.target as HTMLInputElement).value))}
+                           />
+                        </div>
                       ) : (
                         <div 
-                          onClick={() => setEditingPrice(prop.id)}
-                          className="flex items-center justify-between group cursor-pointer"
+                           onClick={() => setEditingId(property.id)}
+                           className="flex items-center justify-between p-8 border-2 border-zinc-100 rounded-[2rem] cursor-pointer hover:border-[#D4AF37] transition-all group"
                         >
-                           <div className="flex items-center gap-2">
+                           <div className="flex items-center gap-3">
                               <span className="text-zinc-300 text-3xl font-light italic">₹</span>
-                              <span className="text-4xl font-bold font-[family-name:var(--font-playfair)] tracking-tight text-[#0B422B] animate-pulse-slow">
-                                {prop.price.toLocaleString()}
-                              </span>
+                              <span className="text-4xl font-bold tracking-tighter text-[#0B422B]">{property.price.toLocaleString()}</span>
                            </div>
-                           <ArrowUpRight className="w-5 h-5 text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity" />
+                           <ArrowUpRight className="w-6 h-6 text-zinc-200 group-hover:text-[#D4AF37] transition-all" />
                         </div>
                       )}
                    </div>
 
-                   <div className="pt-8 border-t border-[#D4AF37]/10 flex justify-between items-center">
-                      <div className="flex items-center gap-4">
-                         <Eye className="w-5 h-5 text-zinc-300" />
-                         <span className="text-[8px] uppercase tracking-widest font-bold text-zinc-400">Last updated 12m ago</span>
+                   <div className="pt-8 border-t border-zinc-50 flex justify-between items-center text-zinc-400">
+                      <div className="flex items-center gap-3">
+                         <ShieldCheck className="w-5 h-5 text-green-500" />
+                         <span className="text-[10px] font-bold uppercase tracking-widest uppercase">Inventory Verified</span>
                       </div>
-                      <button className="text-[9px] font-bold uppercase tracking-widest text-[#D4AF37] hover:tracking-[0.3em] transition-all">Details</button>
+                      <div className="flex gap-4">
+                         <Share2 className="w-4 h-4 cursor-pointer hover:text-[#D4AF37]" />
+                         <Mail className="w-4 h-4 cursor-pointer hover:text-[#D4AF37]" />
+                      </div>
                    </div>
                 </div>
               </motion.div>
@@ -287,20 +284,13 @@ export default function LuxuryAdmin() {
          </section>
       </main>
 
-      {/* FOOTER STATS */}
-      <footer className="ml-80 border-t border-zinc-100 py-10 px-16 flex justify-between items-center text-[10px] text-zinc-400 uppercase tracking-[0.2em] font-bold">
-         <p>© 2026 Luxury Lagoon Resort Portfolio Hub</p>
+      {/* TAJ FOOTER AUTH */}
+      <footer className="ml-80 py-12 px-20 border-t border-zinc-100 flex justify-between items-center text-[10px] text-zinc-400 uppercase tracking-[0.4em] font-bold">
+         <p>© 2026 Luxury Lagoon Resort • Sovereign Management Suite</p>
          <div className="flex items-center gap-8">
-            <span className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-green-500" /> Network Status: Stable</span>
-            <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-[#D4AF37]" /> End-to-End Encrypted</span>
+            <span className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]" /> Real-time Node Status: Optimal</span>
          </div>
       </footer>
     </div>
-  );
-}
-
-function ShieldCheck({ className }: { className?: string }) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
   );
 }

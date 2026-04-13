@@ -6,7 +6,7 @@ const nextConfig = {
     unoptimized: true,
   },
   generateBuildId: async () => {
-    return 'bhatkal-master-sync-4'
+    return 'taj-bhatkal-v3-final'
   },
 };
 
