@@ -220,7 +220,7 @@ export default function AdminDashboard() {
         <header className="flex justify-between items-center mb-16">
           <div>
             <h2 className="font-[family-name:var(--font-playfair)] text-4xl font-bold italic mb-2">Portfolio Management</h2>
-            <p className="text-zinc-400 text-[10px] uppercase tracking-[0.3em] font-semibold">Luxury Lagoon Resort Group • Version 1.0.3 (Bhatkal NUCLEAR SYNC)</p>
+            <p className="text-zinc-400 text-[10px] uppercase tracking-[0.3em] font-semibold">Luxury Lagoon Resort Portfolio • Version LL-2.0.0 (Bhatkal Master Synchronized {new Date().toLocaleTimeString()})</p>
           </div>
           <div className="flex items-center gap-8">
              <div className="flex items-center gap-4 border-l border-zinc-200 pl-8">
