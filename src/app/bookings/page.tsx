@@ -18,6 +18,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 const roomTypes = [
   // Luxury Lagoon Resort (NH Bhatkal)
@@ -171,10 +172,12 @@ function BookingContent() {
       <header className="bg-white border-b border-zinc-200 py-6 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-             <div className="w-10 h-10 relative">
+             <Link href="/" className="w-10 h-10 relative cursor-pointer hover:opacity-80 transition-opacity">
                <Image src="/images/logo.png" alt="Logo" fill className="object-contain" />
-             </div>
-             <h1 className="font-[family-name:var(--font-playfair)] text-xl text-[#0B422B] font-bold tracking-tight">Luxury Lagoon Resort</h1>
+             </Link>
+             <Link href="/" className="hover:opacity-80 transition-opacity">
+               <h1 className="font-[family-name:var(--font-playfair)] text-xl text-[#0B422B] font-bold tracking-tight">Luxury Lagoon Resort</h1>
+             </Link>
           </div>
 
           <div className="flex items-center gap-4">

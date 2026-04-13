@@ -8,6 +8,7 @@ import {
   Heart, Flame, Bird, HandHeart, ArrowRight, Crown, Leaf, GlassWater, Sparkles, Menu, Search, X, Hotel, ChevronRight
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const heroSlides = [
   { image: "/images/slider_1.jpg", subtitle: "Luxury Lagoon Resort", title: "Epitome Of Comfort And", highlight: "Eco-Sensitive" },
@@ -191,11 +192,11 @@ export default function LandingPage() {
 
           {/* Logo */}
           <div className="flex flex-col items-center flex-1 md:flex-none md:items-start absolute md:relative left-1/2 md:left-auto -translate-x-1/2 md:translate-x-0">
-            <div className="flex items-center gap-2">
-              <div className="relative h-10 w-28 md:h-14 md:w-36">
+            <Link href="/" className="flex items-center gap-2">
+              <div className="relative h-10 w-28 md:h-14 md:w-36 cursor-pointer">
                 <Image src="/images/logo.png" alt="Logo" fill className="object-contain md:object-left" />
               </div>
-            </div>
+            </Link>
             <span className={`hidden md:block text-[9px] tracking-[0.2em] uppercase mt-1 font-bold text-[#0B422B]`}>Leading Environmentally Sensitive Hotels</span>
           </div>
 
@@ -632,9 +633,9 @@ export default function LandingPage() {
       <footer className="bg-zinc-950 text-white pt-24 pb-10">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 border-b border-white/10 pb-16">
             <div className="col-span-1 pr-0 lg:pr-8">
-               <div className="relative h-12 w-28 mb-6">
+               <Link href="/" className="block relative h-12 w-28 mb-6 cursor-pointer transition-opacity hover:opacity-80">
                  <Image src="/images/logo.png" alt="Logo" fill className="object-contain object-left invert brightness-0" />
-               </div>
+               </Link>
                <p className="text-white/60 font-light leading-relaxed text-[11px] mb-6">
                  Leading Environmentally Sensitive Hotels. Prioritizing eco-friendly practices like energy and water conservation.
                </p>
@@ -855,12 +856,12 @@ export default function LandingPage() {
               className="fixed inset-y-0 left-0 w-[80%] max-w-sm bg-white z-[160] md:hidden flex flex-col shadow-2xl"
             >
               <div className="p-6 border-b border-zinc-100 flex justify-between items-center bg-[#FAF9F6]">
-                <div className="flex items-center gap-3">
+                <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 cursor-pointer">
                   <div className="relative h-8 w-8">
                     <Image src="/images/logo.png" alt="Logo" fill className="object-contain" />
                   </div>
                   <span className="font-[family-name:var(--font-playfair)] text-[#0B422B] font-bold tracking-tight">Luxury Resorts</span>
-                </div>
+                </Link>
                 <button onClick={() => setIsMobileMenuOpen(false)} className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center">
                   <X className="w-5 h-5 text-[#0B422B]" />
                 </button>
