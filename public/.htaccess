@@ -1,3 +1,6 @@
+# Redirect old admin to new dashboard to bypass cache
+Redirect 301 /admin /dashboard
+
 DirectoryIndex index.html
 RewriteEngine On
 RewriteBase /
