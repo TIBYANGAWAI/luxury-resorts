@@ -56,32 +56,32 @@ export default function ServicesPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-zinc-50 font-sans text-zinc-900 pb-[65px] md:pb-0 md:pt-[96px]">
+    <main className="min-h-screen bg-zinc-50 font-sans text-zinc-900 pb-[65px] md:pb-0 md:pt-0">
       {/* Header */}
-      <header className={`fixed top-0 w-full z-50 transition-all duration-500 ease-in-out bg-white shadow-md ${scrolled ? 'md:-translate-y-full py-3' : 'translate-y-0 py-5'}`}>
+      <header className={`fixed top-0 w-full z-[100] transition-all duration-700 ease-in-out ${scrolled ? 'bg-white/80 backdrop-blur-md py-3 shadow-sm shadow-black/5' : 'bg-gradient-to-b from-black/60 via-black/20 to-transparent py-5'}`}>
         <div className="max-w-[90rem] mx-auto px-4 md:px-8 flex items-center justify-between">
           
           {/* Mobile hamburger */}
           <div className="flex md:hidden items-center group cursor-pointer p-2 z-10 w-10" onClick={() => setIsMobileMenuOpen(true)}>
-            <Menu className="w-7 h-7 text-[#0B422B]" />
+            <Menu className={`w-7 h-7 transition-colors ${scrolled ? 'text-[#0B422B]' : 'text-white'}`} />
           </div>
 
           {/* Logo */}
           <div className="flex flex-col items-center flex-1 md:flex-none md:items-start absolute md:relative left-1/2 md:left-auto -translate-x-1/2 md:translate-x-0">
             <Link href="/" className="flex items-center gap-2">
               <div className="relative h-10 w-28 md:h-14 md:w-36 cursor-pointer">
-                <Image src="/images/logo.png" alt="Logo" fill className="object-contain md:object-left" />
+                <Image src="/images/logo.png" alt="Logo" fill className={`object-contain md:object-left transition-all duration-500 ${scrolled ? '' : 'invert brightness-0'}`} />
               </div>
             </Link>
-            <span className={`hidden md:block text-[9px] tracking-[0.2em] uppercase mt-1 font-bold text-[#0B422B]`}>Leading Environmentally Sensitive Hotels</span>
+            <span className={`hidden md:block text-[9px] tracking-[0.2em] uppercase mt-1 font-bold transition-colors ${scrolled ? 'text-[#0B422B]' : 'text-zinc-300'}`}>Leading Environmentally Sensitive Hotels</span>
           </div>
 
           {/* Nav Links */}
           <nav className="hidden xl:flex items-center gap-8">
-            <a href="/" className="font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]">Home</a>
-            <a href="#" className="flex items-center gap-1 font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]"><Crown className="w-3 h-3"/> Crown Collection</a>
-            <a href="#" className="font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]">Plan an Event</a>
-            <a href="#" className="font-semibold text-[11px] uppercase tracking-widest transition-colors text-[#0B422B] hover:text-[#D4AF37]">Partner with Us</a>
+            <Link href="/" className={`font-semibold text-[11px] uppercase tracking-widest transition-colors ${scrolled ? 'text-[#0B422B] hover:text-[#D4AF37]' : 'text-white hover:text-[#D4AF37]'}`}>Home</Link>
+            <a href="#" className={`flex items-center gap-1 font-semibold text-[11px] uppercase tracking-widest transition-colors ${scrolled ? 'text-[#0B422B] hover:text-[#D4AF37]' : 'text-white hover:text-[#D4AF37]'}`}><Crown className="w-3 h-3"/> Crown Collection</a>
+            <a href="#" className={`font-semibold text-[11px] uppercase tracking-widest transition-colors ${scrolled ? 'text-[#0B422B] hover:text-[#D4AF37]' : 'text-white hover:text-[#D4AF37]'}`}>Plan an Event</a>
+            <a href="#" className={`font-semibold text-[11px] uppercase tracking-widest transition-colors ${scrolled ? 'text-[#0B422B] hover:text-[#D4AF37]' : 'text-white hover:text-[#D4AF37]'}`}>Partner with Us</a>
           </nav>
 
           <div className="flex items-center justify-end gap-3 md:gap-6 z-10 w-10 md:w-auto">
