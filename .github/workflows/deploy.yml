@@ -26,16 +26,6 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: 🗑️ Purge legacy Admin (FTP)
-        uses: appleboy/ftp-action@master
-        with:
-          host: 45.130.228.221
-          user: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          command: |
-            rm -rf ./public_html/admin/
-            rm -rf ./public_html/_next/
-
       - name: 📂 Sync files (FTP)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -50,6 +40,3 @@ jobs:
           log-level: verbose
           timeout: 1000000
           dangerous-clean-slate: true
-          exclude: |
-            videos/**
-
