@@ -6,7 +6,7 @@ const nextConfig = {
     unoptimized: true,
   },
   generateBuildId: async () => {
-    return 'dashboard-v1-force'
+    return 'universal-bhatkal-v5'
   },
 };
 
